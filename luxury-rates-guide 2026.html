@@ -80,6 +80,7 @@ select{
 
 .table-wrapper{
     overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
 }
 
 table{
@@ -134,6 +135,69 @@ tbody tr{
     display:none;
 }
 
+/* MOBILE RESPONSIVE */
+
+@media(max-width:768px){
+
+    body{ padding:40px 12px; }
+
+    select{ width:100%; min-width:0; }
+
+    .program-title{ font-size:24px; }
+
+    .cta-links{ gap:16px; }
+
+    table{ min-width:0; }
+
+    table, table tbody, table tr, table th, table td{
+        display:block;
+        width:100%;
+    }
+
+    table thead{ display:none; }
+
+    tbody tr, .supplement-table tr{
+        border:1px solid #d8d5cd !important;
+        border-radius:8px;
+        margin-bottom:14px;
+        overflow:hidden;
+        background:#ffffff;
+    }
+
+    .supplement-table tr.supplement-header{
+        display:none;
+    }
+
+    table td{
+        border:none !important;
+        border-bottom:1px solid #eef0f5 !important;
+        padding:10px 14px 10px 44% !important;
+        position:relative;
+        min-height:20px;
+        text-align:left !important;
+    }
+
+    table td:last-child{
+        border-bottom:none !important;
+    }
+
+    table td::before{
+        content:attr(data-label);
+        position:absolute;
+        left:14px;
+        top:10px;
+        width:40%;
+        font-weight:700;
+        color:#002060;
+        font-size:10.5px;
+        text-transform:uppercase;
+        letter-spacing:0.3px;
+        line-height:1.4;
+    }
+
+    .supplement-table{ margin-top:14px; }
+}
+
 </style>
 </head>
 
@@ -176,14 +240,14 @@ tbody tr{
 </thead>
 <tbody>
 <tr>
-<td class="category">4★</td>
-<td>Go Quito (Premium)</td>
-<td>$429</td><td>$471</td><td>$359</td><td>$336</td><td class="ss">$160</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotels">Go Quito (Premium)</td>
+<td data-label="2 Pax (Guide & Driver)">$429</td><td data-label="2 Pax (Guide + Transport)">$471</td><td data-label="4 Pax">$359</td><td data-label="6 Pax">$336</td><td class="ss" data-label="Single Supplement">$160</td>
 </tr>
 <tr>
-<td class="category">5★</td>
-<td>Illa Experience</td>
-<td>$707</td><td>$749</td><td>$637</td><td>$614</td><td class="ss">$436</td>
+<td class="category" data-label="Category">5★</td>
+<td data-label="Hotels">Illa Experience</td>
+<td data-label="2 Pax (Guide & Driver)">$707</td><td data-label="2 Pax (Guide + Transport)">$749</td><td data-label="4 Pax">$637</td><td data-label="6 Pax">$614</td><td class="ss" data-label="Single Supplement">$436</td>
 </tr>
 </tbody>
 </table>
@@ -194,11 +258,11 @@ tbody tr{
 <th>Supplement</th><th>Category</th><th>Hotel</th><th>Per Person</th><th>Single Supplement</th>
 </tr>
 <tr>
-<td>Supplement to change Go Quito for Plaza Grande</td>
-<td class="category">4★</td>
-<td>Plaza Grande (Royal Back Suite)</td>
-<td>$77</td>
-<td class="ss">$148</td>
+<td data-label="Supplement">Supplement to change Go Quito for Plaza Grande</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotel">Plaza Grande (Royal Back Suite)</td>
+<td data-label="Per Person">$77</td>
+<td class="ss" data-label="Single Supplement">$148</td>
 </tr>
 </table>
 
@@ -229,14 +293,14 @@ tbody tr{
 </thead>
 <tbody>
 <tr>
-<td class="category">4★</td>
-<td>Cruz del Vado (Deluxe)<br>Rio Guayas (Premium)</td>
-<td>$1,795</td><td>$1,282</td><td>$1,152</td><td class="ss">$544</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotels">Cruz del Vado (Deluxe)<br>Rio Guayas (Premium)</td>
+<td data-label="2 Pax (Guide + Transport)">$1,795</td><td data-label="4 Pax">$1,282</td><td data-label="6 Pax">$1,152</td><td class="ss" data-label="Single Supplement">$544</td>
 </tr>
 <tr>
-<td class="category">5★</td>
-<td>Itza Boutique (Suite)<br>Del Parque (Deluxe)</td>
-<td>$2,025</td><td>$1,512</td><td>$1,382</td><td class="ss">$746</td>
+<td class="category" data-label="Category">5★</td>
+<td data-label="Hotels">Itza Boutique (Suite)<br>Del Parque (Deluxe)</td>
+<td data-label="2 Pax (Guide + Transport)">$2,025</td><td data-label="4 Pax">$1,512</td><td data-label="6 Pax">$1,382</td><td class="ss" data-label="Single Supplement">$746</td>
 </tr>
 </tbody>
 </table>
@@ -270,14 +334,14 @@ tbody tr{
 </thead>
 <tbody>
 <tr>
-<td class="category">4★</td>
-<td>Mashpi Lodge (Wayra)<br>Go Quito (Premium)</td>
-<td>$1,609</td><td>$1,690</td><td>$1,518</td><td>$1,480</td><td class="ss">$1,026</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotels">Mashpi Lodge (Wayra)<br>Go Quito (Premium)</td>
+<td data-label="2 Pax (Guide & Driver)">$1,609</td><td data-label="2 Pax (Guide + Transport)">$1,690</td><td data-label="4 Pax">$1,518</td><td data-label="6 Pax">$1,480</td><td class="ss" data-label="Single Supplement">$1,026</td>
 </tr>
 <tr>
-<td class="category">5★</td>
-<td>Mashpi Lodge (Wayra)<br>Illa Experience (Suite)</td>
-<td>$1,779</td><td>$1,876</td><td>$1,690</td><td>$1,646</td><td class="ss">$1,164</td>
+<td class="category" data-label="Category">5★</td>
+<td data-label="Hotels">Mashpi Lodge (Wayra)<br>Illa Experience (Suite)</td>
+<td data-label="2 Pax (Guide & Driver)">$1,779</td><td data-label="2 Pax (Guide + Transport)">$1,876</td><td data-label="4 Pax">$1,690</td><td data-label="6 Pax">$1,646</td><td class="ss" data-label="Single Supplement">$1,164</td>
 </tr>
 </tbody>
 </table>
@@ -288,11 +352,11 @@ tbody tr{
 <th>Supplement</th><th>Category</th><th>Hotel</th><th>Per Person</th><th>Single Supplement</th>
 </tr>
 <tr>
-<td>Supplement to change Go Quito for Plaza Grande</td>
-<td class="category">4★</td>
-<td>Plaza Grande (Suite)</td>
-<td>$77</td>
-<td class="ss">$74</td>
+<td data-label="Supplement">Supplement to change Go Quito for Plaza Grande</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotel">Plaza Grande (Suite)</td>
+<td data-label="Per Person">$77</td>
+<td class="ss" data-label="Single Supplement">$74</td>
 </tr>
 </table>
 
@@ -324,14 +388,14 @@ tbody tr{
 </thead>
 <tbody>
 <tr>
-<td class="category">4★</td>
-<td>Sacha Lodge (Standard)<br>Go Quito (Premium)</td>
-<td>$2,008</td><td>$2,055</td><td>$1,864</td><td>$1,813</td><td class="ss">$502</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotels">Sacha Lodge (Standard)<br>Go Quito (Premium)</td>
+<td data-label="2 Pax (Guide & Driver)">$2,008</td><td data-label="2 Pax (Guide + Transport)">$2,055</td><td data-label="4 Pax">$1,864</td><td data-label="6 Pax">$1,813</td><td class="ss" data-label="Single Supplement">$502</td>
 </tr>
 <tr>
-<td class="category">5★</td>
-<td>Minga Lodge (Luxury)<br>Illa Experience (Suite)</td>
-<td>$2,515</td><td>$2,590</td><td>$2,473</td><td>$2,446</td><td class="ss">$218</td>
+<td class="category" data-label="Category">5★</td>
+<td data-label="Hotels">Minga Lodge (Luxury)<br>Illa Experience (Suite)</td>
+<td data-label="2 Pax (Guide & Driver)">$2,515</td><td data-label="2 Pax (Guide + Transport)">$2,590</td><td data-label="4 Pax">$2,473</td><td data-label="6 Pax">$2,446</td><td class="ss" data-label="Single Supplement">$218</td>
 </tr>
 </tbody>
 </table>
@@ -342,11 +406,11 @@ tbody tr{
 <th>Supplement</th><th>Category</th><th>Hotel</th><th>Per Person</th><th>Single Supplement</th>
 </tr>
 <tr>
-<td>Supplement to change Go Quito for Plaza Grande</td>
-<td class="category">4★</td>
-<td>Plaza Grande (Suite)</td>
-<td>$77</td>
-<td class="ss">$74</td>
+<td data-label="Supplement">Supplement to change Go Quito for Plaza Grande</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotel">Plaza Grande (Suite)</td>
+<td data-label="Per Person">$77</td>
+<td class="ss" data-label="Single Supplement">$74</td>
 </tr>
 </table>
 
@@ -378,14 +442,14 @@ tbody tr{
 </thead>
 <tbody>
 <tr>
-<td class="category">4★</td>
-<td>Pinsaqui Hacienda (Suite)<br>El Porvenir Hacienda (Master)<br>Go Quito (Premium)</td>
-<td>$1,669</td><td>$1,951</td><td>$1,468</td><td>$1,349</td><td class="ss">$400</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotels">Pinsaqui Hacienda (Suite)<br>El Porvenir Hacienda (Master)<br>Go Quito (Premium)</td>
+<td data-label="2 Pax (Guide & Driver)">$1,669</td><td data-label="2 Pax (Guide + Transport)">$1,951</td><td data-label="4 Pax">$1,468</td><td data-label="6 Pax">$1,349</td><td class="ss" data-label="Single Supplement">$400</td>
 </tr>
 <tr>
-<td class="category">5★</td>
-<td>Zuleta Hacienda (Deluxe)<br>San Agustin de Callo Hacienda (Suite)<br>Illa Experience (Suite)</td>
-<td>$2,830</td><td>$3,112</td><td>$2,629</td><td>$2,510</td><td class="ss">$538</td>
+<td class="category" data-label="Category">5★</td>
+<td data-label="Hotels">Zuleta Hacienda (Deluxe)<br>San Agustin de Callo Hacienda (Suite)<br>Illa Experience (Suite)</td>
+<td data-label="2 Pax (Guide & Driver)">$2,830</td><td data-label="2 Pax (Guide + Transport)">$3,112</td><td data-label="4 Pax">$2,629</td><td data-label="6 Pax">$2,510</td><td class="ss" data-label="Single Supplement">$538</td>
 </tr>
 </tbody>
 </table>
@@ -396,11 +460,11 @@ tbody tr{
 <th>Supplement</th><th>Category</th><th>Hotel</th><th>Per Person</th><th>Single Supplement</th>
 </tr>
 <tr>
-<td>Supplement to change Go Quito for Plaza Grande</td>
-<td class="category">4★</td>
-<td>Plaza Grande (Suite)</td>
-<td>$77</td>
-<td class="ss">$74</td>
+<td data-label="Supplement">Supplement to change Go Quito for Plaza Grande</td>
+<td class="category" data-label="Category">4★</td>
+<td data-label="Hotel">Plaza Grande (Suite)</td>
+<td data-label="Per Person">$77</td>
+<td class="ss" data-label="Single Supplement">$74</td>
 </tr>
 </table>
 
