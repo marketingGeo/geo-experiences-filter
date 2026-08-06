@@ -465,6 +465,31 @@ body {
   padding:2px 6px; border-radius:4px; margin-left:6px; vertical-align:middle;
 }
 
+/* Andean-style Tarifkarten (Sprache + Kategorie Zeilen) */
+.rates-grid { display:grid; grid-template-columns:1fr; gap:8px; }
+.rate-card {
+  border:1.5px solid #e8ecf2; border-radius:9px; padding:13px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  cursor:pointer; transition:all 0.15s ease; gap:10px;
+}
+.rate-card:hover { border-color:#1a56c4; background:#f4f7fd; }
+.rate-card.selected { border-color:#002060; background:#f0f4ff; box-shadow:0 0 0 2px rgba(0,32,96,0.07); }
+.rate-card .rate-label { font-size:13px; font-weight:600; color:#1a1a2e; display:block; margin-bottom:3px; }
+.rate-card .rate-sub { font-size:10px; font-weight:500; color:#9199a8; }
+.rate-flag { display:inline-flex; align-items:center; width:22px; height:15px; border-radius:2px; overflow:hidden; flex-shrink:0; }
+.rate-flag svg { width:22px; height:15px; display:block; }
+.occ-pair { display:flex; gap:8px; flex-shrink:0; }
+.occ-pill {
+  font-family:'Montserrat',sans-serif; display:flex; flex-direction:column; align-items:center;
+  padding:7px 12px; border-radius:7px; border:1.5px solid #e0e4ed; background:#fff;
+  cursor:pointer; transition:all 0.15s; min-width:80px; text-align:center;
+}
+.occ-pill:hover { border-color:#1a56c4; background:#f4f7fd; }
+.occ-pill.selected { border-color:#002060; background:#f0f4ff; box-shadow:0 0 0 2px rgba(0,32,96,0.07); }
+.occ-pill .pill-label { font-size:9px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:#9199a8; margin-bottom:3px; display:block; }
+.occ-pill.selected .pill-label { color:#002060; }
+.occ-pill .pill-price { font-size:13px; font-weight:700; color:#002060; display:block; }
+
 /* MODAL NAV */
 .modal-nav { display:flex; justify-content:flex-end; margin-top:20px; gap:10px; align-items: center; }
 .select-hint {
@@ -550,7 +575,8 @@ body {
   <button class="filter-btn active"   onclick="applyFilter('all',this)">Alle <span class="f-count" id="cnt-all">0</span></button>
   <button class="filter-btn"          onclick="applyFilter('galapagos',this)">Galapagos Loop <span class="f-count" id="cnt-galapagos">0</span></button>
   <button class="filter-btn"          onclick="applyFilter('immersive',this)">Galapagos Immersive <span class="f-count" id="cnt-immersive">0</span></button>
-  <button class="filter-btn"          onclick="applyFilter('andean',this)">Andean Treasures <span class="f-count" id="cnt-andean">0</span></button>
+  <button class="filter-btn"          onclick="applyFilter('andean8d',this)">Andean Treasures 8T/7N – Guayaquil <span class="f-count" id="cnt-andean8d">0</span></button>
+  <button class="filter-btn"          onclick="applyFilter('andean7d',this)">Andean Treasures 7T/6N – Cuenca <span class="f-count" id="cnt-andean7d">0</span></button>
   <button class="filter-btn"          onclick="applyFilter('volcano',this)">Strasse der Vulkane <span class="f-count" id="cnt-volcano">0</span></button>
   <button class="filter-btn f-solo"   onclick="applyFilter('solo',this)">Solo Traveler <span class="f-count" id="cnt-solo">0</span></button>
 </div>
@@ -584,7 +610,8 @@ body {
             <option>Galapagos Loop – 6 Tage / 5 Nächte</option>
             <option>Galapagos Loop Immersive – 7 Tage / 6 Nächte</option>
             <option>Charles Darwin Path – 8 Tage / 7 Nächte</option>
-            <option>Andean Treasures – 8 Tage / 7 Nächte</option>
+            <option>Andean Treasures 8T/7N – Guayaquil</option>
+            <option>Andean Treasures 7T/6N – Cuenca</option>
             <option>Strasse der Vulkane 6T/5N</option>
             <option>Strasse der Vulkane 5T/4N</option>
             <option>Strasse der Vulkane 3T/2N</option>
@@ -686,6 +713,13 @@ body {
         </div>
       </div>
 
+      <!-- ANDEAN TREASURES (8T/7N Guayaquil und 7T/6N Cuenca teilen sich dieses Panel) -->
+      <div id="andeanRatesPanel" style="display:none;">
+        <div class="rates-section-title">Sprache des Reiseleiters, Kategorie und Zimmerbelegung wählen</div>
+        <div class="rates-grid" id="andeanRatesGrid"></div>
+        <p class="rates-note">Preise: Pro Person, Nettopreise in US-Dollar. Eintrittsgebühren nicht inbegriffen.</p>
+      </div>
+
       <div class="modal-nav">
         <span class="select-hint" id="selectHint">Bitte wählen Sie oben einen Tarif aus</span>
         <button class="btn-primary" onclick="goToStep2()" id="btnNext" disabled style="opacity:0.4">Weiter</button>
@@ -733,17 +767,29 @@ body {
 
 <script>
 
-/* =====================
-   DATA — 2027
-   Galapagos Loop 6T/5N: 4 Abfahrten — hasSolo:true
-   Galapagos Loop Immersive 7T/6N: 4 Abfahrten — hasSolo:false
-   Datumsformat: TT. Monat (deutsches Format)
-===================== */
 const departures = [
-  /* ── GALAPAGOS LOOP 6T/5N ── */
+  /* ── GALAPAGOS LOOP 6T/5N — 12 Abfahrten ── */
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'10. Jan', year:'2027', fullDate:'10. Jan 2027',
+    program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop?authuser=0',
+    priceFrom:{ regular:'$2.570' }
+  },
   {
     region:'galapagos', subRegion:'galapagos',
     date:'21. Feb', year:'2027', fullDate:'21. Feb 2027',
+    program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop?authuser=0',
+    priceFrom:{ regular:'$2.570' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'14. Mär', year:'2027', fullDate:'14. Mär 2027',
     program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
     status:['open','confirmed'], bookable:true, fewSpots:false,
     hasSolo:true, rateSet:'loop',
@@ -761,6 +807,24 @@ const departures = [
   },
   {
     region:'galapagos', subRegion:'galapagos',
+    date:'09. Mai', year:'2027', fullDate:'09. Mai 2027',
+    program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop?authuser=0',
+    priceFrom:{ regular:'$2.570' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'13. Jun', year:'2027', fullDate:'13. Jun 2027',
+    program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop?authuser=0',
+    priceFrom:{ regular:'$2.570' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
     date:'11. Jul', year:'2027', fullDate:'11. Jul 2027',
     program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
     status:['open','confirmed'], bookable:true, fewSpots:false,
@@ -770,7 +834,43 @@ const departures = [
   },
   {
     region:'galapagos', subRegion:'galapagos',
+    date:'08. Aug', year:'2027', fullDate:'08. Aug 2027',
+    program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop?authuser=0',
+    priceFrom:{ regular:'$2.570' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'12. Sep', year:'2027', fullDate:'12. Sep 2027',
+    program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop?authuser=0',
+    priceFrom:{ regular:'$2.570' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
     date:'17. Okt', year:'2027', fullDate:'17. Okt 2027',
+    program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop?authuser=0',
+    priceFrom:{ regular:'$2.570' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'14. Nov', year:'2027', fullDate:'14. Nov 2027',
+    program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop?authuser=0',
+    priceFrom:{ regular:'$2.570' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'12. Dez', year:'2027', fullDate:'12. Dez 2027',
     program:'Galapagos Loop', duration:'6 Tage / 5 Nächte',
     status:['open','confirmed'], bookable:true, fewSpots:false,
     hasSolo:true, rateSet:'loop',
@@ -813,13 +913,31 @@ const departures = [
     hasSolo:false, rateSet:'immersive',
     itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/gal%C3%A1pagos/gal%C3%A1pagos-loop-immersive-experience?authuser=0',
     priceFrom:{ regular:'$2.967' }
+  },
+
+  /* ── ANDEAN TREASURES 8T/7N — Ankunft in Guayaquil ── */
+  {
+    region:'andean', subRegion:'andean8d',
+    date:'14. Feb', year:'2027', fullDate:'14. Feb 2027',
+    program:'Andean Treasures 8T/7N – Guayaquil', duration:'8 Tage / 7 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:false, rateSet:'andean8d',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/mainland/andean-treasures-8d-7n-guayaquil?authuser=0',
+    priceFrom:{ regular:'$1.395' }
+  },
+
+  /* ── ANDEAN TREASURES 7T/6N — Ankunft in Cuenca ── */
+  {
+    region:'andean', subRegion:'andean7d',
+    date:'16. Mai', year:'2027', fullDate:'16. Mai 2027',
+    program:'Andean Treasures 7T/6N – Cuenca', duration:'7 Tage / 6 Nächte',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:false, rateSet:'andean7d',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/mainland/andean-treasures-7d-6n-cuenca?authuser=0',
+    priceFrom:{ regular:'$1.196' }
   }
 ];
 
-/* =====================
-   TARIFE 2027 — Galapagos Loop 6T/5N (SG-04-A)
-   DE zuerst (Deutschsprachiger Reiseleiter hat Vorrang in der Darstellung)
-===================== */
 const loopRates = {
   de: [
     { id:'tourist',     name:'Tourist',          sub:'Standardunterkunft',        single:2641, double:2570, triple:2549, best:true  },
@@ -833,10 +951,6 @@ const loopRates = {
   ]
 };
 
-/* =====================
-   TARIFE 2027 — Galapagos Loop Immersive 7T/6N (SG-04-B)
-   DE zuerst
-===================== */
 const immersiveRates = {
   de: [
     { id:'tourist',     name:'Tourist',          sub:'Standardunterkunft',        single:3050, double:2967, triple:2937, best:true  },
@@ -862,8 +976,25 @@ const soloLoopRatesEN = [
 ];
 
 /* =====================
-   HELPERS
+   TARIFE 2027 — Andean Treasures 8T/7N (Guayaquil) — DE zuerst
 ===================== */
+const andean8dRatesData = [
+  { label:'Deutschsprachiger Reiseleiter – Standard', sub:'Deutschsprachiger Reiseleiter', lang:'de', single:1561, double:1395 },
+  { label:'Deutschsprachiger Reiseleiter – Superior',  sub:'Deutschsprachiger Reiseleiter', lang:'de', single:1971, double:1571 },
+  { label:'Englischsprachiger Reiseleiter – Standard', sub:'Englischsprachiger Reiseleiter', lang:'en', single:1561, double:1395 },
+  { label:'Englischsprachiger Reiseleiter – Superior',  sub:'Englischsprachiger Reiseleiter', lang:'en', single:1971, double:1571 }
+];
+
+/* =====================
+   TARIFE 2027 — Andean Treasures 7T/6N (Cuenca) — DE zuerst
+===================== */
+const andean7dRatesData = [
+  { label:'Deutschsprachiger Reiseleiter – Standard', sub:'Deutschsprachiger Reiseleiter', lang:'de', single:1334, double:1196 },
+  { label:'Deutschsprachiger Reiseleiter – Superior',  sub:'Deutschsprachiger Reiseleiter', lang:'de', single:1718, double:1355 },
+  { label:'Englischsprachiger Reiseleiter – Standard', sub:'Englischsprachiger Reiseleiter', lang:'en', single:1334, double:1196 },
+  { label:'Englischsprachiger Reiseleiter – Superior',  sub:'Englischsprachiger Reiseleiter', lang:'en', single:1718, double:1355 }
+];
+
 function fmt(n){ return '$'+n.toLocaleString('de-DE'); }
 
 function badgeHTML(s){
@@ -877,31 +1008,26 @@ function badgeHTML(s){
 const deFlag = `<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#FFCE00"/><rect width="60" height="26.7" fill="#DD0000"/><rect width="60" height="13.3" fill="#000"/></svg>`;
 const ukFlag = `<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#012169"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="5"/><path d="M30,0 V40 M0,20 H60" stroke="#fff" stroke-width="12"/><path d="M30,0 V40 M0,20 H60" stroke="#C8102E" stroke-width="8"/></svg>`;
 
-/* =====================
-   RENDER CARDS
-===================== */
 const subRegionLabels = {
   galapagos:        'Galapagos Loop',
   immersive:        'Galapagos Loop Immersive Experience',
-  andean:           'Andean Treasures',
+  andean8d:         'Andean Treasures 8T/7N – Guayaquil',
+  andean7d:         'Andean Treasures 7T/6N – Cuenca',
   volcano:          'Strasse der Vulkane',
   'solo-santacruz': 'Solo Traveler – Santa Cruz'
 };
 const subRegionBlockClass = {
   galapagos:        'region-galapagos',
   immersive:        'region-galapagos',
-  andean:           'region-andean',
+  andean8d:         'region-andean',
+  andean7d:         'region-andean',
   volcano:          'region-volcano',
   'solo-santacruz': 'region-solo-santacruz'
 };
 
-const allSections = ['galapagos','immersive','andean','volcano','solo-santacruz'];
+const allSections = ['galapagos','immersive','andean8d','andean7d','volcano','solo-santacruz'];
 
 const emptyMessages = {
-  andean: {
-    title: 'Noch keine bestätigten Abfahrten für Andean Treasures',
-    text: 'Wir bereiten derzeit die bestätigten Abfahrtstermine für dieses Programm vor. Bei Interesse Ihrer Kunden kontaktieren Sie unser Verkaufsteam und wir prüfen die besten Optionen für Sie.'
-  },
   volcano: {
     title: 'Noch keine bestätigten Abfahrten für Strasse der Vulkane',
     text: 'Die Strasse der Vulkane Programme werden jeden Donnerstag auf Zubucher-Basis ab mindestens 2 Passagieren durchgeführt. Kontaktieren Sie uns mit Ihren Reisedaten und wir bestätigen die Verfügbarkeit.'
@@ -920,7 +1046,8 @@ function renderCards(filter){
     ? allSections
     : filter === 'galapagos' ? ['galapagos']
     : filter === 'immersive' ? ['immersive']
-    : filter === 'andean'    ? ['andean']
+    : filter === 'andean8d'  ? ['andean8d']
+    : filter === 'andean7d'  ? ['andean7d']
     : filter === 'volcano'   ? ['volcano']
     : filter === 'solo'      ? ['solo-santacruz']
     : allSections;
@@ -962,9 +1089,10 @@ function renderCards(filter){
       sectionDeps.forEach(dep => {
         let badges = dep.status.map(badgeHTML).join('');
 
-        /* Reiseleiter-Hinweis: DE zuerst, dann EN */
         const guideNote = (subRegion === 'galapagos' || subRegion === 'immersive')
           ? `<div class="card-guide-note"><span style="display:inline-flex;align-items:center;width:16px;height:11px;border-radius:1px;overflow:hidden;">${deFlag}</span><span style="display:inline-flex;align-items:center;width:16px;height:11px;border-radius:1px;overflow:hidden;margin-left:2px;">${ukFlag}</span> Reiseleiter: DE oder EN — Preise variieren</div>`
+          : (subRegion === 'andean8d' || subRegion === 'andean7d')
+          ? `<div class="card-guide-note"><span style="display:inline-flex;align-items:center;width:16px;height:11px;border-radius:1px;overflow:hidden;">${deFlag}</span><span style="display:inline-flex;align-items:center;width:16px;height:11px;border-radius:1px;overflow:hidden;margin-left:2px;">${ukFlag}</span> Reiseleiter: DE oder EN — gleicher Preis</div>`
           : '';
 
         const minPaxNote = `<div class="card-minpax-note">✦ Neue Termine ab mind. 2 Passagieren</div>`;
@@ -989,7 +1117,7 @@ function renderCards(filter){
 
         const card = document.createElement('div');
         card.className = 'dep-card';
-        card.dataset.region = 'galapagos';
+        card.dataset.region = (subRegion === 'galapagos' || subRegion === 'immersive') ? 'galapagos' : subRegion;
         card.innerHTML = `
           ${soloRibbon}
           <div class="card-body">
@@ -1011,7 +1139,6 @@ function renderCards(filter){
     container.appendChild(block);
   });
 
-  /* Sonderkonditionen — immer sichtbar bei "Alle" */
   if(filter === 'all'){
     const promoBlock = document.createElement('div');
     promoBlock.className = 'section-block region-promotions';
@@ -1031,42 +1158,31 @@ function renderCards(filter){
   document.getElementById('emptyState').style.display = totalCards === 0 && filter !== 'all' ? 'block' : 'none';
 }
 
-/* =====================
-   COUNTS
-===================== */
 function updateCounts(){
   const c = {
     all:       departures.length,
     galapagos: departures.filter(d=>d.subRegion==='galapagos').length,
     immersive: departures.filter(d=>d.subRegion==='immersive').length,
-    andean:    departures.filter(d=>d.subRegion==='andean').length,
+    andean8d:  departures.filter(d=>d.subRegion==='andean8d').length,
+    andean7d:  departures.filter(d=>d.subRegion==='andean7d').length,
     volcano:   departures.filter(d=>d.subRegion==='volcano').length,
     solo:      departures.filter(d=>d.subRegion==='solo-santacruz').length
   };
   Object.keys(c).forEach(k=>{ const el=document.getElementById('cnt-'+k); if(el) el.textContent=c[k]; });
 }
 
-/* =====================
-   FILTER
-===================== */
 function applyFilter(type, btn){
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderCards(type);
 }
 
-/* =====================
-   MODAL STATE
-===================== */
 let selectedRateText = '';
-let currentDualLang = 'de'; /* DE zuerst */
+let currentDualLang = 'de';
 let currentRateSet = 'loop';
 let modalDefaultMessage = '';
 let formMessageDirty = false;
 
-/* =====================
-   TARIF-TABELLE — Loop oder Immersive, DE zuerst
-===================== */
 function buildLoopDualTable(lang){
   const cats = currentRateSet === 'immersive' ? immersiveRates[lang] : loopRates[lang];
   const body = document.getElementById('loopDualRateBody');
@@ -1142,6 +1258,41 @@ function selectOccupancy(btn, rateStr){
   enableContinue();
 }
 
+/* =====================
+   ANDEAN TREASURES Tarifkarten (8T/7N und 7T/6N teilen sich diesen Builder)
+===================== */
+function buildAndeanRatesGrid(dataset){
+  const grid = document.getElementById('andeanRatesGrid');
+  grid.innerHTML = '';
+  dataset.forEach(r => {
+    const flag = r.lang === 'de' ? deFlag : ukFlag;
+    const row = document.createElement('div');
+    row.className = 'rate-card';
+    row.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;flex:1;">
+        <span class="rate-flag">${flag}</span>
+        <div><span class="rate-label">${r.label}</span><span class="rate-sub">${r.sub}</span></div>
+      </div>
+      <div class="occ-pair">
+        <button class="occ-pill" onclick="event.stopPropagation();selectOccPill(this,'${r.label} – EZ: ${fmt(r.single)} pro Person')">
+          <span class="pill-label">EZ</span><span class="pill-price">${fmt(r.single)}</span>
+        </button>
+        <button class="occ-pill" onclick="event.stopPropagation();selectOccPill(this,'${r.label} – DZ: ${fmt(r.double)} pro Person')">
+          <span class="pill-label">DZ</span><span class="pill-price">${fmt(r.double)}</span>
+        </button>
+      </div>`;
+    row.onclick = () => { const first = row.querySelector('.occ-pill'); if(first) first.click(); };
+    grid.appendChild(row);
+  });
+}
+
+function selectOccPill(el, rateStr){
+  document.querySelectorAll('.occ-pill').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedRateText = rateStr;
+  enableContinue();
+}
+
 function enableContinue(){
   const btn = document.getElementById('btnNext');
   const hint = document.getElementById('selectHint');
@@ -1155,14 +1306,11 @@ function disableContinue(){
   hint.classList.remove('hidden');
 }
 function clearRateSelection(){
-  document.querySelectorAll('.occ-btn').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.occ-btn,.occ-pill').forEach(c=>c.classList.remove('selected'));
   selectedRateText = '';
   disableContinue();
 }
 
-/* =====================
-   MODAL ÖFFNEN / SCHLIESSEN
-===================== */
 function openModal(program, date, rateSet, hasSolo){
   document.getElementById('mProgramName').textContent   = program;
   document.getElementById('mDepartureDate').textContent = date;
@@ -1179,16 +1327,21 @@ function openModal(program, date, rateSet, hasSolo){
 
   currentRateSet = rateSet;
 
-  /* Solo-Block je nach Programm ein-/ausblenden */
-  document.getElementById('soloSection').style.display = hasSolo ? 'block' : 'none';
+  const isAndean = (rateSet === 'andean8d' || rateSet === 'andean7d');
 
-  document.getElementById('loopSoloRates').style.display = 'block';
+  document.getElementById('loopSoloRates').style.display    = isAndean ? 'none' : 'block';
+  document.getElementById('andeanRatesPanel').style.display = isAndean ? 'block' : 'none';
 
-  /* DE tab immer als Standard beim Öffnen */
-  currentDualLang = 'de';
-  document.getElementById('langTabDEDual').classList.add('active');
-  document.getElementById('langTabENDual').classList.remove('active');
-  buildLoopDualTable('de');
+  if(isAndean){
+    buildAndeanRatesGrid(rateSet === 'andean8d' ? andean8dRatesData : andean7dRatesData);
+  } else {
+    document.getElementById('soloSection').style.display = hasSolo ? 'block' : 'none';
+    currentDualLang = 'de';
+    document.getElementById('langTabDEDual').classList.add('active');
+    document.getElementById('langTabENDual').classList.remove('active');
+    buildLoopDualTable('de');
+  }
+
   goToStep1();
   clearRateSelection();
 
@@ -1209,9 +1362,6 @@ function handleOverlayClick(e){
   if(e.target === document.getElementById('modal')) closeModal();
 }
 
-/* =====================
-   SCHRITTNAVIGATION
-===================== */
 function goToStep2(){
   if(!selectedRateText) return;
   document.getElementById('formRate').value = selectedRateText;
@@ -1236,9 +1386,6 @@ document.getElementById('formMessage').addEventListener('input', function(){
   formMessageDirty = true;
 });
 
-/* =====================
-   DATUM ANFRAGEN MODAL
-===================== */
 function openRequestModal(){
   const overlay = document.getElementById('requestModal');
   overlay.classList.add('open');
@@ -1250,9 +1397,6 @@ function closeRequestModal(){
   document.body.style.overflow = '';
 }
 
-/* =====================
-   EVENT DELEGATION — Jetzt anfragen Buttons
-===================== */
 document.addEventListener('click', function(e){
   const btn = e.target.closest('.book-btn');
   if(!btn) return;
@@ -1267,11 +1411,9 @@ document.addEventListener('click', function(e){
   });
 });
 
-/* INIT */
 updateCounts();
 renderCards('all');
 
-/* URL FILTER */
 window.addEventListener('load', function(){
   const params = new URLSearchParams(window.location.search);
   const filter = params.get('filter');
