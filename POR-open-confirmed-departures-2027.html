@@ -459,6 +459,29 @@ body {
   padding:2px 6px; border-radius:4px; margin-left:6px; vertical-align:middle;
 }
 
+/* Cartões de tarifa (categoria + ocupação) para Andean Treasures */
+.rates-grid { display:grid; grid-template-columns:1fr; gap:8px; }
+.rate-card {
+  border:1.5px solid #e8ecf2; border-radius:9px; padding:13px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  cursor:pointer; transition:all 0.15s ease; gap:10px;
+}
+.rate-card:hover { border-color:#1a56c4; background:#f4f7fd; }
+.rate-card.selected { border-color:#002060; background:#f0f4ff; box-shadow:0 0 0 2px rgba(0,32,96,0.07); }
+.rate-card .rate-label { font-size:13px; font-weight:600; color:#1a1a2e; display:block; margin-bottom:3px; }
+.rate-card .rate-sub { font-size:10px; font-weight:500; color:#9199a8; }
+.occ-pair { display:flex; gap:8px; flex-shrink:0; }
+.occ-pill {
+  font-family:'Montserrat',sans-serif; display:flex; flex-direction:column; align-items:center;
+  padding:7px 12px; border-radius:7px; border:1.5px solid #e0e4ed; background:#fff;
+  cursor:pointer; transition:all 0.15s; min-width:80px; text-align:center;
+}
+.occ-pill:hover { border-color:#1a56c4; background:#f4f7fd; }
+.occ-pill.selected { border-color:#002060; background:#f0f4ff; box-shadow:0 0 0 2px rgba(0,32,96,0.07); }
+.occ-pill .pill-label { font-size:9px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:#9199a8; margin-bottom:3px; display:block; }
+.occ-pill.selected .pill-label { color:#002060; }
+.occ-pill .pill-price { font-size:13px; font-weight:700; color:#002060; display:block; }
+
 /* MODAL NAV */
 .modal-nav { display:flex; justify-content:flex-end; margin-top:20px; gap:10px; align-items: center; }
 .select-hint {
@@ -539,7 +562,8 @@ body {
   <button class="filter-btn active"   onclick="applyFilter('all',this)">Todas <span class="f-count" id="cnt-all">0</span></button>
   <button class="filter-btn"          onclick="applyFilter('galapagos',this)">Galápagos Loop <span class="f-count" id="cnt-galapagos">0</span></button>
   <button class="filter-btn"          onclick="applyFilter('immersive',this)">Galápagos Imersivo <span class="f-count" id="cnt-immersive">0</span></button>
-  <button class="filter-btn"          onclick="applyFilter('andean',this)">Andean Treasures <span class="f-count" id="cnt-andean">0</span></button>
+  <button class="filter-btn"          onclick="applyFilter('andean8d',this)">Andean Treasures 8D/7N – Guayaquil <span class="f-count" id="cnt-andean8d">0</span></button>
+  <button class="filter-btn"          onclick="applyFilter('andean7d',this)">Andean Treasures 7D/6N – Cuenca <span class="f-count" id="cnt-andean7d">0</span></button>
   <button class="filter-btn"          onclick="applyFilter('volcano',this)">Avenida dos Vulcões <span class="f-count" id="cnt-volcano">0</span></button>
   <button class="filter-btn f-solo"   onclick="applyFilter('solo',this)">Solo Traveler <span class="f-count" id="cnt-solo">0</span></button>
 </div>
@@ -573,7 +597,8 @@ body {
             <option>Galápagos Loop – 6 Dias / 5 Noites</option>
             <option>Galápagos Loop – Experiência Imersiva – 7 Dias / 6 Noites</option>
             <option>Charles Darwin Path – 8 Dias / 7 Noites</option>
-            <option>Andean Treasures – 8 Dias / 7 Noites</option>
+            <option>Andean Treasures 8D/7N – Guayaquil</option>
+            <option>Andean Treasures 7D/6N – Cuenca</option>
             <option>Avenida dos Vulcões 6D/5N</option>
             <option>Avenida dos Vulcões 5D/4N</option>
             <option>Avenida dos Vulcões 3D/2N</option>
@@ -668,6 +693,17 @@ body {
         </div>
       </div>
 
+      <!-- ANDEAN TREASURES (8D/7N Guayaquil e 7D/6N Cuenca compartilham este painel) -->
+      <div id="andeanRatesPanel" style="display:none;">
+        <div class="guide-flags-note">
+          <span class="flag" id="andeanGuideFlagGB"></span><span class="flag" id="andeanGuideFlagES"></span>
+          Guia Espanhol/Inglês
+        </div>
+        <div class="rates-section-title">Selecione a categoria e ocupação do quarto</div>
+        <div class="rates-grid" id="andeanRatesGrid"></div>
+        <p class="rates-note">Tarifas NET por pessoa em USD. Taxas de entrada não incluídas.</p>
+      </div>
+
       <div class="modal-nav">
         <span class="select-hint" id="selectHint">Selecione uma tarifa acima para continuar</span>
         <button class="btn-primary" onclick="goToStep2()" id="btnNext" disabled style="opacity:0.4">Continuar</button>
@@ -715,17 +751,29 @@ body {
 
 <script>
 
-/* =====================
-   DADOS — 2027
-   Loop 6D/5N: 4 saídas confirmadas — hasSolo:true
-   Imersivo 7D/6N: 4 saídas confirmadas — hasSolo:false
-   Guia: Espanhol/Inglês combinado (sem alemão) — tarifas equivalentes à antiga coluna "EN guide"
-===================== */
 const departures = [
-  /* ── GALÁPAGOS LOOP 6D/5N ── */
+  /* ── GALÁPAGOS LOOP 6D/5N — 12 saídas ── */
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'10 Jan', year:'2027', fullDate:'10 Jan 2027',
+    program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop?authuser=0',
+    priceFrom:{ regular:'US$ 2.420' }
+  },
   {
     region:'galapagos', subRegion:'galapagos',
     date:'21 Fev', year:'2027', fullDate:'21 Fev 2027',
+    program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop?authuser=0',
+    priceFrom:{ regular:'US$ 2.420' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'14 Mar', year:'2027', fullDate:'14 Mar 2027',
     program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
     status:['open','confirmed'], bookable:true,
     hasSolo:true, rateSet:'loop',
@@ -743,6 +791,24 @@ const departures = [
   },
   {
     region:'galapagos', subRegion:'galapagos',
+    date:'09 Mai', year:'2027', fullDate:'09 Mai 2027',
+    program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop?authuser=0',
+    priceFrom:{ regular:'US$ 2.420' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'13 Jun', year:'2027', fullDate:'13 Jun 2027',
+    program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop?authuser=0',
+    priceFrom:{ regular:'US$ 2.420' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
     date:'11 Jul', year:'2027', fullDate:'11 Jul 2027',
     program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
     status:['open','confirmed'], bookable:true,
@@ -752,7 +818,43 @@ const departures = [
   },
   {
     region:'galapagos', subRegion:'galapagos',
+    date:'08 Ago', year:'2027', fullDate:'08 Ago 2027',
+    program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop?authuser=0',
+    priceFrom:{ regular:'US$ 2.420' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'12 Set', year:'2027', fullDate:'12 Set 2027',
+    program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop?authuser=0',
+    priceFrom:{ regular:'US$ 2.420' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
     date:'17 Out', year:'2027', fullDate:'17 Out 2027',
+    program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop?authuser=0',
+    priceFrom:{ regular:'US$ 2.420' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'14 Nov', year:'2027', fullDate:'14 Nov 2027',
+    program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:true, rateSet:'loop',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop?authuser=0',
+    priceFrom:{ regular:'US$ 2.420' }
+  },
+  {
+    region:'galapagos', subRegion:'galapagos',
+    date:'12 Dez', year:'2027', fullDate:'12 Dez 2027',
     program:'Galápagos Loop', duration:'6 Dias / 5 Noites',
     status:['open','confirmed'], bookable:true,
     hasSolo:true, rateSet:'loop',
@@ -795,6 +897,28 @@ const departures = [
     hasSolo:false, rateSet:'immersive',
     itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/galápagos/galápagos-loop-experiência-imersiva?authuser=0',
     priceFrom:{ regular:'US$ 2.794' }
+  },
+
+  /* ── ANDEAN TREASURES 8D/7N — chegada em Guayaquil ── */
+  {
+    region:'andean', subRegion:'andean8d',
+    date:'14 Fev', year:'2027', fullDate:'14 Fev 2027',
+    program:'Andean Treasures 8D/7N – Guayaquil', duration:'8 Dias / 7 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:false, rateSet:'andean8d',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/equador-continental/andean-treasures-8d-7n-guayaquil?authuser=0',
+    priceFrom:{ regular:'US$ 1.395' }
+  },
+
+  /* ── ANDEAN TREASURES 7D/6N — chegada em Cuenca ── */
+  {
+    region:'andean', subRegion:'andean7d',
+    date:'16 Mai', year:'2027', fullDate:'16 Mai 2027',
+    program:'Andean Treasures 7D/6N – Cuenca', duration:'7 Dias / 6 Noites',
+    status:['open','confirmed'], bookable:true,
+    hasSolo:false, rateSet:'andean7d',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-pacotesregular2027/equador-continental/andean-treasures-7d-6n-cuenca?authuser=0',
+    priceFrom:{ regular:'US$ 1.196' }
   }
 ];
 
@@ -824,6 +948,24 @@ const soloLoopRates = [
 ];
 
 /* =====================
+   TARIFAS 2027 — Andean Treasures 8D/7N (Guayaquil)
+   Guia único Espanhol/Inglês — mesma tarifa independente do idioma
+===================== */
+const andean8dRatesData = [
+  { label:'Standard', sub:'Acomodação padrão',              single:1561, double:1395 },
+  { label:'Superior',  sub:'Categoria de conforto superior', single:1971, double:1571 }
+];
+
+/* =====================
+   TARIFAS 2027 — Andean Treasures 7D/6N (Cuenca)
+   Guia único Espanhol/Inglês — mesma tarifa independente do idioma
+===================== */
+const andean7dRatesData = [
+  { label:'Standard', sub:'Acomodação padrão',              single:1334, double:1196 },
+  { label:'Superior',  sub:'Categoria de conforto superior', single:1718, double:1355 }
+];
+
+/* =====================
    AUXILIARES
 ===================== */
 function fmt(n){ return 'US$ '+n.toLocaleString('pt-BR'); }
@@ -838,6 +980,8 @@ const esFlag = `<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rec
 
 document.getElementById('guideFlagGB').innerHTML = ukFlag;
 document.getElementById('guideFlagES').innerHTML = esFlag;
+document.getElementById('andeanGuideFlagGB').innerHTML = ukFlag;
+document.getElementById('andeanGuideFlagES').innerHTML = esFlag;
 
 /* =====================
    RENDERIZAÇÃO DE CARDS
@@ -845,25 +989,23 @@ document.getElementById('guideFlagES').innerHTML = esFlag;
 const subRegionLabels = {
   galapagos:        'Galápagos Loop',
   immersive:        'Galápagos Loop – Experiência Imersiva',
-  andean:           'Andean Treasures',
+  andean8d:         'Andean Treasures 8D/7N – Guayaquil',
+  andean7d:         'Andean Treasures 7D/6N – Cuenca',
   volcano:          'Avenida dos Vulcões',
   'solo-santacruz': 'Solo Traveler – Santa Cruz'
 };
 const subRegionBlockClass = {
   galapagos:        'region-galapagos',
   immersive:        'region-galapagos',
-  andean:           'region-andean',
+  andean8d:         'region-andean',
+  andean7d:         'region-andean',
   volcano:          'region-volcano',
   'solo-santacruz': 'region-solo-santacruz'
 };
 
-const allSections = ['galapagos','immersive','andean','volcano','solo-santacruz'];
+const allSections = ['galapagos','immersive','andean8d','andean7d','volcano','solo-santacruz'];
 
 const emptyMessages = {
-  andean: {
-    title: 'Ainda não há saídas confirmadas para Andean Treasures',
-    text: 'Estamos organizando as datas de saída confirmadas para este programa. Caso tenha passageiros interessados, entre em contato com nossa equipe comercial e verificaremos as melhores opções para você.'
-  },
   volcano: {
     title: 'Ainda não há saídas confirmadas para a Avenida dos Vulcões',
     text: 'Os programas da Avenida dos Vulcões operam toda quinta-feira em regime compartilhado, com mínimo de 2 passageiros. Entre em contato conosco com suas datas de viagem e confirmaremos a disponibilidade.'
@@ -882,7 +1024,8 @@ function renderCards(filter){
     ? allSections
     : filter === 'galapagos' ? ['galapagos']
     : filter === 'immersive' ? ['immersive']
-    : filter === 'andean'    ? ['andean']
+    : filter === 'andean8d'  ? ['andean8d']
+    : filter === 'andean7d'  ? ['andean7d']
     : filter === 'volcano'   ? ['volcano']
     : filter === 'solo'      ? ['solo-santacruz']
     : allSections;
@@ -902,7 +1045,7 @@ function renderCards(filter){
     block.appendChild(dv);
 
     if(sectionDeps.length === 0){
-      if(subRegion === 'galapagos' || subRegion === 'immersive'){
+      if(subRegion === 'galapagos' || subRegion === 'immersive' || subRegion === 'andean8d' || subRegion === 'andean7d'){
         /* deveria ter cards — ignora */
       } else {
         const msg = emptyMessages[subRegion];
@@ -926,7 +1069,7 @@ function renderCards(filter){
       sectionDeps.forEach(dep => {
         let badges = dep.status.map(badgeHTML).join('');
 
-        const guideNote = (subRegion === 'galapagos' || subRegion === 'immersive')
+        const guideNote = (subRegion === 'galapagos' || subRegion === 'immersive' || subRegion === 'andean8d' || subRegion === 'andean7d')
           ? `<div class="card-guide-note"><span style="display:inline-flex;align-items:center;width:16px;height:11px;border-radius:1px;overflow:hidden;">${ukFlag}</span><span style="display:inline-flex;align-items:center;width:16px;height:11px;border-radius:1px;overflow:hidden;margin-left:2px;">${esFlag}</span> Guia Espanhol/Inglês</div>`
           : '';
 
@@ -952,7 +1095,7 @@ function renderCards(filter){
 
         const card = document.createElement('div');
         card.className = 'dep-card';
-        card.dataset.region = 'galapagos';
+        card.dataset.region = (subRegion === 'galapagos' || subRegion === 'immersive') ? 'galapagos' : subRegion;
         card.innerHTML = `
           ${soloRibbon}
           <div class="card-body">
@@ -1002,7 +1145,8 @@ function updateCounts(){
     all:       departures.length,
     galapagos: departures.filter(d=>d.subRegion==='galapagos').length,
     immersive: departures.filter(d=>d.subRegion==='immersive').length,
-    andean:    departures.filter(d=>d.subRegion==='andean').length,
+    andean8d:  departures.filter(d=>d.subRegion==='andean8d').length,
+    andean7d:  departures.filter(d=>d.subRegion==='andean7d').length,
     volcano:   departures.filter(d=>d.subRegion==='volcano').length,
     solo:      departures.filter(d=>d.subRegion==='solo-santacruz').length
   };
@@ -1090,6 +1234,40 @@ function selectOccupancy(btn, rateStr){
   enableContinue();
 }
 
+/* =====================
+   ANDEAN TREASURES — grade de tarifas (8D/7N e 7D/6N compartilham este builder)
+   Guia único Espanhol/Inglês — sem seletor de idioma
+===================== */
+function buildAndeanRatesGrid(dataset){
+  const grid = document.getElementById('andeanRatesGrid');
+  grid.innerHTML = '';
+  dataset.forEach(r => {
+    const row = document.createElement('div');
+    row.className = 'rate-card';
+    row.innerHTML = `
+      <div style="flex:1;">
+        <span class="rate-label">${r.label}</span><span class="rate-sub">${r.sub}</span>
+      </div>
+      <div class="occ-pair">
+        <button class="occ-pill" onclick="event.stopPropagation();selectOccPill(this,'${r.label} – Individual (Guia Espanhol/Inglês): ${fmt(r.single)} por pessoa')">
+          <span class="pill-label">Individual</span><span class="pill-price">${fmt(r.single)}</span>
+        </button>
+        <button class="occ-pill" onclick="event.stopPropagation();selectOccPill(this,'${r.label} – Duplo (Guia Espanhol/Inglês): ${fmt(r.double)} por pessoa')">
+          <span class="pill-label">Duplo</span><span class="pill-price">${fmt(r.double)}</span>
+        </button>
+      </div>`;
+    row.onclick = () => { const first = row.querySelector('.occ-pill'); if(first) first.click(); };
+    grid.appendChild(row);
+  });
+}
+
+function selectOccPill(el, rateStr){
+  document.querySelectorAll('.occ-pill').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedRateText = rateStr;
+  enableContinue();
+}
+
 function enableContinue(){
   const btn = document.getElementById('btnNext');
   const hint = document.getElementById('selectHint');
@@ -1103,7 +1281,7 @@ function disableContinue(){
   hint.classList.remove('hidden');
 }
 function clearRateSelection(){
-  document.querySelectorAll('.occ-btn').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.occ-btn,.occ-pill').forEach(c=>c.classList.remove('selected'));
   selectedRateText = '';
   disableContinue();
 }
@@ -1127,11 +1305,19 @@ function openModal(program, date, rateSet, hasSolo){
 
   currentRateSet = rateSet;
 
-  /* Mostra/oculta bloco Solo conforme o programa */
-  document.getElementById('soloSection').style.display = hasSolo ? 'block' : 'none';
+  const isAndean = (rateSet === 'andean8d' || rateSet === 'andean7d');
 
-  document.getElementById('loopSoloRates').style.display = 'block';
-  buildRateTable();
+  document.getElementById('loopSoloRates').style.display    = isAndean ? 'none' : 'block';
+  document.getElementById('andeanRatesPanel').style.display = isAndean ? 'block' : 'none';
+
+  if(isAndean){
+    buildAndeanRatesGrid(rateSet === 'andean8d' ? andean8dRatesData : andean7dRatesData);
+  } else {
+    /* Mostra/oculta bloco Solo conforme o programa */
+    document.getElementById('soloSection').style.display = hasSolo ? 'block' : 'none';
+    buildRateTable();
+  }
+
   goToStep1();
   clearRateSelection();
 
