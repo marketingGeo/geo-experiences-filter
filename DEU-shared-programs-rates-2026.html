@@ -47,11 +47,6 @@ h2.subsection{color:#002060;font-size:16px;font-weight:700;margin:36px 0 14px;}
 
 .prog-header-row td{background:#e8edf7;color:#002060;font-size:11px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;padding:9px 14px;border-bottom:2px solid #002060;border-top:2px solid #dde1ea;}
 .prog-header-row.first-header td{border-top:none;}
-.pvt-btn-row td{background:#eef4ff;padding:10px 14px;border-bottom:1px solid #d0d9f0;}
-.private-rates-btn{display:inline-flex;align-items:center;gap:14px;background:#002060;color:#fff;border:none;padding:11px 22px;font-size:12px;font-family:'Montserrat',sans-serif;font-weight:600;cursor:pointer;border-radius:4px;letter-spacing:0.4px;text-transform:uppercase;transition:background 0.18s;border-left:5px solid #1a73e8;}
-.private-rates-btn:hover{background:#003399;}
-.private-rates-btn .btn-arrow{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:2px solid rgba(255,255,255,0.5);border-radius:50%;font-size:12px;line-height:1;flex-shrink:0;transition:border-color 0.18s;}
-.private-rates-btn:hover .btn-arrow{border-color:#fff;}
 
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:1000;justify-content:center;align-items:center;}
 .modal-overlay.active{display:flex;}
@@ -80,8 +75,6 @@ h2.subsection{color:#002060;font-size:16px;font-weight:700;margin:36px 0 14px;}
   tr.program.hidden{display:none!important;}
   tr.prog-header-row{display:block;border-radius:6px;margin-bottom:4px;}
   tr.prog-header-row td{display:block;}
-  tr.pvt-btn-row{display:block;margin-bottom:10px;}
-  tr.pvt-btn-row td{display:block;padding:10px 14px;}
   td{border:none;border-bottom:1px solid #eef0f5;padding:9px 14px 9px 46%;position:relative;min-height:34px;font-size:11.5px;}
   td:last-child{border-bottom:none;}
   td::before{content:attr(data-label);position:absolute;left:14px;top:9px;width:38%;font-weight:700;color:#002060;font-size:10px;text-transform:uppercase;line-height:1.4;}
@@ -90,7 +83,6 @@ h2.subsection{color:#002060;font-size:16px;font-weight:700;margin:36px 0 14px;}
   .filter-bar select{max-width:100%;}
   .modal-box{padding:22px;}
   .specific-dep-btn{font-size:10px;padding:5px 9px;}
-  .private-rates-btn{font-size:11px;padding:10px 16px;}
 }
 </style>
 </head>
@@ -159,16 +151,7 @@ h2.subsection{color:#002060;font-size:16px;font-weight:700;margin:36px 0 14px;}
     <!-- ===== LOOP 6T ===== -->
     <tr class="program prog-header-row first-header" data-category="loop6">
       <td colspan="10">Galápagos Loop 6T/5N &nbsp;·&nbsp; SG-04-A &nbsp;·&nbsp; Santa Cruz · Floreana · Isabela</td>
-    </tr>
-    <tr class="program pvt-btn-row" data-category="loop6">
-      <td colspan="10">
-        <button class="private-rates-btn" onclick="openModal('pvt-loop6')">
-          Preise für Privatreisen ansehen – Galápagos Loop 6T/5N
-          <span class="btn-arrow">&#8594;</span>
-        </button>
-      </td>
-    </tr>
-    <tr class="program alt" data-category="loop6">
+    </tr>    <tr class="program alt" data-category="loop6">
       <td data-label="Code" rowspan="2">SG-04-A</td>
       <td data-label="Programm" rowspan="2">The Galápagos Loop 6T/5N</td>
       <td data-label="Inseln" rowspan="2">Santa Cruz<br>Floreana<br>Isabela</td>
@@ -217,16 +200,7 @@ h2.subsection{color:#002060;font-size:16px;font-weight:700;margin:36px 0 14px;}
     <!-- ===== LOOP 7T ===== -->
     <tr class="program prog-header-row" data-category="loop7">
       <td colspan="10">Galápagos Loop 7T/6N – Ein immersives Erlebnis &nbsp;·&nbsp; SG-04-B &nbsp;·&nbsp; Santa Cruz · Floreana · Isabela</td>
-    </tr>
-    <tr class="program pvt-btn-row" data-category="loop7">
-      <td colspan="10">
-        <button class="private-rates-btn" onclick="openModal('pvt-loop7')">
-          Preise für Privatreisen ansehen – Galápagos Loop 7T/6N Immersiv
-          <span class="btn-arrow">&#8594;</span>
-        </button>
-      </td>
-    </tr>
-    <tr class="program" data-category="loop7">
+    </tr>    <tr class="program" data-category="loop7">
       <td data-label="Code" rowspan="2">SG-04-B</td>
       <td data-label="Programm" rowspan="2">Galápagos Loop 7T/6N – Ein immersives Erlebnis</td>
       <td data-label="Inseln" rowspan="2">Santa Cruz<br>Floreana<br>Isabela</td>
@@ -309,16 +283,7 @@ h2.subsection{color:#002060;font-size:16px;font-weight:700;margin:36px 0 14px;}
     <!-- ===== DARWIN ===== -->
     <tr class="program prog-header-row" data-category="darwin">
       <td colspan="10">Charles Darwin Path 8T/7N &nbsp;·&nbsp; SG-05 &nbsp;·&nbsp; Cristobal · Santa Cruz · Floreana · Isabela</td>
-    </tr>
-    <tr class="program pvt-btn-row" data-category="darwin">
-      <td colspan="10">
-        <button class="private-rates-btn" onclick="openModal('pvt-darwin')">
-          Preise für Privatreisen ansehen – Charles Darwin Path 8T/7N
-          <span class="btn-arrow">&#8594;</span>
-        </button>
-      </td>
-    </tr>
-    <tr class="program" data-category="darwin">
+    </tr>    <tr class="program" data-category="darwin">
       <td data-label="Code" rowspan="2">SG-05</td>
       <td data-label="Programm" rowspan="2">Charles Darwin Path 8T/7N</td>
       <td data-label="Inseln" rowspan="2">Cristobal<br>Santa Cruz<br>Floreana<br>Isabela</td>
@@ -541,80 +506,6 @@ h2.subsection{color:#002060;font-size:16px;font-weight:700;margin:36px 0 14px;}
     <span style="display:block;margin-top:6px;font-size:11px;color:#777;font-family:'Montserrat',sans-serif;">Aktuelle Verfügbarkeit, bestätigte Abfahrten und laufende Aktionen.</span>
   </div>
 </div>
-</div>
-
-<!-- ======================== MODALS PRIVAT ======================== -->
-
-<!-- PRIVAT: LOOP 6T -->
-<div class="modal-overlay" id="modal-pvt-loop6">
-  <div class="modal-box wide">
-    <button class="modal-close" onclick="closeModal('pvt-loop6')">&#10005;</button>
-    <h3>Galápagos Loop 6T/5N – Preise für Privatreisen</h3>
-    <p class="modal-subtitle">Nettopreise pro Person in USD · Privatreisen auf Anfrage verfügbar</p>
-    <div class="modal-section-header"><img src="https://flagcdn.com/h20/de.png" alt="Deutsch" style="height:18px;border-radius:2px;vertical-align:middle;"> Deutschsprachiger Reiseleiter</div>
-    <div class="modal-section-dates"><span>Garantierte Abfahrten 2027 – Deutschsprachiger Reiseleiter:</span> So, 10. Jan · So, 21. Feb · So, 14. Mär · So, 11. Apr · So, 09. Mai · So, 13. Jun · So, 11. Jul · So, 08. Aug · So, 12. Sep · So, 17. Okt · So, 14. Nov · So, 12. Dez</div>
-    <div style="overflow-x:auto;"><table class="modal-table"><thead><tr><th>Programm</th><th>SIB</th><th>PVT 2 Pax</th><th>PVT 4 Pax</th><th>PVT 6 Pax</th><th>PVT 8 Pax</th><th>PVT 10 Pax</th><th>PVT 12 Pax</th><th>EZ-Zuschl.</th><th>DRZ-Rabatt</th></tr></thead><tbody>
-      <tr><td>Galápagos Loop 6T/5N / <strong>Tourist</strong></td><td>2.570</td><td>3.122</td><td>2.570</td><td>1.844</td><td>1.577</td><td>1.433</td><td>1.359</td><td>71</td><td>-21</td></tr>
-      <tr><td>Galápagos Loop 6T/5N / <strong>Tourist Superior</strong></td><td>2.627</td><td>3.162</td><td>2.627</td><td>1.921</td><td>1.645</td><td>1.495</td><td>1.418</td><td>280</td><td>-37</td></tr>
-      <tr><td>Galápagos Loop 6T/5N / <strong>First Class</strong></td><td>2.953</td><td>3.476</td><td>2.953</td><td>2.330</td><td>2.030</td><td>1.866</td><td>1.779</td><td>546</td><td>-107</td></tr>
-    </tbody></table></div>
-    <div class="modal-section-header"><img src="https://flagcdn.com/h20/gb.png" alt="Englisch" style="height:18px;border-radius:2px;vertical-align:middle;"> Englischsprachiger Reiseleiter</div>
-    <div class="modal-section-dates"><span>Abfahrten:</span> Jeden Sonntag</div>
-    <div style="overflow-x:auto;"><table class="modal-table"><thead><tr><th>Programm</th><th>SIB</th><th>PVT 2 Pax</th><th>PVT 4 Pax</th><th>PVT 6 Pax</th><th>PVT 8 Pax</th><th>PVT 10 Pax</th><th>PVT 12 Pax</th><th>EZ-Zuschl.</th><th>DRZ-Rabatt</th></tr></thead><tbody>
-      <tr><td>Galápagos Loop 6T/5N / <strong>Tourist</strong></td><td>2.420</td><td>2.942</td><td>2.420</td><td>1.664</td><td>1.403</td><td>1.267</td><td>1.191</td><td>71</td><td>-21</td></tr>
-      <tr><td>Galápagos Loop 6T/5N / <strong>Tourist Superior</strong></td><td>2.477</td><td>2.982</td><td>2.477</td><td>1.742</td><td>1.471</td><td>1.329</td><td>1.250</td><td>280</td><td>-37</td></tr>
-      <tr><td>Galápagos Loop 6T/5N / <strong>First Class</strong></td><td>2.803</td><td>3.296</td><td>2.803</td><td>2.151</td><td>1.856</td><td>1.700</td><td>1.611</td><td>546</td><td>-107</td></tr>
-    </tbody></table></div>
-    <p class="modal-note">Alle Preise sind Nettopreise in USD pro Person. EZ-Zuschl. = Einzelzimmerzuschlag. DRZ-Rabatt = Dreierzimmer-Rabatt.</p>
-  </div>
-</div>
-
-<!-- PRIVAT: LOOP 7T -->
-<div class="modal-overlay" id="modal-pvt-loop7">
-  <div class="modal-box wide">
-    <button class="modal-close" onclick="closeModal('pvt-loop7')">&#10005;</button>
-    <h3>Galápagos Loop 7T/6N – Ein immersives Erlebnis – Preise für Privatreisen</h3>
-    <p class="modal-subtitle">Nettopreise pro Person in USD · Privatreisen auf Anfrage verfügbar</p>
-    <div class="modal-section-header"><img src="https://flagcdn.com/h20/de.png" alt="Deutsch" style="height:18px;border-radius:2px;vertical-align:middle;"> Deutschsprachiger Reiseleiter</div>
-    <div class="modal-section-dates"><span>Garantierte Abfahrten 2027 – Deutschsprachiger Reiseleiter:</span> Sa, 09. Jan · Sa, 20. Feb · Sa, 13. Mär · Sa, 10. Apr · Sa, 08. Mai · Sa, 12. Jun · Sa, 10. Jul · Sa, 07. Aug · Sa, 11. Sep · Sa, 16. Okt · Sa, 13. Nov · Sa, 11. Dez</div>
-    <div style="overflow-x:auto;"><table class="modal-table"><thead><tr><th>Programm</th><th>SIB</th><th>PVT 2 Pax</th><th>PVT 4 Pax</th><th>PVT 6 Pax</th><th>PVT 8 Pax</th><th>PVT 10 Pax</th><th>PVT 12 Pax</th><th>EZ-Zuschl.</th><th>DRZ-Rabatt</th></tr></thead><tbody>
-      <tr><td>Galápagos Loop 7T/6N / <strong>Tourist</strong></td><td>2.967</td><td>3.362</td><td>2.967</td><td>1.987</td><td>1.708</td><td>1.553</td><td>1.476</td><td>83</td><td>-30</td></tr>
-      <tr><td>Galápagos Loop 7T/6N / <strong>Tourist Superior</strong></td><td>3.024</td><td>3.402</td><td>3.024</td><td>2.065</td><td>1.776</td><td>1.615</td><td>1.534</td><td>292</td><td>-46</td></tr>
-      <tr><td>Galápagos Loop 7T/6N / <strong>First Class</strong></td><td>3.350</td><td>3.716</td><td>3.350</td><td>2.474</td><td>2.161</td><td>1.986</td><td>1.896</td><td>558</td><td>-116</td></tr>
-    </tbody></table></div>
-    <div class="modal-section-header"><img src="https://flagcdn.com/h20/gb.png" alt="Englisch" style="height:18px;border-radius:2px;vertical-align:middle;"> Englischsprachiger Reiseleiter</div>
-    <div class="modal-section-dates"><span>Abfahrten:</span> Jeden Samstag</div>
-    <div style="overflow-x:auto;"><table class="modal-table"><thead><tr><th>Programm</th><th>SIB</th><th>PVT 2 Pax</th><th>PVT 4 Pax</th><th>PVT 6 Pax</th><th>PVT 8 Pax</th><th>PVT 10 Pax</th><th>PVT 12 Pax</th><th>EZ-Zuschl.</th><th>DRZ-Rabatt</th></tr></thead><tbody>
-      <tr><td>Galápagos Loop 7T/6N / <strong>Tourist</strong></td><td>2.794</td><td>3.375</td><td>2.794</td><td>2.277</td><td>1.987</td><td>1.708</td><td>1.553</td><td>83</td><td>-30</td></tr>
-      <tr><td>Galápagos Loop 7T/6N / <strong>Tourist Superior</strong></td><td>2.851</td><td>3.415</td><td>2.851</td><td>2.317</td><td>2.065</td><td>1.776</td><td>1.615</td><td>292</td><td>-46</td></tr>
-      <tr><td>Galápagos Loop 7T/6N / <strong>First Class</strong></td><td>3.177</td><td>3.729</td><td>3.177</td><td>2.631</td><td>2.474</td><td>2.161</td><td>1.986</td><td>558</td><td>-116</td></tr>
-    </tbody></table></div>
-    <p class="modal-note">Alle Preise sind Nettopreise in USD pro Person. EZ-Zuschl. = Einzelzimmerzuschlag. DRZ-Rabatt = Dreierzimmer-Rabatt.</p>
-  </div>
-</div>
-
-<!-- PRIVAT: DARWIN -->
-<div class="modal-overlay" id="modal-pvt-darwin">
-  <div class="modal-box wide">
-    <button class="modal-close" onclick="closeModal('pvt-darwin')">&#10005;</button>
-    <h3>Charles Darwin Path 8T/7N – Preise für Privatreisen</h3>
-    <p class="modal-subtitle">Nettopreise pro Person in USD · Privatreisen auf Anfrage verfügbar</p>
-    <div class="modal-section-header"><img src="https://flagcdn.com/h20/de.png" alt="Deutsch" style="height:18px;border-radius:2px;vertical-align:middle;"> Deutschsprachiger Reiseleiter</div>
-    <div class="modal-section-dates"><span>Garantierte Abfahrten 2027 – Deutschsprachiger Reiseleiter:</span> Fr, 08. Jan · Fr, 19. Feb · Fr, 12. Mär · Fr, 09. Apr · Fr, 07. Mai · Fr, 11. Jun · Fr, 09. Jul · Fr, 06. Aug · Fr, 10. Sep · Fr, 15. Okt · Fr, 12. Nov · Fr, 10. Dez</div>
-    <div style="overflow-x:auto;"><table class="modal-table"><thead><tr><th>Programm</th><th>SIB</th><th>PVT 2 Pax</th><th>PVT 4 Pax</th><th>PVT 6 Pax</th><th>PVT 8 Pax</th><th>PVT 10 Pax</th><th>PVT 12 Pax</th><th>EZ-Zuschl.</th><th>DRZ-Rabatt</th></tr></thead><tbody>
-      <tr><td>Charles Darwin Path 8T/7N / <strong>Tourist</strong></td><td>3.203</td><td>3.696</td><td>3.203</td><td>2.430</td><td>2.109</td><td>1.934</td><td>1.574</td><td>93</td><td>-31</td></tr>
-      <tr><td>Charles Darwin Path 8T/7N / <strong>Tourist Superior</strong></td><td>3.330</td><td>3.812</td><td>3.330</td><td>2.599</td><td>2.264</td><td>2.082</td><td>1.716</td><td>338</td><td>-63</td></tr>
-      <tr><td>Charles Darwin Path 8T/7N / <strong>First Class</strong></td><td>3.752</td><td>4.210</td><td>3.752</td><td>3.126</td><td>2.759</td><td>2.557</td><td>2.179</td><td>732</td><td>-163</td></tr>
-    </tbody></table></div>
-    <div class="modal-section-header"><img src="https://flagcdn.com/h20/gb.png" alt="Englisch" style="height:18px;border-radius:2px;vertical-align:middle;"> Englischsprachiger Reiseleiter</div>
-    <div class="modal-section-dates"><span>Abfahrten:</span> Jeden Freitag</div>
-    <div style="overflow-x:auto;"><table class="modal-table"><thead><tr><th>Programm</th><th>SIB</th><th>PVT 2 Pax</th><th>PVT 4 Pax</th><th>PVT 6 Pax</th><th>PVT 8 Pax</th><th>PVT 10 Pax</th><th>PVT 12 Pax</th><th>EZ-Zuschl.</th><th>DRZ-Rabatt</th></tr></thead><tbody>
-      <tr><td>Charles Darwin Path 8T/7N / <strong>Tourist</strong></td><td>3.053</td><td>3.516</td><td>3.053</td><td>2.250</td><td>1.935</td><td>1.768</td><td>1.677</td><td>93</td><td>-31</td></tr>
-      <tr><td>Charles Darwin Path 8T/7N / <strong>Tourist Superior</strong></td><td>3.180</td><td>3.632</td><td>3.180</td><td>2.419</td><td>2.090</td><td>1.916</td><td>1.819</td><td>338</td><td>-63</td></tr>
-      <tr><td>Charles Darwin Path 8T/7N / <strong>First Class</strong></td><td>3.602</td><td>4.030</td><td>3.602</td><td>2.947</td><td>2.585</td><td>2.391</td><td>2.282</td><td>732</td><td>-163</td></tr>
-    </tbody></table></div>
-    <p class="modal-note">Alle Preise sind Nettopreise in USD pro Person. EZ-Zuschl. = Einzelzimmerzuschlag. DRZ-Rabatt = Dreierzimmer-Rabatt.</p>
-  </div>
 </div>
 
 <!-- FESTE ABFAHRTEN MODALS -->
