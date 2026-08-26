@@ -768,7 +768,8 @@ body {
    DATA — 2027
    Loop 6D/5N: 12 confirmed departures — hasSolo:true
    Immersive 7D/6N: 4 confirmed departures — hasSolo:false
-   Andean Treasures 8D/7N (Guayaquil) and 7D/6N (Cuenca): 1 departure each
+   Andean Treasures 8D/7N (Guayaquil): 2 departures
+   Andean Treasures 7D/6N (Cuenca): 1 departure
 ===================== */
 const departures = [
   /* ── GALÁPAGOS LOOP 6D/5N — 12 departures ── */
@@ -923,6 +924,15 @@ const departures = [
   {
     region:'andean', subRegion:'andean8d',
     date:'14 Feb', year:'2027', fullDate:'14 Feb 2027',
+    program:'Andean Treasures 8D/7N – Guayaquil', duration:'8 Days / 7 Nights',
+    status:['open','confirmed'], bookable:true, fewSpots:false,
+    hasSolo:false, rateSet:'andean8d',
+    itinerary:'https://sites.google.com/georeisen-ecuador.com/geoboutique-programs-shared-27/mainland/andean-treasures-8d-7n-guayaquil?authuser=0',
+    priceFrom:{ regular:'$1,395' }
+  },
+  {
+    region:'andean', subRegion:'andean8d',
+    date:'24 Oct', year:'2027', fullDate:'24 Oct 2027',
     program:'Andean Treasures 8D/7N – Guayaquil', duration:'8 Days / 7 Nights',
     status:['open','confirmed'], bookable:true, fewSpots:false,
     hasSolo:false, rateSet:'andean8d',
