@@ -2,259 +2,846 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Experiences – Guayaquil & Surroundings</title>
-
-<!-- GOOGLE FONTS -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geo Boutique Travel Designer — Guayaquil Experience Catalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+    :root {
+        --navy: #002060;
+        --navy-dark: #001440;
+        --steel: #2E4C8C;
+        --ice: #E8ECF7;
+        --ice-dark: #DCE4F5;
+        --bg: #f9f9f9;
+        --card: #FFFFFF;
+        --border: #DDE2EF;
+        --text: #1A2340;
+        --text-soft: #5B6480;
+        --gold: #FFD500;
+        --teal: #12857A;
+        --teal-bg: #E4F5F3;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
         font-family: 'Montserrat', sans-serif;
-        background: #f7f7f7;
         margin: 0;
-        padding: 20px;
-        color: #002060;
+        background: var(--bg);
+        color: var(--text);
     }
 
-    h1 {
-        font-size: 28px;
+    /* ===== SLIM TITLE STRIP (no banner, aligned with the filter block) ===== */
+    .page-intro {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 1100px;
+        margin: 0 auto 4px auto;
+        padding: 0 16px 10px 16px;
+        border-bottom: 2px solid var(--navy);
+    }
+
+    .page-intro h1 {
+        font-size: 15px;
         font-weight: 700;
-        margin-bottom: 25px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--navy);
+        margin: 0;
     }
 
-    /* FILTER BAR */
-    .filter-container {
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 18px;
+    .zone-pill {
+        background: var(--ice);
+        border: 1px solid var(--ice-dark);
+        color: var(--steel);
+        font-size: 11.5px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+    /* ===== LAYOUT ===== */
+    .app-body {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 16px;
+    }
+
+    /* ===== FILTERS ===== */
+    .filter-bar {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+
+    .filter-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1 1 150px;
+        min-width: 130px;
+    }
+
+    .filter-field label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-soft);
+    }
+
+    .filter-field select {
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg);
+        font-family: Montserrat;
+        font-size: 13px;
+        color: var(--text);
+    }
+
+    .filter-check {
         display: flex;
         align-items: center;
-        gap: 25px;
-        flex-wrap: wrap;
-        margin-bottom: 25px;
+        gap: 7px;
+        flex: 1 1 150px;
+        padding-top: 14px;
     }
 
-    label {
-        font-weight: 600;
-        margin-right: 6px;
+    .filter-check input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--navy);
     }
 
-    select {
-        padding: 8px 12px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        font-size: 14px;
-        font-family: Montserrat;
+    .filter-check label {
+        font-size: 13px;
+        color: var(--text);
     }
 
-    input[type="checkbox"] {
-        transform: scale(1.2);
-        margin-right: 8px;
+    .result-count {
+        font-size: 12px;
+        color: var(--text-soft);
+        margin: 0 0 10px 2px;
     }
 
-    /* EXPERIENCE CARDS */
-    .experience-card {
-        background: #fff;
-        border: 1px solid #ddd;
+    /* ===== CATALOG ROWS ===== */
+    .catalog-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .exp-row {
+        background: var(--card);
+        border: 1px solid var(--border);
         border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 25px;
+        overflow: hidden;
+        transition: background 0.25s ease, border-color 0.25s ease;
     }
 
-    .experience-title {
-        font-size: 20px;
+    /* Only the row that's currently open gets a tint, reverting once it closes */
+    .exp-row.open {
+        background: var(--ice);
+        border-color: var(--ice-dark);
+    }
+
+    .exp-row-main {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        cursor: pointer;
+    }
+
+    .exp-row-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .exp-thumb {
+        width: 76px;
+        height: 76px;
+        border-radius: 8px;
+        object-fit: cover;
+        flex-shrink: 0;
+        background: var(--ice);
+    }
+
+    .exp-info {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .exp-tags-row {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 3px;
+    }
+
+    .tag {
+        font-size: 10px;
         font-weight: 700;
-        margin-bottom: 12px;
-        color: #002060;
+        padding: 2px 7px;
+        border-radius: 4px;
+        white-space: nowrap;
     }
 
-    .badge-container {
+    .tag-best {
+        background: var(--gold);
+        color: var(--navy-dark);
+    }
+
+    .tag-duration {
+        background: var(--ice);
+        color: var(--steel);
+    }
+
+    .tag-category {
+        background: transparent;
+        color: var(--text-soft);
+        font-weight: 500;
+        padding: 2px 0;
+    }
+
+    .exp-title {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.3;
+        margin-bottom: 2px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .exp-desc-preview {
+        font-size: 11.5px;
+        color: var(--text-soft);
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .exp-price-block {
+        text-align: right;
+        flex-shrink: 0;
+        padding-left: 6px;
+    }
+
+    .exp-price-from {
+        font-size: 9.5px;
+        color: var(--text-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .exp-price-value {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--navy);
+        white-space: nowrap;
+    }
+
+    .exp-actions {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .chevron {
+        width: 16px;
+        height: 16px;
+        color: var(--text-soft);
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .exp-row.open .chevron {
+        transform: rotate(180deg);
+        color: var(--navy);
+    }
+
+    /* ===== EXPANDED PANEL ===== */
+    .exp-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.3s ease;
+    }
+
+    .exp-row.open .exp-panel {
+        grid-template-rows: 1fr;
+    }
+
+    .exp-panel-content {
+        overflow: hidden;
+    }
+
+    .exp-panel-inner {
+        padding: 4px 16px 20px 16px;
+        border-top: 1px solid var(--border);
+    }
+
+    .panel-top {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin: 16px 0;
+    }
+
+    .gallery-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 230px;
+        max-width: 100%;
+        flex-shrink: 0;
+    }
+
+    .main-img-wrap {
+        width: 100%;
+        height: 165px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--ice);
+    }
+
+    .main-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+    .thumb-strip { display: flex; gap: 6px; }
+
+    .thumb-strip-item {
+        width: 46px; height: 38px;
+        border-radius: 5px; overflow: hidden;
+        cursor: pointer; opacity: 0.5;
+        border: 2px solid transparent;
+    }
+    .thumb-strip-item.active { opacity: 1; border-color: var(--navy); }
+    .thumb-strip-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .panel-text { flex: 1 1 220px; min-width: 0; }
+
+    .panel-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--steel);
+        margin: 0 0 8px 0;
+    }
+
+    .panel-desc {
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: var(--text);
+    }
+
+    .pricing-block {
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+        margin-bottom: 14px;
+    }
+
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 8px 0 16px 0;
+    }
+
+    .rate-table {
+        width: 100%;
+        min-width: 460px;
+        border-collapse: collapse;
+        font-size: 11.5px;
+        margin: 0;
+    }
+
+    .rate-table th, .rate-table td {
+        padding: 6px;
+        border: 1px solid var(--border);
+        text-align: center;
+    }
+
+    .rate-table th {
+        background: var(--ice);
+        color: var(--navy);
+        font-weight: 700;
+    }
+
+    .rate-table td.request-cell { color: #B23A3A; font-weight: 700; }
+    .rate-table td.na-cell { color: #aaa; }
+
+    .calc-row {
         display: flex;
         gap: 10px;
-        margin-bottom: 12px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
     }
 
-    .badge-yellow {
-        background: #FFD500;
-        color: #000;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 700;
+    .calc-input-group { flex: 1 1 130px; }
+    .calc-input-group label {
+        display: block; margin-bottom: 5px;
+        font-size: 12px; color: var(--text);
+    }
+    .calc-input-group input {
+        width: 100%; padding: 9px;
+        border: 1px solid var(--border); border-radius: 5px;
+        font-family: Montserrat; font-size: 13px;
     }
 
-    .badge-blue {
-        background: #002060;
-        color: #fff;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 700;
+    .calc-btn {
+        padding: 9px 16px;
+        background: var(--steel); color: #fff;
+        border: none; border-radius: 5px;
+        cursor: pointer; font-size: 13px;
+        font-family: Montserrat; font-weight: 600;
+    }
+    .calc-btn:hover { background: var(--navy); }
+
+    .calc-result {
+        border: 1px solid var(--border); border-radius: 8px;
+        padding: 12px; background: var(--bg);
+        display: none; font-size: 12.5px;
+    }
+    .calc-result p { margin: 0 0 5px 0; }
+    .calc-result .msg-error { color: #B23A3A; font-weight: 600; }
+    .calc-result .val-teal { font-weight: 700; color: var(--teal); }
+    .calc-result .val-navy { font-weight: 700; color: var(--navy); }
+    .calc-note { font-size: 10.5px; color: var(--text-soft); margin-top: 6px; }
+
+    .similar-block { border-top: 1px solid var(--border); padding-top: 12px; margin-bottom: 12px; }
+    .similar-list { display: flex; flex-direction: column; gap: 5px; }
+    .similar-list a { font-size: 12.5px; color: var(--steel); text-decoration: none; border-bottom: 1px dotted var(--steel); width: fit-content; }
+
+    .panel-footer {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
     }
 
-    .category-text {
-        color: #555;
-        font-size: 14px;
-        margin-top: 10px;
-        margin-bottom: 18px;
-        font-weight: 500;
-    }
-
-    /* BUTTON */
-    .experience-btn {
-        background: #002060;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: 600;
+    a.view-link {
         display: inline-block;
+        padding: 8px 14px;
+        border: 1.5px solid var(--navy);
+        color: var(--navy);
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
     }
 
-    .experience-btn:hover {
-        background: #003499;
+    @media (max-width: 700px) {
+        .filter-bar { flex-direction: column; align-items: stretch; }
+        .filter-field { flex: 1 1 auto; min-width: 0; }
+        .filter-check { flex: 1 1 auto; padding-top: 4px; }
+        .panel-top { flex-direction: column; }
+        .gallery-col { width: 100%; }
+        .exp-row-main { flex-wrap: wrap; }
+        .exp-info { flex-basis: 160px; }
+        .exp-row-meta {
+            flex-basis: 100%;
+            justify-content: space-between;
+            margin-top: 4px;
+            padding-top: 8px;
+            padding-left: 88px; /* aligns under the title, past the thumbnail */
+            border-top: 1px dashed var(--border);
+        }
+        .exp-price-block { text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+        .page-intro { padding: 0 12px 8px 12px; }
+        .app-body { padding: 12px; }
+        .exp-thumb { width: 60px; height: 60px; }
+        .exp-title { font-size: 12.5px; }
+        .exp-price-value { font-size: 13px; }
+        .exp-row-meta { padding-left: 72px; }
+        .main-img-wrap { height: 190px; }
+        .rate-table { font-size: 10.5px; }
+        .rate-table th, .rate-table td { padding: 5px 4px; }
+        .calc-row { flex-direction: column; align-items: stretch; }
+        .calc-btn { width: 100%; }
     }
 </style>
 </head>
+
 <body>
 
-<h1>Experiences – Guayaquil & Surroundings</h1>
-
-<!-- FILTER BAR -->
-<div class="filter-container">
-    <div>
-        <label>Filter by Category:</label>
-        <select id="categoryFilter">
-            <option value="All">All Categories</option>
-        </select>
-    </div>
-
-    <div>
-        <label>Filter by Duration:</label>
-        <select id="durationFilter">
-            <option value="All">All Durations</option>
-        </select>
-    </div>
-
-    <div>
-        <input type="checkbox" id="bestSellerFilter">
-        <label for="bestSellerFilter">Show Best Sellers Only</label>
-    </div>
+<div class="page-intro">
+    <h1>Unique Experiences Catalog</h1>
+    <div class="zone-pill">Region: Guayaquil &amp; Surroundings</div>
 </div>
 
-<!-- EXPERIENCE LIST -->
-<div id="experiencesContainer"></div>
+<div class="app-body">
+    <div class="filter-bar">
+        <div class="filter-field">
+            <label>Region</label>
+            <select id="zoneFilter">
+                <option value="all">Guayaquil &amp; Surroundings</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label>Category</label>
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label>Duration</label>
+            <select id="durationFilter">
+                <option value="all">All Durations</option>
+            </select>
+        </div>
+        <div class="filter-check">
+            <input type="checkbox" id="bestSellerFilter">
+            <label for="bestSellerFilter">Best Sellers Only</label>
+        </div>
+    </div>
+
+    <div class="result-count" id="resultCount"></div>
+    <div class="catalog-list" id="catalogList"></div>
+</div>
 
 <script>
+const PAX_COLUMNS = [1, 2, 4, 6, 8, 10];
+
 const experiences = [
-    {
-        title: "Cacao Plantation (w/ Lunch)",
-        category: ["Chocolate"],
-        duration: "2 hours",
-        bestSeller: true,
-        url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/cacao-plantation-w-lunch?authuser=0"
-    },
-    {
-        title: "Clay Pottery Workshop (w/ Souvenir)",
-        category: ["Cultural", "Art & Crafts"],
-        duration: "2 hours",
-        bestSeller: false,
-        url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/clay-pottery-workshop-w-souvenir?authuser=0"
-    },
-    {
-        title: "Ecuadorian Wine & Chocolate Tasting and Pairing Experience",
-        category: ["Culinary", "Wine"],
-        duration: "1 hour",
-        bestSeller: false,
-        url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience?authuser=0"
-    },
-    {
-        title: "Ecuadorian Wine Tasting & Pairing Experience w/lunch",
-        category: ["Culinary", "Wine"],
-        duration: "1 hour",
-        bestSeller: false,
-        url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch?authuser=0"
-    },
-    {
-        title: "Tour of Wine Vineyard and Live Cooking Experience",
-        category: ["Culinary", "Wine"],
-        duration: "8 hours",
-        bestSeller: false,
-        url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience?authuser=0"
-    },
-    {
-        title: "Tour of Wine Vineyard and Premium Pairing Experience",
-        category: ["Culinary", "Wine"],
-        duration: "8 hours",
-        bestSeller: false,
-        url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience?authuser=0"
-    }
+  {
+    title: "Cacao Plantation (w/ Lunch)",
+    categories: ["Chocolate"],
+    duration: "2 hours",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cacao%20Plantation%20%28w%20Lunch%29%20%20%281%29.jpeg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cacao%20Plantation%20%28w%20Lunch%29%20%20%282%29.jpeg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cacao%20Plantation%20%28w%20Lunch%29%20%20%283%29.jpeg"],
+    description: "Located in the El Naranjal area, an hour to the south of Guayaquil, our travelers will find Cacao y Mango Hacienda. Here, they will explore the plantation's grounds, observe the dry tropical forest and its bountiful crops, such as rice, coffee and bananas, and learn more about the cacao harvesting, fermenting and drying processes that make some of the world's finest chocolate. Our travelers will also enjoy a delicious traditional lunch at the hacienda.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/cacao-plantation-w-lunch",
+    tiers: {1:47},
+    similar: []
+  },
+  {
+    title: "Clay Pottery Workshop (w/ Souvenir)",
+    categories: ["Cultural", "Arts & Crafts"],
+    duration: "2 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20Workshop%20%28w%20Souvenir%29%20%281%29.jpeg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20Workshop%20%28w%20Souvenir%29%20%282%29.jpeg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20Workshop%20%28w%20Souvenir%29%20%283%29.jpeg"],
+    description: "Our travelers will visit the \"Delguasmo\" clay pottery workshop, a family-run craft hub since 1986. Guests will learn clay molding and firing techniques, crafting their own artwork in this space of cultural exchange.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/clay-pottery-workshop-w-souvenir",
+    tiers: {1:45},
+    similar: []
+  },
+  {
+    title: "Ecuadorian Wine & Chocolate Tasting and Pairing Experience",
+    categories: ["Culinary", "Wine"],
+    duration: "1 hour",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20%26%20Chocolate%20Tasting%20and%20Pairing%20Experience%20%281%29.jpg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20%26%20Chocolate%20Tasting%20and%20Pairing%20Experience%20%282%29.jpg"],
+    description: "Dos Hemisferios, in Guayaquil's center, invites guests to three distinct venues for curated wine tastings. The experience highlights their pioneering Paradoja alongside Enigma and Armonia Rosé, paired with premium local chocolates. A celebration of Ecuador's innovative winemaking and unique flavors.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience",
+    tiers: {1:30},
+    similar: [
+      {title: "Ecuadorian Wine Tasting & Pairing Experience w/lunch", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch"},
+      {title: "Tour of Wine Vineyard and Live Cooking Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience"},
+      {title: "Tour of Wine Vineyard and Premium Pairing Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience"}
+    ]
+  },
+  {
+    title: "Ecuadorian Wine Tasting & Pairing Experience w/lunch",
+    categories: ["Culinary", "Wine"],
+    duration: "1 hour",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20Tasting%20%26%20Pairing%20Experience%20wlunch%20%281%29.jpeg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20Tasting%20%26%20Pairing%20Experience%20wlunch%20%281%29.png", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20Tasting%20%26%20Pairing%20Experience%20wlunch%20%282%29.png"],
+    description: "Dos Hemisferios, in central Guayaquil, offers three venues — La Tiendita, City Winery, and Living Lab — for exclusive wine tastings. Guests will savor unique Ecuadorian flavors, including the signature Paradoja (a Cabernet-Malbec blend that defied expectations in 2006). A perfect pairing experience showcasing how innovation meets tradition in local winemaking.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch",
+    tiers: {1:52},
+    similar: [
+      {title: "Ecuadorian Wine & Chocolate Tasting and Pairing Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience"},
+      {title: "Tour of Wine Vineyard and Live Cooking Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience"},
+      {title: "Tour of Wine Vineyard and Premium Pairing Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience"}
+    ]
+  },
+  {
+    title: "Tour of Wine Vineyard and Live Cooking Experience",
+    categories: ["Culinary", "Wine"],
+    duration: "8 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Live%20Cooking%20Experience%20%281%29.jpg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Live%20Cooking%20Experience%20%282%29.jpg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Live%20Cooking%20Experience%20%283%29.jpg"],
+    description: "Dos Hemisferios Vineyard defies expectations by thriving on the equator. Tour the winery to discover how they overcame climatic challenges, then savor a tasting of unique Ecuadorian wines. The visit culminates with a live cooking demo and lunch paired with their exceptional vintages.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience",
+    tiers: {1:348},
+    similar: [
+      {title: "Ecuadorian Wine Tasting & Pairing Experience w/lunch", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch"},
+      {title: "Ecuadorian Wine & Chocolate Tasting and Pairing Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience"},
+      {title: "Tour of Wine Vineyard and Premium Pairing Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience"}
+    ]
+  },
+  {
+    title: "Tour of Wine Vineyard and Premium Pairing Experience",
+    categories: ["Culinary", "Wine"],
+    duration: "8 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Premium%20Pairing%20Experience%20%281%29.jpg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Premium%20Pairing%20Experience%20%281%29.png", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Premium%20Pairing%20Experience%20%282%29.png"],
+    description: "Dos Hemisferios Vineyard achieves the impossible by producing wine on the equator, epitomized by their groundbreaking 2006 Paradoja. Guests tour the winery to uncover this innovative process, then enjoy a premium tasting of signature wines like Enigma and Travesia — showcasing Ecuador's unique terroir. The experience concludes with a gourmet lunch paired with exquisite local vintages.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience",
+    tiers: {1:154},
+    similar: [
+      {title: "Ecuadorian Wine Tasting & Pairing Experience w/lunch", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch"},
+      {title: "Ecuadorian Wine & Chocolate Tasting and Pairing Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience"},
+      {title: "Tour of Wine Vineyard and Live Cooking Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience"}
+    ]
+  }
 ];
 
-const container = document.getElementById('experiencesContainer');
+// ===== STATE =====
+const categoryFilter = document.getElementById("categoryFilter");
+const durationFilter = document.getElementById("durationFilter");
+const bestSellerFilter = document.getElementById("bestSellerFilter");
+const catalogList = document.getElementById("catalogList");
+const resultCount = document.getElementById("resultCount");
 
-function renderExperiences() {
-    container.innerHTML = "";
-
-    const selectedCategory = document.getElementById('categoryFilter').value;
-    const selectedDuration = document.getElementById('durationFilter').value;
-    const onlyBest = document.getElementById('bestSellerFilter').checked;
-
-    const filtered = experiences.filter(exp => {
-        const matchesCategory = selectedCategory === "All" || exp.category.includes(selectedCategory);
-        const matchesDuration = selectedDuration === "All" || exp.duration === selectedDuration;
-        const matchesBest = !onlyBest || exp.bestSeller;
-        return matchesCategory && matchesDuration && matchesBest;
+function loadFilters() {
+    const categories = new Set();
+    const durations = new Set();
+    experiences.forEach(exp => {
+        exp.categories.forEach(c => categories.add(c));
+        durations.add(exp.duration);
     });
-
-    filtered.forEach(exp => {
-        const card = document.createElement('div');
-        card.className = "experience-card";
-
-        card.innerHTML =
-            '<div class="experience-title">' + exp.title + '</div>' +
-            '<div class="badge-container">' +
-            (exp.bestSeller ? '<div class="badge-yellow">BEST SELLER</div>' : '') +
-            '<div class="badge-blue">' + exp.duration + '</div>' +
-            '</div>' +
-            '<div class="category-text"><strong>Category:</strong> ' + exp.category.join(", ") + '</div>' +
-            '<a class="experience-btn" href="' + exp.url + '" target="_blank">View Experience</a>';
-
-        container.appendChild(card);
+    [...categories].sort().forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c; opt.textContent = c;
+        categoryFilter.appendChild(opt);
+    });
+    [...durations].forEach(d => {
+        const opt = document.createElement("option");
+        opt.value = d; opt.textContent = d;
+        durationFilter.appendChild(opt);
     });
 }
 
-// Populate dropdowns
-(function populateFilters() {
-    const categorySet = new Set();
-    const durationSet = new Set();
+function computePrice(exp, pax) {
+    if (exp.minPax && pax < exp.minPax) {
+        return { error: `This experience is recommended for groups of ${exp.minPax} passengers or more.` };
+    }
+    if (exp.requestFromPax && pax >= exp.requestFromPax) {
+        return { request: true };
+    }
+    const keys = Object.keys(exp.tiers).map(Number).sort((a, b) => a - b);
+    let applicable = keys[0];
+    keys.forEach(k => { if (pax >= k) applicable = k; });
+    const rate = exp.tiers[applicable];
+    return { rate, total: rate * pax };
+}
 
-    experiences.forEach(exp => {
-        exp.category.forEach(cat => categorySet.add(cat));
-        durationSet.add(exp.duration);
+function startingPrice(exp) {
+    const keys = Object.keys(exp.tiers).map(Number);
+    const minRate = Math.min(...keys.map(k => exp.tiers[k]));
+    return minRate;
+}
+
+function buildRateTable(exp) {
+    const cells = PAX_COLUMNS.map(pax => {
+        const r = computePrice(exp, pax);
+        if (r.error) return `<td class="na-cell">—</td>`;
+        if (r.request) return `<td class="request-cell">Request</td>`;
+        return `<td>$${r.rate.toLocaleString()}</td>`;
+    }).join("");
+    return `
+        <div class="table-scroll">
+            <table class="rate-table">
+                <thead><tr><th>PAX</th>${PAX_COLUMNS.map(p => `<th>${p}</th>`).join("")}</tr></thead>
+                <tbody><tr><td style="font-weight:700;">Price</td>${cells}</tr></tbody>
+            </table>
+        </div>`;
+}
+
+function buildSimilar(similar) {
+    if (!similar || similar.length === 0) return "";
+    const links = similar.map(s => `<a href="${s.url}" target="_blank">${s.title}</a>`).join("");
+    return `<div class="similar-block"><div class="panel-section-title">Similar Experiences Suggested</div><div class="similar-list">${links}</div></div>`;
+}
+
+function getSrc(img) { return typeof img === "string" ? img : img.src; }
+function getPos(img) { return typeof img === "string" ? "center" : (img.position || "center"); }
+
+function buildGallery(images, title, uid) {
+    const thumbStrip = images.length > 1
+        ? `<div class="thumb-strip">${images.map((img, i) => `
+            <div class="thumb-strip-item ${i === 0 ? 'active' : ''}" data-uid="${uid}" data-src="${getSrc(img)}" data-pos="${getPos(img)}">
+                <img src="${getSrc(img)}" alt="${title} photo ${i+1}" loading="lazy" style="object-position:${getPos(img)};">
+            </div>`).join("")}</div>`
+        : "";
+    return `
+        <div class="gallery-col">
+            <div class="main-img-wrap"><img id="${uid}-main-img" src="${getSrc(images[0])}" alt="${title}" loading="lazy" style="object-position:${getPos(images[0])};"></div>
+            ${thumbStrip}
+        </div>`;
+}
+
+function toggleRow(rowEl) {
+    rowEl.classList.toggle("open");
+}
+
+function renderCatalog() {
+    const cat = categoryFilter.value;
+    const dur = durationFilter.value;
+    const showBest = bestSellerFilter.checked;
+
+    const filtered = experiences.filter(exp => {
+        const mc = cat === "all" || exp.categories.includes(cat);
+        const md = dur === "all" || exp.duration === dur;
+        const mb = !showBest || exp.bestSeller;
+        return mc && md && mb;
     });
 
-    categorySet.forEach(cat => {
-        const option = document.createElement("option");
-        option.value = cat;
-        option.textContent = cat;
-        document.getElementById('categoryFilter').appendChild(option);
+    resultCount.textContent = `${filtered.length} experience${filtered.length !== 1 ? 's' : ''} found`;
+
+    catalogList.innerHTML = "";
+
+    filtered.forEach((exp, index) => {
+        const uid = "exp" + index;
+        const row = document.createElement("div");
+        row.className = "exp-row";
+        const from = startingPrice(exp);
+
+        row.innerHTML = `
+            <div class="exp-row-main">
+                <img class="exp-thumb" src="${getSrc(exp.images[0])}" alt="${exp.title}" loading="lazy" style="object-position:${getPos(exp.images[0])};">
+                <div class="exp-info">
+                    <div class="exp-tags-row">
+                        ${exp.bestSeller ? '<span class="tag tag-best">BEST SELLER</span>' : ''}
+                        <span class="tag tag-duration">${exp.duration}</span>
+                        <span class="tag tag-category">${exp.categories.join(" · ")}</span>
+                    </div>
+                    <div class="exp-title">${exp.title}</div>
+                    <div class="exp-desc-preview">${exp.description}</div>
+                </div>
+                <div class="exp-row-meta">
+                    <div class="exp-price-block">
+                        <div class="exp-price-from">From</div>
+                        <div class="exp-price-value">$${from}</div>
+                    </div>
+                    <div class="exp-actions">
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="exp-panel">
+                <div class="exp-panel-content">
+                    <div class="exp-panel-inner">
+                        <div class="panel-top">
+                            ${buildGallery(exp.images, exp.title, uid)}
+                            <div class="panel-text">
+                                <div class="panel-section-title">Description</div>
+                                <div class="panel-desc">${exp.description}</div>
+                            </div>
+                        </div>
+
+                        <div class="pricing-block">
+                            <div class="panel-section-title">Net Rate Per Person</div>
+                            ${buildRateTable(exp)}
+                            <div class="panel-section-title">Price Calculator</div>
+                            <div class="calc-row">
+                                <div class="calc-input-group">
+                                    <label for="${uid}-pax">Number of People</label>
+                                    <input id="${uid}-pax" type="number" min="1" value="2">
+                                </div>
+                                <button class="calc-btn" data-target="${uid}">Calculate</button>
+                            </div>
+                            <div class="calc-result" id="${uid}-result">
+                                <p class="msg-error" id="${uid}-msg" style="display:none;"></p>
+                                <div id="${uid}-values">
+                                    <p>Price per person: <span class="val-teal" id="${uid}-pp"></span></p>
+                                    <p>Total price: <span class="val-teal" id="${uid}-tp"></span></p>
+                                    <p>Group size: <span class="val-navy" id="${uid}-gs"></span></p>
+                                </div>
+                                <div class="calc-note">All prices are in USD and are net rates per person.</div>
+                            </div>
+                        </div>
+
+                        ${buildSimilar(exp.similar)}
+
+                        <div class="panel-footer">
+                            <a class="view-link" href="${exp.url}" target="_blank">View Full Experience</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        row.querySelector(".exp-row-main").addEventListener("click", () => toggleRow(row));
+
+        row.querySelectorAll(".thumb-strip-item").forEach(item => {
+            item.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const mainImg = document.getElementById(`${uid}-main-img`);
+                mainImg.src = item.dataset.src;
+                mainImg.style.objectPosition = item.dataset.pos || "center";
+                row.querySelectorAll(".thumb-strip-item").forEach(t => t.classList.remove("active"));
+                item.classList.add("active");
+            });
+        });
+
+        const calcBtn = row.querySelector(".calc-btn");
+        calcBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const pax = parseInt(document.getElementById(`${uid}-pax`).value) || 1;
+            const result = computePrice(exp, pax);
+            const resultBox = document.getElementById(`${uid}-result`);
+            const msg = document.getElementById(`${uid}-msg`);
+            const values = document.getElementById(`${uid}-values`);
+            resultBox.style.display = "block";
+
+            if (result.error) {
+                msg.textContent = result.error;
+                msg.style.display = "block";
+                values.style.display = "none";
+                return;
+            }
+            if (result.request) {
+                msg.textContent = "Rates for this group size are available upon request.";
+                msg.style.display = "block";
+                values.style.display = "block";
+                document.getElementById(`${uid}-pp`).textContent = "-";
+                document.getElementById(`${uid}-tp`).textContent = "-";
+                document.getElementById(`${uid}-gs`).textContent = pax + " persons";
+                return;
+            }
+            msg.style.display = "none";
+            values.style.display = "block";
+            document.getElementById(`${uid}-pp`).textContent = "$" + result.rate.toFixed(2);
+            document.getElementById(`${uid}-tp`).textContent = "$" + result.total.toFixed(2);
+            document.getElementById(`${uid}-gs`).textContent = pax + " persons";
+        });
+
+        catalogList.appendChild(row);
     });
+}
 
-    durationSet.forEach(dur => {
-        const option = document.createElement("option");
-        option.value = dur;
-        option.textContent = dur;
-        document.getElementById('durationFilter').appendChild(option);
-    });
-})();
+categoryFilter.onchange = renderCatalog;
+durationFilter.onchange = renderCatalog;
+bestSellerFilter.onchange = renderCatalog;
 
-document.getElementById('categoryFilter').addEventListener('change', renderExperiences);
-document.getElementById('durationFilter').addEventListener('change', renderExperiences);
-document.getElementById('bestSellerFilter').addEventListener('change', renderExperiences);
-
-renderExperiences();
+loadFilters();
+renderCatalog();
 </script>
 
 </body>
