@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geo Boutique Travel Designer — Experience Catalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --navy: #002060;
+        --navy-dark: #001440;
+        --steel: #2E4C8C;
+        --ice: #E8ECF7;
+        --ice-dark: #DCE4F5;
+        --bg: #f9f9f9;
+        --card: #FFFFFF;
+        --border: #DDE2EF;
+        --text: #1A2340;
+        --text-soft: #5B6480;
+        --gold: #FFD500;
+        --teal: #12857A;
+        --teal-bg: #E4F5F3;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+    }
+
+    /* ===== SLIM TITLE STRIP (no banner, aligned with the filter block) ===== */
+    .page-intro {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 1100px;
+        margin: 0 auto 4px auto;
+        padding: 0 16px 10px 16px;
+        border-bottom: 2px solid var(--navy);
+    }
+
+    .page-intro h1 {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--navy);
+        margin: 0;
+    }
+
+    .zone-pill {
+        background: var(--ice);
+        border: 1px solid var(--ice-dark);
+        color: var(--steel);
+        font-size: 11.5px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+    /* ===== LAYOUT ===== */
+    .app-body {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 16px;
+    }
+
+    /* ===== FILTERS ===== */
+    .filter-bar {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+
+    .filter-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1 1 150px;
+        min-width: 130px;
+    }
+
+    .filter-field label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-soft);
+    }
+
+    .filter-field select {
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg);
+        font-family: Montserrat;
+        font-size: 13px;
+        color: var(--text);
+    }
+
+    .filter-check {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex: 1 1 150px;
+        padding-top: 14px;
+    }
+
+    .filter-check input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--navy);
+    }
+
+    .filter-check label {
+        font-size: 13px;
+        color: var(--text);
+    }
+
+    .result-count {
+        font-size: 12px;
+        color: var(--text-soft);
+        margin: 0 0 10px 2px;
+    }
+
+    /* ===== CATALOG ROWS ===== */
+    .catalog-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .exp-row {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    /* Only the row that's currently open gets a tint, reverting once it closes */
+    .exp-row.open {
+        background: var(--ice);
+        border-color: var(--ice-dark);
+    }
+
+    .exp-row-main {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        cursor: pointer;
+    }
+
+    .exp-row-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .exp-thumb {
+        width: 76px;
+        height: 76px;
+        border-radius: 8px;
+        object-fit: cover;
+        flex-shrink: 0;
+        background: var(--ice);
+    }
+
+    .exp-info {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .exp-tags-row {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 3px;
+    }
+
+    .tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 4px;
+        white-space: nowrap;
+    }
+
+    .tag-best {
+        background: var(--gold);
+        color: var(--navy-dark);
+    }
+
+    .tag-duration {
+        background: var(--ice);
+        color: var(--steel);
+    }
+
+    .tag-category {
+        background: transparent;
+        color: var(--text-soft);
+        font-weight: 500;
+        padding: 2px 0;
+    }
+
+    .exp-title {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.3;
+        margin-bottom: 2px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .exp-desc-preview {
+        font-size: 11.5px;
+        color: var(--text-soft);
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .exp-price-block {
+        text-align: right;
+        flex-shrink: 0;
+        padding-left: 6px;
+    }
+
+    .exp-price-from {
+        font-size: 9.5px;
+        color: var(--text-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .exp-price-value {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--navy);
+        white-space: nowrap;
+    }
+
+    .exp-actions {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .chevron {
+        width: 16px;
+        height: 16px;
+        color: var(--text-soft);
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .exp-row.open .chevron {
+        transform: rotate(180deg);
+        color: var(--navy);
+    }
+
+    /* ===== EXPANDED PANEL ===== */
+    .exp-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.3s ease;
+    }
+
+    .exp-row.open .exp-panel {
+        grid-template-rows: 1fr;
+    }
+
+    .exp-panel-content {
+        overflow: hidden;
+    }
+
+    .exp-panel-inner {
+        padding: 4px 16px 20px 16px;
+        border-top: 1px solid var(--border);
+    }
+
+    .panel-top {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin: 16px 0;
+    }
+
+    .gallery-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 230px;
+        max-width: 100%;
+        flex-shrink: 0;
+    }
+
+    .main-img-wrap {
+        width: 100%;
+        height: 165px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--ice);
+    }
+
+    .main-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+    .thumb-strip { display: flex; gap: 6px; }
+
+    .thumb-strip-item {
+        width: 46px; height: 38px;
+        border-radius: 5px; overflow: hidden;
+        cursor: pointer; opacity: 0.5;
+        border: 2px solid transparent;
+    }
+    .thumb-strip-item.active { opacity: 1; border-color: var(--navy); }
+    .thumb-strip-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .panel-text { flex: 1 1 220px; min-width: 0; }
+
+    .panel-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--steel);
+        margin: 0 0 8px 0;
+    }
+
+    .panel-desc {
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: var(--text);
+    }
+
+    .pricing-block {
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+        margin-bottom: 14px;
+    }
+
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 8px 0 16px 0;
+    }
+
+    .rate-table {
+        width: 100%;
+        min-width: 460px;
+        border-collapse: collapse;
+        font-size: 11.5px;
+        margin: 0;
+    }
+
+    .rate-table th, .rate-table td {
+        padding: 6px;
+        border: 1px solid var(--border);
+        text-align: center;
+    }
+
+    .rate-table th {
+        background: var(--ice);
+        color: var(--navy);
+        font-weight: 700;
+    }
+
+    .rate-table td.request-cell { color: #B23A3A; font-weight: 700; }
+    .rate-table td.na-cell { color: #aaa; }
+
+    .calc-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .calc-input-group { flex: 1 1 130px; }
+    .calc-input-group label {
+        display: block; margin-bottom: 5px;
+        font-size: 12px; color: var(--text);
+    }
+    .calc-input-group input {
+        width: 100%; padding: 9px;
+        border: 1px solid var(--border); border-radius: 5px;
+        font-family: Montserrat; font-size: 13px;
+    }
+
+    .calc-btn {
+        padding: 9px 16px;
+        background: var(--steel); color: #fff;
+        border: none; border-radius: 5px;
+        cursor: pointer; font-size: 13px;
+        font-family: Montserrat; font-weight: 600;
+    }
+    .calc-btn:hover { background: var(--navy); }
+
+    .calc-result {
+        border: 1px solid var(--border); border-radius: 8px;
+        padding: 12px; background: var(--bg);
+        display: none; font-size: 12.5px;
+    }
+    .calc-result p { margin: 0 0 5px 0; }
+    .calc-result .msg-error { color: #B23A3A; font-weight: 600; }
+    .calc-result .val-teal { font-weight: 700; color: var(--teal); }
+    .calc-result .val-navy { font-weight: 700; color: var(--navy); }
+    .calc-note { font-size: 10.5px; color: var(--text-soft); margin-top: 6px; }
+
+    .similar-block { border-top: 1px solid var(--border); padding-top: 12px; margin-bottom: 12px; }
+    .similar-list { display: flex; flex-direction: column; gap: 5px; }
+    .similar-list a { font-size: 12.5px; color: var(--steel); text-decoration: none; border-bottom: 1px dotted var(--steel); width: fit-content; }
+
+    .panel-footer {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+    }
+
+    a.view-link {
+        display: inline-block;
+        padding: 8px 14px;
+        border: 1.5px solid var(--navy);
+        color: var(--navy);
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+        .filter-bar { flex-direction: column; align-items: stretch; }
+        .filter-field { flex: 1 1 auto; min-width: 0; }
+        .filter-check { flex: 1 1 auto; padding-top: 4px; }
+        .panel-top { flex-direction: column; }
+        .gallery-col { width: 100%; }
+        .exp-row-main { flex-wrap: wrap; }
+        .exp-info { flex-basis: 160px; }
+        .exp-row-meta {
+            flex-basis: 100%;
+            justify-content: space-between;
+            margin-top: 4px;
+            padding-top: 8px;
+            padding-left: 88px; /* aligns under the title, past the thumbnail */
+            border-top: 1px dashed var(--border);
+        }
+        .exp-price-block { text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+        .page-intro { padding: 0 12px 8px 12px; }
+        .app-body { padding: 12px; }
+        .exp-thumb { width: 60px; height: 60px; }
+        .exp-title { font-size: 12.5px; }
+        .exp-price-value { font-size: 13px; }
+        .exp-row-meta { padding-left: 72px; }
+        .main-img-wrap { height: 190px; }
+        .rate-table { font-size: 10.5px; }
+        .rate-table th, .rate-table td { padding: 5px 4px; }
+        .calc-row { flex-direction: column; align-items: stretch; }
+        .calc-btn { width: 100%; }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="page-intro">
+    <h1>Unique Experiences Catalog</h1>
+    <div class="zone-pill">Region: Quito &amp; Surroundings</div>
+</div>
+
+<div class="app-body">
+    <div class="filter-bar">
+        <div class="filter-field">
+            <label>Region</label>
+            <select id="zoneFilter">
+                <option value="all">Quito &amp; Surroundings</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label>Category</label>
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label>Duration</label>
+            <select id="durationFilter">
+                <option value="all">All Durations</option>
+            </select>
+        </div>
+        <div class="filter-check">
+            <input type="checkbox" id="bestSellerFilter">
+            <label for="bestSellerFilter">Best Sellers Only</label>
+        </div>
+    </div>
+
+    <div class="result-count" id="resultCount"></div>
+    <div class="catalog-list" id="catalogList"></div>
+</div>
+
+<script>
+const PAX_COLUMNS = [1, 2, 4, 6, 8, 10];
+
+const experiences = [
+  {
+    title: "Gold Leaf restauration experience at the \"La Compañía de Jesus\" Church with a visit to the cupolas while enjoing a glass of sparkling wine",
+    categories: ["Art", "Luxe"],
+    duration: "30 min",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Gold%20Experience%20(2).jpeg"],
+    description: "A guided gold leaf workshop at La Compañía de Jesús Church, where artisans lead visitors in crafting a small piece while sharing the tradition's religious and cultural significance. Includes a visit to the church cupolas and a sparkling wine surprise with the view.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito",
+    tiers: {1:345, 2:217, 4:153, 6:131, 8:121, 10:114},
+    similar: [
+      {title: "Gold Leaf restauration experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"},
+      {title: "Escuela Quiteña Wood Carving Workshop", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"},
+      {title: "Chocolate Tasting and Pairing Dining Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"}
+    ]
+  },
+  {
+    title: "Beer Tasting & Pairing Lunch",
+    categories: ["Artisanal Beer", "Culinary"],
+    duration: "1 hour",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Beer%20Tasting%20and%20Pairing%20Lunch.jpg"],
+    description: "At Santana Brewing Company & Tasting Lounge near Mitad del Mundo, guests sample craft beers — Pale Ale, Tripel, Amber Ale, Irish Red and Porter — paired with Ecuadorian dishes like corn empanadas, mote con chicharrón, ceviche, shrimp in coconut sauce and hornado.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/beer-tasting-pairing-lunch",
+    tiers: {1:43},
+    similar: [
+      {title: "Chocolate Tasting and Pairing Dining Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"},
+      {title: "Exclusive Dinner with Folkloric Dance Troupe", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"}
+    ]
+  },
+  {
+    title: "Gold Leaf restauration experience",
+    categories: ["Cultural", "Arts & Crafts"],
+    duration: "30 min",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Gold%20Leaf%20restauration%20experience.jpg"],
+    description: "Held in Quito's historic San Marcos neighborhood, this workshop is led by master artisans who teach traditional gold leaf techniques and its role in indigenous and religious art, while guests create their own piece.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience",
+    tiers: {1:20},
+    similar: [
+      {title: "Escuela Quiteña Wood Carving Workshop", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"},
+      {title: "Exclusive Dinner with Folkloric Dance Troupe", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"},
+      {title: "Andean Spiritual Cleansing", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/andean-spiritual-cleansing"}
+    ]
+  },
+  {
+    title: "Escuela Quiteña Wood Carving Workshop (or Tin Craft or Goldsmithing)",
+    categories: ["Cultural", "Arts & Crafts"],
+    duration: "30 min",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Escuela%20Quite%C3%B1a%20Wood%20Carving%20Workshop%20%28or%20Tin%20Craft%20or%20Goldsmithing%29.jpeg"],
+    description: "In Quito's La Ronda district, choose between a live wood carving demonstration at the Escuela Quiteña, a metalwork session with master artisan Germán Campos, or the Hojalatería Silva tin workshop, where visitors make their own tin whistle souvenir.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing",
+    tiers: {1:10},
+    similar: [
+      {title: "Gold Leaf restauration experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"},
+      {title: "Exclusive Dinner with Folkloric Dance Troupe", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"},
+      {title: "Andean Spiritual Cleansing", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/andean-spiritual-cleansing"}
+    ]
+  },
+  {
+    title: "\"El Caretero\" Mask Making Workshop",
+    categories: ["Arts & Crafts"],
+    duration: "1 hour",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/caretero%201.jpeg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/caretero-2-1024x670.jpg"],
+    description: "At El Caretero, in Quito's historic La Loma Grande neighborhood, master artisans have shaped vibrant paper-mâché masks by hand for over 20 years. Visitors can watch or take part in the process, connecting with this living folk-art tradition.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/el-caretero-mask-making-workshop",
+    tiers: {1:38},
+    similar: [
+      {title: "Gold Leaf restauration experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"},
+      {title: "Escuela Quiteña Wood Carving Workshop", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"}
+    ]
+  },
+  {
+    title: "Make Your Own Chocolate Bar in Quito's Colonial District (1 Bar)",
+    categories: ["Chocolate"],
+    duration: "1 hour",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Make%20Your%20Own%20Chocolate%20Bar%20in%20Quito%27s%20Colonial%20District%20%281%20Bar%29.jpeg"],
+    description: "A relaxed chocolate-making session at a fine chocolate shop in the Colonial District, with views of the neighborhood. Guests learn about cacao and craft their own chocolate bar with premium ingredients to take home.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/make-your-own-chocolate-bar-in-quitos-colonial-district-1-bar",
+    tiers: {1:20},
+    similar: [
+      {title: "Chocolate & Wine Tasting and Pairing Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-wine-tasting-and-pairing-experience-1-glass-of-wine"},
+      {title: "Chocolate Tasting and Pairing Dining Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"}
+    ]
+  },
+  {
+    title: "Chocolate & Wine Tasting and Pairing Experience (1 Glass of Wine)",
+    categories: ["Chocolate"],
+    duration: "1 hour",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Chocolate%20%26%20Wine%20Tasting%20and%20Pairing%20Experience%20%281%20Glass%20of%20Wine%29.jpg"],
+    description: "A chocolate and wine pairing at a local chocolatier in Quito's Colonial District, with views of the San Francisco church and plaza — a relaxed moment to taste, toast and learn about cacao and chocolate.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-wine-tasting-and-pairing-experience-1-glass-of-wine",
+    tiers: {1:22},
+    similar: [
+      {title: "Make Your Own Chocolate Bar (1 Bar)", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/make-your-own-chocolate-bar-in-quitos-colonial-district-1-bar"},
+      {title: "Chocolate Tasting and Pairing Dining Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"}
+    ]
+  },
+  {
+    title: "Chocolate Tasting and Pairing Dining Experience",
+    categories: ["Luxe", "Chocolate", "Culinary"],
+    duration: "2 hours",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Chocolate%20Tasting%20and%20Pairing%20Dining%20Experience.jpg"],
+    description: "The \"Cacao, Wine & Spirits\" tasting at Somos pairs curated Ecuadorian chocolates with local wines (such as Dos Hemisferios) and spirits like Miske or aged rum — a sensory tour through the country's cocoa and distillate traditions.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience",
+    tiers: {1:109},
+    minPax: 4,
+    similar: [
+      {title: "Gold Leaf restauration experience at the church...", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"},
+      {title: "Make Your Own Chocolate Bar (1 Bar)", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/make-your-own-chocolate-bar-in-quitos-colonial-district-1-bar"},
+      {title: "Chocolate & Wine Tasting and Pairing Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-wine-tasting-and-pairing-experience-1-glass-of-wine"}
+    ]
+  },
+  {
+    title: "Specialty Ecuadorian Coffee: Tasting Experience at a Local Coffee Shop",
+    categories: ["Coffee"],
+    duration: "2 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Tasting%20Experience%20at%20a%20Local%20Coffee%20Shop.jpg"],
+    description: "Expert baristas at a premier Quito café demonstrate four brewing methods — French press, Chemex, siphon and V60 — followed by a tasting of coffees from the Highlands, Coast and Galápagos to explore how Ecuador's climates shape flavor.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/specialty-ecuadorian-coffee-tasting-experience-at-a-local-coffee-shop",
+    tiers: {1:80, 2:40},
+    requestFromPax: 8,
+    similar: []
+  },
+  {
+    title: "Exclusive Dinner with Folkloric Dance Troupe (Only Saturdays at Somos Restaurant)",
+    categories: ["Luxe", "Cultural", "Culinary"],
+    duration: "2 hours",
+    bestSeller: true,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Dinner%20with%20Folkloric%20Dance%20Troupe%20%28Only%20Saturdays%20at%20Somos%20Restaurant%29%20%281%29.jpg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Dinner%20with%20Folkloric%20Dance%20Troupe%20%28Only%20Saturdays%20at%20Somos%20Restaurant%29%20%20%282%29.jpg", {src: "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Dinner%20with%20Folkloric%20Dance%20Troupe%20%28Only%20Saturdays%20at%20Somos%20Restaurant%29%20%20%283%29.jpg", position: "top"}],
+    description: "A gourmet dinner featuring the Volcano Route tasting menu, inspired by the Ecuadorian Andes and paired with live music, dance and Andean rituals. Also available on weekdays with a minimum of 10 guests.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta",
+    tiers: {1:150},
+    similar: [
+      {title: "Gold Leaf restauration experience at the church...", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"},
+      {title: "Gold Leaf restauration experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"},
+      {title: "Escuela Quiteña Wood Carving Workshop", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"}
+    ]
+  },
+  {
+    title: "Cooking Class in a Traditional Locale in Quito's Colonial District",
+    categories: ["Culinary"],
+    duration: "2 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cooking%20Class%20in%20a%20Traditional%20Locale%20in%20Quito%27s%20Colonial%20District.jpg"],
+    description: "A hands-on cooking class in a traditional Colonial District venue, exploring local flavors and culinary techniques while gaining insight into the region's culinary heritage.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/cooking-class-in-a-traditional-locale-in-quitos-colonial-district",
+    tiers: {1:56},
+    similar: [
+      {title: "Chocolate Tasting and Pairing Dining Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"},
+      {title: "Exclusive Dinner with Folkloric Dance Troupe", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"},
+      {title: "Beer Tasting & Pairing Lunch", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/beer-tasting-pairing-lunch"}
+    ]
+  },
+  {
+    title: "Exclusive Immersive Private Cooking Class",
+    categories: ["Luxe", "Culinary"],
+    duration: "2 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Immersive%20Private%20Cooking%20Class.jpeg"],
+    description: "A private cooking class in an exclusive venue: guests browse local markets for fresh ingredients before preparing Ecuadorian dishes such as ceviche, locro and llapingachos under a French-Ecuadorian fusion approach led by top chefs.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-immersive-private-cooking-class",
+    tiers: {1:154, 2:71, 4:58},
+    similar: [
+      {title: "Gold Leaf restauration experience at the church...", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"},
+      {title: "Chocolate Tasting and Pairing Dining Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"},
+      {title: "Exclusive Dinner with Folkloric Dance Troupe", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"}
+    ]
+  },
+  {
+    title: "Exclusive Dinner at a Historic Venue in the Colonial District",
+    categories: ["Luxe", "Culinary"],
+    duration: "2 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Dinner%20at%20a%20Historic%20Venue%20in%20the%20Colonial%20District.jpg"],
+    description: "An intimate dinner inside a meticulously preserved 17th-century colonial building, with settings like the San Diego Convent or the restored Casa del Higo and Casona del Águila — tailored to the traveler's interests.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-at-a-historic-venue-in-the-colonial-district",
+    tiers: {1:1346, 2:654, 4:417, 6:363, 8:337, 10:321},
+    similar: [
+      {title: "Gold Leaf restauration experience at the church...", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"},
+      {title: "Chocolate Tasting and Pairing Dining Experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"},
+      {title: "Exclusive Dinner with Folkloric Dance Troupe", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"}
+    ]
+  },
+  {
+    title: "Andean Spiritual Cleansing",
+    categories: ["Cultural"],
+    duration: "30 min",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Andean%20Spiritual%20Cleansing%20%282%29.jpg"],
+    description: "At Quito's historic San Francisco Market, generations of curanderas perform limpias (spiritual cleansings) amid the aromas of spices, palo santo and medicinal herbs — a living blend of commerce and ancestral tradition.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/andean-spiritual-cleansing",
+    tiers: {1:13},
+    similar: [
+      {title: "Gold Leaf restauration experience", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"},
+      {title: "Escuela Quiteña Wood Carving Workshop", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"},
+      {title: "Exclusive Dinner with Folkloric Dance Troupe", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"}
+    ]
+  },
+  {
+    title: "Frog exhibition and conservation project",
+    categories: ["Nature"],
+    duration: "2 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Frog%20exhibition%20and%20conservation%20project.jpeg"],
+    description: "Wikiri Sapoparque, the world's largest amphibian exhibitor, offers an interactive tour through Ecuador's frog and toad biodiversity — one of the richest in the world — plus its conservation, biocommerce and biotechnology work.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project",
+    tiers: {1:13},
+    similar: [
+      {title: "Urban Bird Observation and Conservation Project", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/urban-bird-observation-and-conservation-project"},
+      {title: "Frog exhibition and conservation project (Technical visit)", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project-technical-visit"}
+    ]
+  },
+  {
+    title: "Frog exhibition and conservation project (Technical visit)",
+    categories: ["Nature"],
+    duration: "3 hours",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Frog%20exhibition%20and%20conservation%20project%20%28Technical%20visit%29%20%281%29.jpeg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Frog%20exhibition%20and%20conservation%20project%20%28Technical%20visit%29%20%282%29.jpeg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Frog%20exhibition%20and%20conservation%20project%20%28Technical%20visit%29.jpeg"],
+    description: "A biologist-led deep dive into amphibian diversity and conservation at Wikiri, including an exclusive behind-the-scenes visit to Jambatu Labs to see the biotechnology work supporting species conservation.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project-technical-visit",
+    tiers: {1:40, 2:40, 4:40},
+    requestFromPax: 6,
+    similar: [
+      {title: "Urban Bird Observation and Conservation Project", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/urban-bird-observation-and-conservation-project"},
+      {title: "Frog exhibition and conservation project", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project"}
+    ]
+  },
+  {
+    title: "Urban Bird Observation and Conservation Project",
+    categories: ["Nature"],
+    duration: "1 hour",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/pomasqui-pomasquinde-f1.jpg"],
+    description: "Just 50 minutes from Quito's Colonial District, the PomasQuinde Bird Sanctuary is home to 29 bird species in an urban setting, including the Giant Hummingbird — the world's largest at 23 cm — plus tanagers, grosbeaks and finches.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/urban-bird-observation-and-conservation-project",
+    tiers: {1:5},
+    similar: [
+      {title: "Frog exhibition and conservation project", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project"},
+      {title: "Frog exhibition and conservation project (Technical visit)", url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project-technical-visit"}
+    ]
+  },
+  {
+    title: "The Different Traditions, Uses and Flavors of Ecuadorian Liquor Agave & Miske",
+    categories: ["Spirits"],
+    duration: "1 hour",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Different%20Traditions%2C%20Uses%20and%20Flavors%20of%20Ecuadorian%20Liquor%20Agave%20%26%20Miske%20%281%29.jpg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Different%20Traditions%2C%20Uses%20and%20Flavors%20of%20Ecuadorian%20Liquor%20Agave%20%26%20Miske%20%282%29.jpg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Different%20Traditions%2C%20Uses%20and%20Flavors%20of%20Ecuadorian%20Liquor%20Agave%20%26%20Miske%20%283%29.jpg"],
+    description: "A tour through an Agave Garden covering cultivation, cultural significance and distillation techniques, with tastings of tequila, raw sap, agave syrup and Ecuador's signature spirit, Miske, along with pickled flowers and fruit blends.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/the-different-traditions-uses-and-flavors-of-ecuadorian-liquor-agave-mis",
+    tiers: {1:20},
+    similar: []
+  }
+];
+
+// ===== STATE =====
+const categoryFilter = document.getElementById("categoryFilter");
+const durationFilter = document.getElementById("durationFilter");
+const bestSellerFilter = document.getElementById("bestSellerFilter");
+const catalogList = document.getElementById("catalogList");
+const resultCount = document.getElementById("resultCount");
+
+function loadFilters() {
+    const categories = new Set();
+    const durations = new Set();
+    experiences.forEach(exp => {
+        exp.categories.forEach(c => categories.add(c));
+        durations.add(exp.duration);
+    });
+    [...categories].sort().forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c; opt.textContent = c;
+        categoryFilter.appendChild(opt);
+    });
+    [...durations].forEach(d => {
+        const opt = document.createElement("option");
+        opt.value = d; opt.textContent = d;
+        durationFilter.appendChild(opt);
+    });
+}
+
+function computePrice(exp, pax) {
+    if (exp.minPax && pax < exp.minPax) {
+        return { error: `This experience is recommended for groups of ${exp.minPax} passengers or more.` };
+    }
+    if (exp.requestFromPax && pax >= exp.requestFromPax) {
+        return { request: true };
+    }
+    const keys = Object.keys(exp.tiers).map(Number).sort((a, b) => a - b);
+    let applicable = keys[0];
+    keys.forEach(k => { if (pax >= k) applicable = k; });
+    const rate = exp.tiers[applicable];
+    return { rate, total: rate * pax };
+}
+
+function startingPrice(exp) {
+    const keys = Object.keys(exp.tiers).map(Number);
+    const minRate = Math.min(...keys.map(k => exp.tiers[k]));
+    return minRate;
+}
+
+function buildRateTable(exp) {
+    const cells = PAX_COLUMNS.map(pax => {
+        const r = computePrice(exp, pax);
+        if (r.error) return `<td class="na-cell">—</td>`;
+        if (r.request) return `<td class="request-cell">Request</td>`;
+        return `<td>$${r.rate.toLocaleString()}</td>`;
+    }).join("");
+    return `
+        <div class="table-scroll">
+            <table class="rate-table">
+                <thead><tr><th>PAX</th>${PAX_COLUMNS.map(p => `<th>${p}</th>`).join("")}</tr></thead>
+                <tbody><tr><td style="font-weight:700;">Price</td>${cells}</tr></tbody>
+            </table>
+        </div>`;
+}
+
+function buildSimilar(similar) {
+    if (!similar || similar.length === 0) return "";
+    const links = similar.map(s => `<a href="${s.url}" target="_blank">${s.title}</a>`).join("");
+    return `<div class="similar-block"><div class="panel-section-title">Similar Experiences Suggested</div><div class="similar-list">${links}</div></div>`;
+}
+
+function getSrc(img) { return typeof img === "string" ? img : img.src; }
+function getPos(img) { return typeof img === "string" ? "center" : (img.position || "center"); }
+
+function buildGallery(images, title, uid) {
+    const thumbStrip = images.length > 1
+        ? `<div class="thumb-strip">${images.map((img, i) => `
+            <div class="thumb-strip-item ${i === 0 ? 'active' : ''}" data-uid="${uid}" data-src="${getSrc(img)}" data-pos="${getPos(img)}">
+                <img src="${getSrc(img)}" alt="${title} photo ${i+1}" loading="lazy" style="object-position:${getPos(img)};">
+            </div>`).join("")}</div>`
+        : "";
+    return `
+        <div class="gallery-col">
+            <div class="main-img-wrap"><img id="${uid}-main-img" src="${getSrc(images[0])}" alt="${title}" loading="lazy" style="object-position:${getPos(images[0])};"></div>
+            ${thumbStrip}
+        </div>`;
+}
+
+function toggleRow(rowEl) {
+    rowEl.classList.toggle("open");
+}
+
+function renderCatalog() {
+    const cat = categoryFilter.value;
+    const dur = durationFilter.value;
+    const showBest = bestSellerFilter.checked;
+
+    const filtered = experiences.filter(exp => {
+        const mc = cat === "all" || exp.categories.includes(cat);
+        const md = dur === "all" || exp.duration === dur;
+        const mb = !showBest || exp.bestSeller;
+        return mc && md && mb;
+    });
+
+    resultCount.textContent = `${filtered.length} experience${filtered.length !== 1 ? 's' : ''} found`;
+
+    catalogList.innerHTML = "";
+
+    filtered.forEach((exp, index) => {
+        const uid = "exp" + index;
+        const row = document.createElement("div");
+        row.className = "exp-row";
+        const from = startingPrice(exp);
+
+        row.innerHTML = `
+            <div class="exp-row-main">
+                <img class="exp-thumb" src="${getSrc(exp.images[0])}" alt="${exp.title}" loading="lazy" style="object-position:${getPos(exp.images[0])};">
+                <div class="exp-info">
+                    <div class="exp-tags-row">
+                        ${exp.bestSeller ? '<span class="tag tag-best">BEST SELLER</span>' : ''}
+                        <span class="tag tag-duration">${exp.duration}</span>
+                        <span class="tag tag-category">${exp.categories.join(" · ")}</span>
+                    </div>
+                    <div class="exp-title">${exp.title}</div>
+                    <div class="exp-desc-preview">${exp.description}</div>
+                </div>
+                <div class="exp-row-meta">
+                    <div class="exp-price-block">
+                        <div class="exp-price-from">From</div>
+                        <div class="exp-price-value">$${from}</div>
+                    </div>
+                    <div class="exp-actions">
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="exp-panel">
+                <div class="exp-panel-content">
+                    <div class="exp-panel-inner">
+                        <div class="panel-top">
+                            ${buildGallery(exp.images, exp.title, uid)}
+                            <div class="panel-text">
+                                <div class="panel-section-title">Description</div>
+                                <div class="panel-desc">${exp.description}</div>
+                            </div>
+                        </div>
+
+                        <div class="pricing-block">
+                            <div class="panel-section-title">Net Rate Per Person</div>
+                            ${buildRateTable(exp)}
+                            <div class="panel-section-title">Price Calculator</div>
+                            <div class="calc-row">
+                                <div class="calc-input-group">
+                                    <label for="${uid}-pax">Number of People</label>
+                                    <input id="${uid}-pax" type="number" min="1" value="2">
+                                </div>
+                                <button class="calc-btn" data-target="${uid}">Calculate</button>
+                            </div>
+                            <div class="calc-result" id="${uid}-result">
+                                <p class="msg-error" id="${uid}-msg" style="display:none;"></p>
+                                <div id="${uid}-values">
+                                    <p>Price per person: <span class="val-teal" id="${uid}-pp"></span></p>
+                                    <p>Total price: <span class="val-teal" id="${uid}-tp"></span></p>
+                                    <p>Group size: <span class="val-navy" id="${uid}-gs"></span></p>
+                                </div>
+                                <div class="calc-note">All prices are in USD and are net rates per person.</div>
+                            </div>
+                        </div>
+
+                        ${buildSimilar(exp.similar)}
+
+                        <div class="panel-footer">
+                            <a class="view-link" href="${exp.url}" target="_blank">View Full Experience</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        row.querySelector(".exp-row-main").addEventListener("click", () => toggleRow(row));
+
+        row.querySelectorAll(".thumb-strip-item").forEach(item => {
+            item.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const mainImg = document.getElementById(`${uid}-main-img`);
+                mainImg.src = item.dataset.src;
+                mainImg.style.objectPosition = item.dataset.pos || "center";
+                row.querySelectorAll(".thumb-strip-item").forEach(t => t.classList.remove("active"));
+                item.classList.add("active");
+            });
+        });
+
+        const calcBtn = row.querySelector(".calc-btn");
+        calcBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const pax = parseInt(document.getElementById(`${uid}-pax`).value) || 1;
+            const result = computePrice(exp, pax);
+            const resultBox = document.getElementById(`${uid}-result`);
+            const msg = document.getElementById(`${uid}-msg`);
+            const values = document.getElementById(`${uid}-values`);
+            resultBox.style.display = "block";
+
+            if (result.error) {
+                msg.textContent = result.error;
+                msg.style.display = "block";
+                values.style.display = "none";
+                return;
+            }
+            if (result.request) {
+                msg.textContent = "Rates for this group size are available upon request.";
+                msg.style.display = "block";
+                values.style.display = "block";
+                document.getElementById(`${uid}-pp`).textContent = "-";
+                document.getElementById(`${uid}-tp`).textContent = "-";
+                document.getElementById(`${uid}-gs`).textContent = pax + " persons";
+                return;
+            }
+            msg.style.display = "none";
+            values.style.display = "block";
+            document.getElementById(`${uid}-pp`).textContent = "$" + result.rate.toFixed(2);
+            document.getElementById(`${uid}-tp`).textContent = "$" + result.total.toFixed(2);
+            document.getElementById(`${uid}-gs`).textContent = pax + " persons";
+        });
+
+        catalogList.appendChild(row);
+    });
+}
+
+categoryFilter.onchange = renderCatalog;
+durationFilter.onchange = renderCatalog;
+bestSellerFilter.onchange = renderCatalog;
+
+loadFilters();
+renderCatalog();
+</script>
+
+</body>
+</html>
