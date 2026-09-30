@@ -1,198 +1,777 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Experiences – Loja & Surroundings</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geo Boutique Travel Designer — Loja Experience Catalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Montserrat -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --navy: #002060;
+        --navy-dark: #001440;
+        --steel: #2E4C8C;
+        --ice: #E8ECF7;
+        --ice-dark: #DCE4F5;
+        --bg: #f9f9f9;
+        --card: #FFFFFF;
+        --border: #DDE2EF;
+        --text: #1A2340;
+        --text-soft: #5B6480;
+        --gold: #FFD500;
+        --teal: #12857A;
+        --teal-bg: #E4F5F3;
+    }
 
-  <style>
+    * { box-sizing: border-box; }
+
     body {
-      font-family: 'Montserrat', sans-serif;
-      background: #ffffff;
-      margin: 0;
-      padding: 20px;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
     }
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
+    /* ===== SLIM TITLE STRIP (no banner, aligned with the filter block) ===== */
+    .page-intro {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 1100px;
+        margin: 0 auto 4px auto;
+        padding: 0 16px 10px 16px;
+        border-bottom: 2px solid var(--navy);
     }
 
-    h1 {
-      color: #002060;
-      font-weight: 600;
-      margin-bottom: 6px;
+    .page-intro h1 {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--navy);
+        margin: 0;
     }
 
-    .blue-line {
-      height: 3px;
-      width: 100%;
-      background: #1a73e8;
-      margin-bottom: 25px;
+    .zone-pill {
+        background: var(--ice);
+        border: 1px solid var(--ice-dark);
+        color: var(--steel);
+        font-size: 11.5px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+    /* ===== LAYOUT ===== */
+    .app-body {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 16px;
     }
 
-    /* FILTERS */
-    .filters {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
+    /* ===== FILTERS ===== */
+    .filter-bar {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 14px;
     }
 
-    .filters label {
-      font-size: 14px;
-      font-weight: 500;
-      color: #002060;
+    .filter-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1 1 150px;
+        min-width: 130px;
     }
 
-    .filters select {
-      margin-left: 8px;
-      padding: 6px 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
+    .filter-field label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-soft);
     }
 
-    .filters input {
-      margin-right: 6px;
+    .filter-field select {
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg);
+        font-family: Montserrat;
+        font-size: 13px;
+        color: var(--text);
     }
 
-    /* CARD */
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 22px;
-      margin-bottom: 20px;
+    .filter-check {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex: 1 1 150px;
+        padding-top: 14px;
     }
 
-    .card h2 {
-      color: #002060;
-      font-size: 18px;
-      font-weight: 600;
-      margin: 0 0 10px;
+    .filter-check input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--navy);
     }
 
-    .badges {
-      margin-bottom: 10px;
+    .filter-check label {
+        font-size: 13px;
+        color: var(--text);
     }
 
-    .badge {
-      display: inline-block;
-      background: #002060;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: 6px;
-      margin-right: 6px;
+    .result-count {
+        font-size: 12px;
+        color: var(--text-soft);
+        margin: 0 0 10px 2px;
     }
 
-    .badge.best {
-      background: #fbbc04;
-      color: #000;
-      font-weight: 600;
+    /* ===== CATALOG ROWS ===== */
+    .catalog-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 
-    .category {
-      font-size: 14px;
-      color: #777;
-      margin-bottom: 16px;
+    .exp-row {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: background 0.25s ease, border-color 0.25s ease;
     }
 
-    .btn {
-      background: #002060;
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      display: inline-block;
+    /* Only the row that's currently open gets a tint, reverting once it closes */
+    .exp-row.open {
+        background: var(--ice);
+        border-color: var(--ice-dark);
     }
 
-    .btn:hover {
-      opacity: 0.9;
+    .exp-row-main {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        cursor: pointer;
     }
-  </style>
+
+    .exp-row-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .exp-thumb {
+        width: 76px;
+        height: 76px;
+        border-radius: 8px;
+        object-fit: cover;
+        flex-shrink: 0;
+        background: var(--ice);
+    }
+
+    .exp-info {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .exp-tags-row {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 3px;
+    }
+
+    .tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 4px;
+        white-space: nowrap;
+    }
+
+    .tag-best {
+        background: var(--gold);
+        color: var(--navy-dark);
+    }
+
+    .tag-duration {
+        background: var(--ice);
+        color: var(--steel);
+    }
+
+    .tag-category {
+        background: transparent;
+        color: var(--text-soft);
+        font-weight: 500;
+        padding: 2px 0;
+    }
+
+    .exp-title {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.3;
+        margin-bottom: 2px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .exp-desc-preview {
+        font-size: 11.5px;
+        color: var(--text-soft);
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .exp-price-block {
+        text-align: right;
+        flex-shrink: 0;
+        padding-left: 6px;
+    }
+
+    .exp-price-from {
+        font-size: 9.5px;
+        color: var(--text-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .exp-price-value {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--navy);
+        white-space: nowrap;
+    }
+
+    .exp-actions {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .chevron {
+        width: 16px;
+        height: 16px;
+        color: var(--text-soft);
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .exp-row.open .chevron {
+        transform: rotate(180deg);
+        color: var(--navy);
+    }
+
+    /* ===== EXPANDED PANEL ===== */
+    .exp-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.3s ease;
+    }
+
+    .exp-row.open .exp-panel {
+        grid-template-rows: 1fr;
+    }
+
+    .exp-panel-content {
+        overflow: hidden;
+    }
+
+    .exp-panel-inner {
+        padding: 4px 16px 20px 16px;
+        border-top: 1px solid var(--border);
+    }
+
+    .panel-top {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin: 16px 0;
+    }
+
+    .gallery-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 230px;
+        max-width: 100%;
+        flex-shrink: 0;
+    }
+
+    .main-img-wrap {
+        width: 100%;
+        height: 165px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--ice);
+    }
+
+    .main-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+    .thumb-strip { display: flex; gap: 6px; }
+
+    .thumb-strip-item {
+        width: 46px; height: 38px;
+        border-radius: 5px; overflow: hidden;
+        cursor: pointer; opacity: 0.5;
+        border: 2px solid transparent;
+    }
+    .thumb-strip-item.active { opacity: 1; border-color: var(--navy); }
+    .thumb-strip-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .panel-text { flex: 1 1 220px; min-width: 0; }
+
+    .panel-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--steel);
+        margin: 0 0 8px 0;
+    }
+
+    .panel-desc {
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: var(--text);
+    }
+
+    .pricing-block {
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+        margin-bottom: 14px;
+    }
+
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 8px 0 16px 0;
+    }
+
+    .rate-table {
+        width: 100%;
+        min-width: 460px;
+        border-collapse: collapse;
+        font-size: 11.5px;
+        margin: 0;
+    }
+
+    .rate-table th, .rate-table td {
+        padding: 6px;
+        border: 1px solid var(--border);
+        text-align: center;
+    }
+
+    .rate-table th {
+        background: var(--ice);
+        color: var(--navy);
+        font-weight: 700;
+    }
+
+    .rate-table td.request-cell { color: #B23A3A; font-weight: 700; }
+    .rate-table td.na-cell { color: #aaa; }
+
+    .calc-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .calc-input-group { flex: 1 1 130px; }
+    .calc-input-group label {
+        display: block; margin-bottom: 5px;
+        font-size: 12px; color: var(--text);
+    }
+    .calc-input-group input {
+        width: 100%; padding: 9px;
+        border: 1px solid var(--border); border-radius: 5px;
+        font-family: Montserrat; font-size: 13px;
+    }
+
+    .calc-btn {
+        padding: 9px 16px;
+        background: var(--steel); color: #fff;
+        border: none; border-radius: 5px;
+        cursor: pointer; font-size: 13px;
+        font-family: Montserrat; font-weight: 600;
+    }
+    .calc-btn:hover { background: var(--navy); }
+
+    .calc-result {
+        border: 1px solid var(--border); border-radius: 8px;
+        padding: 12px; background: var(--bg);
+        display: none; font-size: 12.5px;
+    }
+    .calc-result p { margin: 0 0 5px 0; }
+    .calc-result .msg-error { color: #B23A3A; font-weight: 600; }
+    .calc-result .val-teal { font-weight: 700; color: var(--teal); }
+    .calc-result .val-navy { font-weight: 700; color: var(--navy); }
+    .calc-note { font-size: 10.5px; color: var(--text-soft); margin-top: 6px; }
+
+    .similar-block { border-top: 1px solid var(--border); padding-top: 12px; margin-bottom: 12px; }
+    .similar-list { display: flex; flex-direction: column; gap: 5px; }
+    .similar-list a { font-size: 12.5px; color: var(--steel); text-decoration: none; border-bottom: 1px dotted var(--steel); width: fit-content; }
+
+    .panel-footer {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+    }
+
+    a.view-link {
+        display: inline-block;
+        padding: 8px 14px;
+        border: 1.5px solid var(--navy);
+        color: var(--navy);
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+        .filter-bar { flex-direction: column; align-items: stretch; }
+        .filter-field { flex: 1 1 auto; min-width: 0; }
+        .filter-check { flex: 1 1 auto; padding-top: 4px; }
+        .panel-top { flex-direction: column; }
+        .gallery-col { width: 100%; }
+        .exp-row-main { flex-wrap: wrap; }
+        .exp-info { flex-basis: 160px; }
+        .exp-row-meta {
+            flex-basis: 100%;
+            justify-content: space-between;
+            margin-top: 4px;
+            padding-top: 8px;
+            padding-left: 88px; /* aligns under the title, past the thumbnail */
+            border-top: 1px dashed var(--border);
+        }
+        .exp-price-block { text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+        .page-intro { padding: 0 12px 8px 12px; }
+        .app-body { padding: 12px; }
+        .exp-thumb { width: 60px; height: 60px; }
+        .exp-title { font-size: 12.5px; }
+        .exp-price-value { font-size: 13px; }
+        .exp-row-meta { padding-left: 72px; }
+        .main-img-wrap { height: 190px; }
+        .rate-table { font-size: 10.5px; }
+        .rate-table th, .rate-table td { padding: 5px 4px; }
+        .calc-row { flex-direction: column; align-items: stretch; }
+        .calc-btn { width: 100%; }
+    }
+</style>
 </head>
 
 <body>
-  <div class="container">
 
-    <!-- TITLE -->
-    <h1>Experiences – Loja & Surroundings</h1>
-    <div class="blue-line"></div>
+<div class="page-intro">
+    <h1>Unique Experiences Catalog</h1>
+    <div class="zone-pill">Region: Loja &amp; Surroundings</div>
+</div>
 
-    <!-- FILTERS -->
-    <div class="filters">
-      <label>
-        Filter by Category:
-        <select id="categoryFilter" onchange="applyFilters()">
-          <option value="all">All Categories</option>
-          <option value="Coffee">Coffee</option>
-        </select>
-      </label>
-
-      <label>
-        Filter by Duration:
-        <select id="durationFilter" onchange="applyFilters()">
-          <option value="all">All Durations</option>
-          <option value="1 hour">1 hour</option>
-        </select>
-      </label>
-
-      <label>
-        <input type="checkbox" id="bestFilter" onchange="applyFilters()">
-        Show Best Sellers Only
-      </label>
+<div class="app-body">
+    <div class="filter-bar">
+        <div class="filter-field">
+            <label>Region</label>
+            <select id="zoneFilter">
+                <option value="all">Loja &amp; Surroundings</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label>Category</label>
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label>Duration</label>
+            <select id="durationFilter">
+                <option value="all">All Durations</option>
+            </select>
+        </div>
+        <div class="filter-check">
+            <input type="checkbox" id="bestSellerFilter">
+            <label for="bestSellerFilter">Best Sellers Only</label>
+        </div>
     </div>
 
-    <!-- EXPERIENCE CARD -->
-    <div class="card"
-         data-category="Coffee"
-         data-duration="1 hour"
-         data-best="no">
+    <div class="result-count" id="resultCount"></div>
+    <div class="catalog-list" id="catalogList"></div>
+</div>
 
-      <h2>Specialty Ecuadorian Coffee Experience</h2>
+<script>
+const PAX_COLUMNS = [1, 2, 4, 6, 8, 10];
 
-      <div class="badges">
-        <span class="badge">1 hour</span>
-      </div>
+const experiences = [
+  {
+    title: "Specialty Ecuadorian Coffee Experience",
+    categories: ["Coffee"],
+    duration: "1 hour",
+    bestSeller: false,
+    images: ["https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Experience%20-%20Loja%20%281%29.jpg", "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Experience%20-%20Loja%20%282%29.jpg"],
+    description: "Our travelers will visit a local coffee plantation where one of southern Ecuador's most emblematic traditions is produced. Here, they'll learn about cultivation, harvesting, and production techniques, followed by a guided tasting. Visitors will also enjoy a taste of some coffee wine alongside a delicious local snack.",
+    url: "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/loja-surroundings/specialty-ecuadorian-coffee-experience",
+    tiers: {1:40, 2:20},
+    similar: []
+  }
+];
 
-      <div class="category">
-        Category: Coffee
-      </div>
+// ===== STATE =====
+const categoryFilter = document.getElementById("categoryFilter");
+const durationFilter = document.getElementById("durationFilter");
+const bestSellerFilter = document.getElementById("bestSellerFilter");
+const catalogList = document.getElementById("catalogList");
+const resultCount = document.getElementById("resultCount");
 
-      <a class="btn"
-         href="https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/loja-surroundings/specialty-ecuadorian-coffee-experience?authuser=0"
-         target="_blank">
-        View Experience
-      </a>
-    </div>
+function loadFilters() {
+    const categories = new Set();
+    const durations = new Set();
+    experiences.forEach(exp => {
+        exp.categories.forEach(c => categories.add(c));
+        durations.add(exp.duration);
+    });
+    [...categories].sort().forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c; opt.textContent = c;
+        categoryFilter.appendChild(opt);
+    });
+    [...durations].forEach(d => {
+        const opt = document.createElement("option");
+        opt.value = d; opt.textContent = d;
+        durationFilter.appendChild(opt);
+    });
+}
 
-  </div>
-
-  <script>
-    function applyFilters() {
-      const category = document.getElementById('categoryFilter').value;
-      const duration = document.getElementById('durationFilter').value;
-      const bestOnly = document.getElementById('bestFilter').checked;
-
-      document.querySelectorAll('.card').forEach(card => {
-        const matchCategory = category === 'all' || card.dataset.category === category;
-        const matchDuration = duration === 'all' || card.dataset.duration === duration;
-        const matchBest = !bestOnly || card.dataset.best === 'yes';
-
-        card.style.display = (matchCategory && matchDuration && matchBest) ? 'block' : 'none';
-      });
+function computePrice(exp, pax) {
+    if (exp.minPax && pax < exp.minPax) {
+        return { error: `This experience is recommended for groups of ${exp.minPax} passengers or more.` };
     }
-  </script>
+    if (exp.requestFromPax && pax >= exp.requestFromPax) {
+        return { request: true };
+    }
+    const keys = Object.keys(exp.tiers).map(Number).sort((a, b) => a - b);
+    let applicable = keys[0];
+    keys.forEach(k => { if (pax >= k) applicable = k; });
+    const rate = exp.tiers[applicable];
+    return { rate, total: rate * pax };
+}
+
+function startingPrice(exp) {
+    const keys = Object.keys(exp.tiers).map(Number);
+    const minRate = Math.min(...keys.map(k => exp.tiers[k]));
+    return minRate;
+}
+
+function buildRateTable(exp) {
+    const cells = PAX_COLUMNS.map(pax => {
+        const r = computePrice(exp, pax);
+        if (r.error) return `<td class="na-cell">—</td>`;
+        if (r.request) return `<td class="request-cell">Request</td>`;
+        return `<td>$${r.rate.toLocaleString()}</td>`;
+    }).join("");
+    return `
+        <div class="table-scroll">
+            <table class="rate-table">
+                <thead><tr><th>PAX</th>${PAX_COLUMNS.map(p => `<th>${p}</th>`).join("")}</tr></thead>
+                <tbody><tr><td style="font-weight:700;">Price</td>${cells}</tr></tbody>
+            </table>
+        </div>`;
+}
+
+function buildSimilar(similar) {
+    if (!similar || similar.length === 0) return "";
+    const links = similar.map(s => `<a href="${s.url}" target="_blank">${s.title}</a>`).join("");
+    return `<div class="similar-block"><div class="panel-section-title">Similar Experiences Suggested</div><div class="similar-list">${links}</div></div>`;
+}
+
+function getSrc(img) { return typeof img === "string" ? img : img.src; }
+function getPos(img) { return typeof img === "string" ? "center" : (img.position || "center"); }
+
+function buildGallery(images, title, uid) {
+    const thumbStrip = images.length > 1
+        ? `<div class="thumb-strip">${images.map((img, i) => `
+            <div class="thumb-strip-item ${i === 0 ? 'active' : ''}" data-uid="${uid}" data-src="${getSrc(img)}" data-pos="${getPos(img)}">
+                <img src="${getSrc(img)}" alt="${title} photo ${i+1}" loading="lazy" style="object-position:${getPos(img)};">
+            </div>`).join("")}</div>`
+        : "";
+    return `
+        <div class="gallery-col">
+            <div class="main-img-wrap"><img id="${uid}-main-img" src="${getSrc(images[0])}" alt="${title}" loading="lazy" style="object-position:${getPos(images[0])};"></div>
+            ${thumbStrip}
+        </div>`;
+}
+
+function toggleRow(rowEl) {
+    rowEl.classList.toggle("open");
+}
+
+function renderCatalog() {
+    const cat = categoryFilter.value;
+    const dur = durationFilter.value;
+    const showBest = bestSellerFilter.checked;
+
+    const filtered = experiences.filter(exp => {
+        const mc = cat === "all" || exp.categories.includes(cat);
+        const md = dur === "all" || exp.duration === dur;
+        const mb = !showBest || exp.bestSeller;
+        return mc && md && mb;
+    });
+
+    resultCount.textContent = `${filtered.length} experience${filtered.length !== 1 ? 's' : ''} found`;
+
+    catalogList.innerHTML = "";
+
+    filtered.forEach((exp, index) => {
+        const uid = "exp" + index;
+        const row = document.createElement("div");
+        row.className = "exp-row";
+        const from = startingPrice(exp);
+
+        row.innerHTML = `
+            <div class="exp-row-main">
+                <img class="exp-thumb" src="${getSrc(exp.images[0])}" alt="${exp.title}" loading="lazy" style="object-position:${getPos(exp.images[0])};">
+                <div class="exp-info">
+                    <div class="exp-tags-row">
+                        ${exp.bestSeller ? '<span class="tag tag-best">BEST SELLER</span>' : ''}
+                        <span class="tag tag-duration">${exp.duration}</span>
+                        <span class="tag tag-category">${exp.categories.join(" · ")}</span>
+                    </div>
+                    <div class="exp-title">${exp.title}</div>
+                    <div class="exp-desc-preview">${exp.description}</div>
+                </div>
+                <div class="exp-row-meta">
+                    <div class="exp-price-block">
+                        <div class="exp-price-from">From</div>
+                        <div class="exp-price-value">$${from}</div>
+                    </div>
+                    <div class="exp-actions">
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="exp-panel">
+                <div class="exp-panel-content">
+                    <div class="exp-panel-inner">
+                        <div class="panel-top">
+                            ${buildGallery(exp.images, exp.title, uid)}
+                            <div class="panel-text">
+                                <div class="panel-section-title">Description</div>
+                                <div class="panel-desc">${exp.description}</div>
+                            </div>
+                        </div>
+
+                        <div class="pricing-block">
+                            <div class="panel-section-title">Net Rate Per Person</div>
+                            ${buildRateTable(exp)}
+                            <div class="panel-section-title">Price Calculator</div>
+                            <div class="calc-row">
+                                <div class="calc-input-group">
+                                    <label for="${uid}-pax">Number of People</label>
+                                    <input id="${uid}-pax" type="number" min="1" value="2">
+                                </div>
+                                <button class="calc-btn" data-target="${uid}">Calculate</button>
+                            </div>
+                            <div class="calc-result" id="${uid}-result">
+                                <p class="msg-error" id="${uid}-msg" style="display:none;"></p>
+                                <div id="${uid}-values">
+                                    <p>Price per person: <span class="val-teal" id="${uid}-pp"></span></p>
+                                    <p>Total price: <span class="val-teal" id="${uid}-tp"></span></p>
+                                    <p>Group size: <span class="val-navy" id="${uid}-gs"></span></p>
+                                </div>
+                                <div class="calc-note">All prices are in USD and are net rates per person.</div>
+                            </div>
+                        </div>
+
+                        ${buildSimilar(exp.similar)}
+
+                        <div class="panel-footer">
+                            <a class="view-link" href="${exp.url}" target="_blank">View Full Experience</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        row.querySelector(".exp-row-main").addEventListener("click", () => toggleRow(row));
+
+        row.querySelectorAll(".thumb-strip-item").forEach(item => {
+            item.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const mainImg = document.getElementById(`${uid}-main-img`);
+                mainImg.src = item.dataset.src;
+                mainImg.style.objectPosition = item.dataset.pos || "center";
+                row.querySelectorAll(".thumb-strip-item").forEach(t => t.classList.remove("active"));
+                item.classList.add("active");
+            });
+        });
+
+        const calcBtn = row.querySelector(".calc-btn");
+        calcBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const pax = parseInt(document.getElementById(`${uid}-pax`).value) || 1;
+            const result = computePrice(exp, pax);
+            const resultBox = document.getElementById(`${uid}-result`);
+            const msg = document.getElementById(`${uid}-msg`);
+            const values = document.getElementById(`${uid}-values`);
+            resultBox.style.display = "block";
+
+            if (result.error) {
+                msg.textContent = result.error;
+                msg.style.display = "block";
+                values.style.display = "none";
+                return;
+            }
+            if (result.request) {
+                msg.textContent = "Rates for this group size are available upon request.";
+                msg.style.display = "block";
+                values.style.display = "block";
+                document.getElementById(`${uid}-pp`).textContent = "-";
+                document.getElementById(`${uid}-tp`).textContent = "-";
+                document.getElementById(`${uid}-gs`).textContent = pax + " persons";
+                return;
+            }
+            msg.style.display = "none";
+            values.style.display = "block";
+            document.getElementById(`${uid}-pp`).textContent = "$" + result.rate.toFixed(2);
+            document.getElementById(`${uid}-tp`).textContent = "$" + result.total.toFixed(2);
+            document.getElementById(`${uid}-gs`).textContent = pax + " persons";
+        });
+
+        catalogList.appendChild(row);
+    });
+}
+
+categoryFilter.onchange = renderCatalog;
+durationFilter.onchange = renderCatalog;
+bestSellerFilter.onchange = renderCatalog;
+
+loadFilters();
+renderCatalog();
+</script>
 
 </body>
 </html>
