@@ -2,763 +2,2778 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Explore All the Unique Experiences</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geo Boutique Travel Designer — Explore All the Unique Experiences</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-body{
-  font-family:'Montserrat',sans-serif;
-  margin:20px;
-  color:#002060;
-  background:#ffffff;
-}
+    :root {
+        --navy: #002060;
+        --navy-dark: #001440;
+        --steel: #2E4C8C;
+        --ice: #E8ECF7;
+        --ice-dark: #DCE4F5;
+        --bg: #f9f9f9;
+        --card: #FFFFFF;
+        --border: #DDE2EF;
+        --text: #1A2340;
+        --text-soft: #5B6480;
+        --gold: #FFD500;
+        --teal: #12857A;
+        --teal-bg: #E4F5F3;
+    }
 
-h1{
-  font-weight:600;
-  margin-bottom:6px;
-}
+    * { box-sizing: border-box; }
 
-.blue-line{
-  height:3px;
-  background:#1a73e8;
-  margin-bottom:25px;
-}
+    body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+    }
 
-/* FILTERS */
-.filters{
-  border:1px solid #ddd;
-  border-radius:8px;
-  padding:15px 20px;
-  display:flex;
-  gap:25px;
-  flex-wrap:wrap;
-  align-items:center;
-  margin-bottom:30px;
-}
+    /* ===== SLIM TITLE STRIP (no banner, aligned with the filter block) ===== */
+    .page-intro {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 1100px;
+        margin: 0 auto 4px auto;
+        padding: 0 16px 10px 16px;
+        border-bottom: 2px solid var(--navy);
+    }
 
-.filters label{
-  font-size:14px;
-  font-weight:500;
-}
+    .page-intro h1 {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--navy);
+        margin: 0;
+    }
 
-.filters select{
-  padding:6px 10px;
-  border:1px solid #ccc;
-  border-radius:4px;
-  font-family:'Montserrat';
-}
+    .zone-pill {
+        background: var(--ice);
+        border: 1px solid var(--ice-dark);
+        color: var(--steel);
+        font-size: 11.5px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+    /* ===== LAYOUT ===== */
+    .app-body {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 16px;
+    }
 
-.filters input{
-  margin-right:6px;
-}
+    /* ===== FILTERS ===== */
+    .filter-bar {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 14px;
+    }
 
-/* CARD */
-.card{
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:22px;
-  margin-bottom:20px;
-  display:none;
-}
+    .filter-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1 1 150px;
+        min-width: 130px;
+    }
 
-.card h2{
-  font-size:18px;
-  font-weight:600;
-  margin:0 0 10px;
-}
+    .filter-field label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-soft);
+    }
 
-.destination{
-  font-size:13px;
-  font-weight:500;
-  color:#555;
-  margin-bottom:6px;
-}
+    .filter-field select {
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg);
+        font-family: Montserrat;
+        font-size: 13px;
+        color: var(--text);
+    }
 
-.badges{
-  margin-bottom:10px;
-}
+    .filter-check {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex: 1 1 150px;
+        padding-top: 14px;
+    }
 
-.badge{
-  background:#002060;
-  color:#fff;
-  font-size:12px;
-  padding:4px 10px;
-  border-radius:6px;
-  margin-right:6px;
-  display:inline-block;
-}
+    .filter-check input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--navy);
+    }
 
-.badge.best{
-  background:#fbbc04;
-  color:#000;
-  font-weight:600;
-}
+    .filter-check label {
+        font-size: 13px;
+        color: var(--text);
+    }
 
-.category{
-  font-size:14px;
-  color:#777;
-  margin-bottom:16px;
-}
+    .filter-reset {
+        flex: 0 0 auto;
+        padding-top: 14px;
+    }
+    .reset-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        background: var(--card);
+        border: 1.5px solid var(--navy);
+        color: var(--navy);
+        border-radius: 6px;
+        font-family: Montserrat;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    }
+    .reset-btn:hover:not(:disabled) { background: var(--navy); color: #fff; }
+    .reset-btn:disabled { opacity: 0.4; cursor: default; }
+    .reset-btn svg { width: 13px; height: 13px; }
 
-.btn{
-  background:#002060;
-  color:#fff;
-  padding:10px 18px;
-  border-radius:6px;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:500;
-  display:inline-block;
-}
+    .result-count {
+        font-size: 12px;
+        color: var(--text-soft);
+        margin: 0 0 10px 2px;
+    }
+
+    /* ===== CATALOG ROWS ===== */
+    .catalog-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .exp-row {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    /* Only the row that's currently open gets a tint, reverting once it closes */
+    .exp-row.open {
+        background: var(--ice);
+        border-color: var(--ice-dark);
+    }
+
+    .exp-row-main {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        cursor: pointer;
+    }
+
+    .exp-row-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .exp-thumb {
+        width: 76px;
+        height: 76px;
+        border-radius: 8px;
+        object-fit: cover;
+        flex-shrink: 0;
+        background: var(--ice);
+    }
+
+    .exp-info {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .exp-tags-row {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 3px;
+    }
+
+    .tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 4px;
+        white-space: nowrap;
+    }
+
+    .tag-best {
+        background: var(--gold);
+        color: var(--navy-dark);
+    }
+
+    .tag-duration {
+        background: var(--ice);
+        color: var(--steel);
+    }
+
+    .tag-region {
+        background: var(--card);
+        border: 1px solid var(--ice-dark);
+        color: var(--navy);
+    }
+
+    .empty-state {
+        background: var(--card);
+        border: 1px dashed var(--ice-dark);
+        border-radius: 10px;
+        padding: 36px 20px;
+        text-align: center;
+    }
+    .empty-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--navy);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 6px;
+    }
+    .empty-text { font-size: 13px; color: var(--text-soft); }
+
+    .tag-category {
+        background: transparent;
+        color: var(--text-soft);
+        font-weight: 500;
+        padding: 2px 0;
+    }
+
+    .exp-title {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.3;
+        margin-bottom: 2px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .exp-desc-preview {
+        font-size: 11.5px;
+        color: var(--text-soft);
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .exp-price-block {
+        text-align: right;
+        flex-shrink: 0;
+        padding-left: 6px;
+    }
+
+    .exp-price-from {
+        font-size: 9.5px;
+        color: var(--text-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .exp-price-value {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--navy);
+        white-space: nowrap;
+    }
+
+    .exp-actions {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .chevron {
+        width: 16px;
+        height: 16px;
+        color: var(--text-soft);
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .exp-row.open .chevron {
+        transform: rotate(180deg);
+        color: var(--navy);
+    }
+
+    /* ===== EXPANDED PANEL ===== */
+    .exp-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.3s ease;
+    }
+
+    .exp-row.open .exp-panel {
+        grid-template-rows: 1fr;
+    }
+
+    .exp-panel-content {
+        overflow: hidden;
+    }
+
+    .exp-panel-inner {
+        padding: 4px 16px 20px 16px;
+        border-top: 1px solid var(--border);
+    }
+
+    .panel-top {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin: 16px 0;
+    }
+
+    .gallery-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 230px;
+        max-width: 100%;
+        flex-shrink: 0;
+    }
+
+    .main-img-wrap {
+        width: 100%;
+        height: 165px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--ice);
+    }
+
+    .main-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+    .thumb-strip { display: flex; gap: 6px; }
+
+    .thumb-strip-item {
+        width: 46px; height: 38px;
+        border-radius: 5px; overflow: hidden;
+        cursor: pointer; opacity: 0.5;
+        border: 2px solid transparent;
+    }
+    .thumb-strip-item.active { opacity: 1; border-color: var(--navy); }
+    .thumb-strip-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .panel-text { flex: 1 1 220px; min-width: 0; }
+
+    .panel-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--steel);
+        margin: 0 0 8px 0;
+    }
+
+    .panel-desc {
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: var(--text);
+    }
+
+    .pricing-block {
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+        margin-bottom: 14px;
+    }
+
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 8px 0 16px 0;
+    }
+
+    .rate-table {
+        width: 100%;
+        min-width: 460px;
+        border-collapse: collapse;
+        font-size: 11.5px;
+        margin: 0;
+    }
+
+    .rate-table th, .rate-table td {
+        padding: 6px;
+        border: 1px solid var(--border);
+        text-align: center;
+    }
+
+    .rate-table th {
+        background: var(--ice);
+        color: var(--navy);
+        font-weight: 700;
+    }
+
+    .rate-table td.request-cell { color: #B23A3A; font-weight: 700; }
+    .rate-table td.na-cell { color: #aaa; }
+
+    .calc-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .calc-input-group { flex: 1 1 130px; }
+    .calc-input-group label {
+        display: block; margin-bottom: 5px;
+        font-size: 12px; color: var(--text);
+    }
+    .calc-input-group input {
+        width: 100%; padding: 9px;
+        border: 1px solid var(--border); border-radius: 5px;
+        font-family: Montserrat; font-size: 13px;
+    }
+
+    .calc-btn {
+        padding: 9px 16px;
+        background: var(--steel); color: #fff;
+        border: none; border-radius: 5px;
+        cursor: pointer; font-size: 13px;
+        font-family: Montserrat; font-weight: 600;
+    }
+    .calc-btn:hover { background: var(--navy); }
+
+    .calc-result {
+        border: 1px solid var(--border); border-radius: 8px;
+        padding: 12px; background: var(--bg);
+        display: none; font-size: 12.5px;
+    }
+    .calc-result p { margin: 0 0 5px 0; }
+    .calc-result .msg-error { color: #B23A3A; font-weight: 600; }
+    .calc-result .val-teal { font-weight: 700; color: var(--teal); }
+    .calc-result .val-navy { font-weight: 700; color: var(--navy); }
+    .calc-note { font-size: 10.5px; color: var(--text-soft); margin-top: 6px; }
+
+    .similar-block { border-top: 1px solid var(--border); padding-top: 12px; margin-bottom: 12px; }
+    .similar-list { display: flex; flex-direction: column; gap: 5px; }
+    .similar-list a { font-size: 12.5px; color: var(--steel); text-decoration: none; border-bottom: 1px dotted var(--steel); width: fit-content; }
+
+    .panel-footer {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+    }
+
+    a.view-link {
+        display: inline-block;
+        padding: 8px 14px;
+        border: 1.5px solid var(--navy);
+        color: var(--navy);
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+        .filter-bar { flex-direction: column; align-items: stretch; }
+        .filter-field { flex: 1 1 auto; min-width: 0; }
+        .filter-check { flex: 1 1 auto; padding-top: 4px; }
+        .filter-reset { padding-top: 4px; }
+        .reset-btn { width: 100%; justify-content: center; }
+        .panel-top { flex-direction: column; }
+        .gallery-col { width: 100%; }
+        .exp-row-main { flex-wrap: wrap; }
+        .exp-info { flex-basis: 160px; }
+        .exp-row-meta {
+            flex-basis: 100%;
+            justify-content: space-between;
+            margin-top: 4px;
+            padding-top: 8px;
+            padding-left: 88px; /* aligns under the title, past the thumbnail */
+            border-top: 1px dashed var(--border);
+        }
+        .exp-price-block { text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+        .page-intro { padding: 0 12px 8px 12px; }
+        .app-body { padding: 12px; }
+        .exp-thumb { width: 60px; height: 60px; }
+        .exp-title { font-size: 12.5px; }
+        .exp-price-value { font-size: 13px; }
+        .exp-row-meta { padding-left: 72px; }
+        .main-img-wrap { height: 190px; }
+        .rate-table { font-size: 10.5px; }
+        .rate-table th, .rate-table td { padding: 5px 4px; }
+        .calc-row { flex-direction: column; align-items: stretch; }
+        .calc-btn { width: 100%; }
+    }
 </style>
 </head>
 
 <body>
 
-<h1>Explore All the Unique Experiences</h1>
-<div class="blue-line"></div>
-
-<div class="filters">
-  <label>
-    Destination:
-    <select id="destinationFilter">
-      <option value="all">All Destinations</option>
-    </select>
-  </label>
-
-  <label>
-    Category:
-    <select id="categoryFilter">
-      <option value="all">All Categories</option>
-    </select>
-  </label>
-
-  <label>
-    Duration:
-    <select id="durationFilter">
-      <option value="all">All Durations</option>
-    </select>
-  </label>
-
-  <label>
-    <input type="checkbox" id="bestFilter">
-    Show Best Sellers Only
-  </label>
+<div class="page-intro">
+    <h1>Explore All the Unique Experiences</h1>
+    <div class="zone-pill" id="zonePill">Region: All Regions</div>
 </div>
 
-<div id="results"></div>
+<div class="app-body">
+    <div class="filter-bar">
+        <div class="filter-field">
+            <label>Region</label>
+            <select id="zoneFilter">
+                <option value="all">All Regions</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label>Category</label>
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label>Duration</label>
+            <select id="durationFilter">
+                <option value="all">All Durations</option>
+            </select>
+        </div>
+        <div class="filter-check">
+            <input type="checkbox" id="bestSellerFilter">
+            <label for="bestSellerFilter">Best Sellers Only</label>
+        </div>
+        <div class="filter-reset">
+            <button type="button" class="reset-btn" id="resetFilters" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+                Reset Filters
+            </button>
+        </div>
+    </div>
+
+    <div class="result-count" id="resultCount"></div>
+    <div class="empty-state" id="emptyState">
+        <div class="empty-title">Start exploring</div>
+        <div class="empty-text">Select a region, category or duration to explore our experiences.</div>
+    </div>
+    <div class="catalog-list" id="catalogList"></div>
+</div>
 
 <script>
+const PAX_COLUMNS = [1, 2, 4, 6, 8, 10];
+
+const REGIONS = ["Quito & Surroundings", "Guayaquil & Surroundings", "Cuenca & Surroundings", "Otavalo & Surroundings", "Mindo & Surroundings", "Cotopaxi & Surroundings", "Baños & Surroundings", "Riobamba & Surroundings", "Loja & Surroundings", "Upper Napo Area", "The Galápagos Islands"];
+
 const experiences = [
-
-/* =====================================================
-   QUITO & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"Gold Leaf restauration experience at the 'La Compañía de Jesus' Church with a visit to the cupolas while enjoing a glass of sparkling wine",
-  d:"Quito & Surroundings",
-  c:["Art","Cultural","Luxe"],
-  du:"30 min",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
-},
-{
-  t:"Beer Tasting & Pairing Lunch",
-  d:"Quito & Surroundings",
-  c:["Artisanal Beer","Culinary"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/beer-tasting-pairing-lunch"
-},
-{
-  t:"Gold Leaf restauration experience",
-  d:"Quito & Surroundings",
-  c:["Arts & Crafts","Cultural","Luxe"],
-  du:"30 min",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
-},
-{
-  t:"Escuela Quiteña Wood Carving Workshop (or Tin Craft or Goldsmithing)",
-  d:"Quito & Surroundings",
-  c:["Arts & Crafts","Cultural"],
-  du:"30 min",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quiteña-wood-carving-workshop-or-tin-craft-or-goldsmithing"
-},
-{
-  t:'"El Caretero" Mask Making Workshop',
-  d:"Quito & Surroundings",
-  c:["Arts & Crafts"],
-  du:"1 hour",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/el-caretero-mask-making-workshop"
-},
-{
-  t:"Make Your Own Chocolate Bar in Quito's Colonial District (1 Bar)",
-  d:"Quito & Surroundings",
-  c:["Chocolate"],
-  du:"1 hour",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/make-your-own-chocolate-bar-in-quitos-colonial-district-1-bar"
-},
-{
-  t:"Chocolate & Wine Tasting and Pairing Experience (1 Glass of Wine)",
-  d:"Quito & Surroundings",
-  c:["Chocolate"],
-  du:"1 hour",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-wine-tasting-and-pairing-experience-1-glass-of-wine"
-},
-{
-  t:"Chocolate Tasting and Pairing Dining Experience",
-  d:"Quito & Surroundings",
-  c:["Chocolate","Culinary","Luxe"],
-  du:"2 hours",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
-},
-{
-  t:"Specialty Ecuadorian Coffee: Tasting Experience at a Local Coffee Shop",
-  d:"Quito & Surroundings",
-  c:["Coffee"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/specialty-ecuadorian-coffee-tasting-experience-at-a-local-coffee-shop"
-},
-{
-  t:"Exclusive Dinner with Folkloric Dance Troupe (Only Saturdays at Somos Restaurant)",
-  d:"Quito & Surroundings",
-  c:["Culinary","Cultural","Luxe"],
-  du:"2 hours",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"
-},
-{
-  t:"Cooking Class in a Traditional Locale in Quito's Colonial District",
-  d:"Quito & Surroundings",
-  c:["Culinary"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/cooking-class-in-a-traditional-locale-in-quitos-colonial-district"
-},
-{
-  t:"Exclusive Immersive Private Cooking Class",
-  d:"Quito & Surroundings",
-  c:["Culinary","Luxe"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-immersive-private-cooking-class"
-},
-{
-  t:"Exclusive Dinner at a Historic Venue in the Colonial District",
-  d:"Quito & Surroundings",
-  c:["Culinary","Luxe"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-at-a-historic-venue-in-the-colonial-district"
-},
-{
-  t:"Andean Spiritual Cleansing",
-  d:"Quito & Surroundings",
-  c:["Cultural"],
-  du:"30 min",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/andean-spiritual-cleansing"
-},
-{
-  t:"Frog exhibition and conservation project",
-  d:"Quito & Surroundings",
-  c:["Nature"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project"
-},
-{
-  t:"Frog exhibition and conservation project (Technical visit)",
-  d:"Quito & Surroundings",
-  c:["Nature"],
-  du:"3 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project-technical-visit"
-},
-{
-  t:"Urban Bird Observation and Conservation Project",
-  d:"Quito & Surroundings",
-  c:["Nature"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/urban-bird-observation-and-conservation-project"
-},
-{
-  t:"The Different Traditions, Uses and Flavors of Ecuadorian Liquor Agave & Miske",
-  d:"Quito & Surroundings",
-  c:["Spirits"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/the-different-traditions-uses-and-flavors-of-ecuadorian-liquor-agave-mis"
-},
-
-/* =====================================================
-   GUAYAQUIL & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"Cacao Plantation (w/ Lunch)",
-  d:"Guayaquil & Surroundings",
-  c:["Chocolate"],
-  du:"2 hours",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/cacao-plantation-w-lunch?authuser=0"
-},
-{
-  t:"Clay Pottery Workshop (w/ Souvenir)",
-  d:"Guayaquil & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/clay-pottery-workshop-w-souvenir?authuser=0"
-},
-{
-  t:"Ecuadorian Wine & Chocolate Tasting and Pairing Experience",
-  d:"Guayaquil & Surroundings",
-  c:["Culinary","Wine"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience?authuser=0"
-},
-{
-  t:"Ecuadorian Wine Tasting & Pairing Experience w/lunch",
-  d:"Guayaquil & Surroundings",
-  c:["Culinary","Wine"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch?authuser=0"
-},
-{
-  t:"Tour of Wine Vineyard and Live Cooking Experience",
-  d:"Guayaquil & Surroundings",
-  c:["Culinary","Wine"],
-  du:"8 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience?authuser=0"
-},
-{
-  t:"Tour of Wine Vineyard and Premium Pairing Experience",
-  d:"Guayaquil & Surroundings",
-  c:["Culinary","Wine"],
-  du:"8 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience?authuser=0"
-},
-
-/* =====================================================
-   CUENCA & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
-  d:"Cuenca & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/an-immersive-experience-at-the-casa-museo-de-la-makana-ikat-shawl-worksho?authuser=0"
-},
-{
-  t:"Blacksmithing Techniques – Make Your Own Craft",
-  d:"Cuenca & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/blacksmithing-techniques-make-your-own-craft?authuser=0"
-},
-{
-  t:"Classical Guitar Making Techniques and Participate in the Craft",
-  d:"Cuenca & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/classical-guitar-making-techniques-and-participate-in-the-craft?authuser=0"
-},
-{
-  t:"Clay Pottery and Make Your Own Piece",
-  d:"Cuenca & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/clay-pottery-and-make-your-own-piece?authuser=0"
-},
-{
-  t:"Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
-  d:"Cuenca & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/jeweler-for-a-day-learn-from-the-best-and-make-your-own-jewelry-in-cuenca?authuser=0"
-},
-{
-  t:"Learn About the Use of Recycled Materials and Copper to Make Your Own Work of Art",
-  d:"Cuenca & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-about-the-use-recycled-materials-and-copper-to-make-your-own-work-of?authuser=0"
-},
-{
-  t:"Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
-  d:"Cuenca & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1.5 hours",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-from-the-best-and-make-your-own-paja-toquilla-hat-in-cuencas-hat-mus?authuser=0"
-},
-{
-  t:"The San Miguel Rum Factory & Aging Cellar",
-  d:"Cuenca & Surroundings",
-  c:["Spirits"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/the-san-miguel-rum-factory-aging-cellar?authuser=0"
-},
-
-/* =====================================================
-   OTAVALO & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"Andean Snacks and Artisanal Beer in the 'Molinos de San Juan' Hacienda",
-  d:"Otavalo & Surroundings",
-  c:["Culinary"],
-  du:"1 hour",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/andean-snacks-and-artisanal-beer-in-the-molinos-de-san-juan-hacienda?authuser=0"
-},
-{
-  t:"Dreamcatcher Workshop",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"2 hours",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/dreamcatcher-workshop?authuser=0"
-},
-{
-  t:"Empowering Women through Textile Work",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1 hour",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/empowering-women-through-textile-work?authuser=0"
-},
-{
-  t:"Make Your Own Felt Hat",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/make-your-own-felt-hat?authuser=0"
-},
-{
-  t:"Make Your Own Leather Belt in an Artisanal Workshop",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"3.5 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/make-your-own-leather-belt-in-an-artisanal-workshop?authuser=0"
-},
-{
-  t:"Musical Instrument Workshop (with Souvenir)",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1 hour",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir?authuser=0"
-},
-{
-  t:"Rose Plantation (w/ Lunch)",
-  d:"Otavalo & Surroundings",
-  c:["Roses"],
-  du:"3 hours",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/rose-plantation-w-lunch?authuser=0"
-},
-{
-  t:"Salt Biscuits (Bizcochos), Queso de Hoja and Agave Experience",
-  d:"Otavalo & Surroundings",
-  c:["Culinary"],
-  du:"30 min",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/salt-biscuits-bizcochos-queso-de-hoja-and-agave-experience?authuser=0"
-},
-{
-  t:"Spiritual Cleansing with a Shaman at a Local Waterfall in Iluman",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/spiritual-cleansing-with-a-shaman-at-a-local-waterfall-in-iluman?authuser=0"
-},
-{
-  t:"Textile & Tapestry Workshop",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"30 min",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop?authuser=0"
-},
-{
-  t:"The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"3 hours",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch?authuser=0"
-},
-{
-  t:"Totora Reed Weaving Workshop (with Souvenir)",
-  d:"Otavalo & Surroundings",
-  c:["Cultural","Art & Crafts"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/totora-reed-weaving-workshop-with-souvenir?authuser=0"
-},
-{
-  t:"Wood Carving & Sculpture Workshop Visit",
-  d:"Otavalo & Surroundings",
-  c:["Art"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/wood-carving-sculpture-workshop-visit?authuser=0"
-},
-
-/* =====================================================
-   MINDO & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"Close-up Hummingbird watching",
-  d:"Mindo & Surroundings",
-  c:["Nature"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/mindo-surroundings/close-up-hummingbird-watching?authuser=0"
-},
-{
-  t:"Cacao & Chocolate Experience (w/ Lunch)",
-  d:"Mindo & Surroundings",
-  c:["Culinary"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/mindo-surroundings/mindo-chocolate-makers-cacao-chocolate-experience-w-lunch?authuser=0"
-},
-{
-  t:"Specialty Ecuadorian Coffee Experience",
-  d:"Mindo & Surroundings",
-  c:["Coffee"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/mindo-surroundings/specialty-ecuadorian-coffee-experience?authuser=0"
-},
-
-/* =====================================================
-   COTOPAXI & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"Local Market and Daily Life in the Andes",
-  d:"Cotopaxi & Surroundings",
-  c:["Cultural"],
-  du:"30 min",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/local-market-and-daily-life-in-the-andes?authuser=0"
-},
-{
-  t:"Naive Painting Workshop Visit",
-  d:"Cotopaxi & Surroundings",
-  c:["Cultural","Arts & Crafts"],
-  du:"30 min",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/naive-painting-workshop-visit?authuser=0"
-},
-{
-  t:"Rose Plantation Visit",
-  d:"Cotopaxi & Surroundings",
-  c:["Roses"],
-  du:"30 min",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/rose-plantation-visit?authuser=0"
-},
-{
-  t:"The 'Diablos de Pillaro' Traditional Mask Workshop Visit",
-  d:"Cotopaxi & Surroundings",
-  c:["Cultural","Arts & Crafts"],
-  du:"30 min",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-diablos-de-pillaro-traditional-mask-workshop-visit?authuser=0"
-},
-{
-  t:"The Magic of Machica and the Economy Surrounding the Product",
-  d:"Cotopaxi & Surroundings",
-  c:["Cultural","Culinary"],
-  du:"30 min",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-magic-of-machica-and-the-economy-surronding-the-product?authuser=0"
-},
-
-/* =====================================================
-   BAÑOS & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"Vegetable Ivory, Tagua Workshop",
-  d:"Baños & Surroundings",
-  c:["Cultural","Arts & Crafts"],
-  du:"30 min",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/baños-surroundings/vegetable-ivory-tagua-workshop?authuser=0"
-},
-
-/* =====================================================
-   RIOBAMBA & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"Llama Museum with Llama meat Lunch",
-  d:"Riobamba & Surroundings",
-  c:["Cultural","Nature","Culinary"],
-  du:"2 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/llama-museum-with-llama-meat-lunch?authuser=0"
-},
-{
-  t:"Local Cooking Class with Quinoa",
-  d:"Riobamba & Surroundings",
-  c:["Cultural","Culinary"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/local-cooking-class-with-quinoa?authuser=0"
-},
-{
-  t:"Local Market and Daily Life in the Andes",
-  d:"Riobamba & Surroundings",
-  c:["Cultural"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/local-market-and-daily-life-in-the-andes?authuser=0"
-},
-
-/* =====================================================
-   LOJA & SURROUNDINGS – FULL INVENTORY
-===================================================== */
-{
-  t:"Specialty Ecuadorian Coffee Experience",
-  d:"Loja & Surroundings",
-  c:["Coffee"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/loja-surroundings/specialty-ecuadorian-coffee-experience?authuser=0"
-},
-
-/* =====================================================
-   UPPER NAPO AREA – FULL INVENTORY
-===================================================== */
-{
-  t:"The Santa Rita Community and Its Community Tourism & Cacao Project (w/ Lunch)",
-  d:"Upper Napo Area",
-  c:["Cultural","Chocolate","Culinary"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/upper-napo-area/the-santa-rita-community-and-its-community-tourism-cacao-project-w-lunc?authuser=0"
-},
-
-/* =====================================================
-   THE GALÁPAGOS ISLANDS – FULL INVENTORY
-===================================================== */
-{
-  t:"Exclusive Gastronomic Experience Within a Lava Tunnel",
-  d:"The Galápagos Islands",
-  c:["Culinary"],
-  du:"2 hours",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-galápagos-islands/exclusive-gastronomic-experience-within-a-lava-tunnel?authuser=0"
-},
-{
-  t:"Immersive Restaurant Tour of Puerto Ayora with one of the Islands' Best Chefs",
-  d:"The Galápagos Islands",
-  c:["Culinary"],
-  du:"4 hours",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-galápagos-islands/immersive-restaurant-tour-of-puerto-ayora-with-one-of-the-islands-best-che?authuser=0"
-},
-{
-  t:"Visit to a local Coffee Plantation in the Highlands of Santa Cruz",
-  d:"The Galápagos Islands",
-  c:["Coffee"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-galápagos-islands/visit-to-a-local-coffee-plantation-in-the-highlands-of-santa-cruz?authuser=0"
-},
-{
-  t:"Visit to the Santa Cruz Brewery in Santa Cruz's Highlands",
-  d:"The Galápagos Islands",
-  c:["Artisanal Beer","Culinary"],
-  du:"30 min",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-galápagos-islands/visit-to-the-santa-cruz-brewery-in-santa-cruzs-highlands?authuser=0"
-},
-{
-  t:"Visit to the Santa Trinidad Rum Distillery in Santa Cruz's Highlands",
-  d:"The Galápagos Islands",
-  c:["Spirits"],
-  du:"30 min",
-  b:true,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-galápagos-islands/visit-to-the-santa-trinidad-rum-distillery-in-santa-cruzs-highlands?authuser=0"
-},
-{
-  t:"Wooden Craft Workshop in Bellavista at the 'El Dibujo' Workshop",
-  d:"The Galápagos Islands",
-  c:["Cultural","Arts & Crafts"],
-  du:"1 hour",
-  b:false,
-  u:"https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-galápagos-islands/wooden-craft-workshop-in-bellavista-at-the-el-dibujo-workshop?authuser=0"
-}
-
+  {
+    "region": "Quito & Surroundings",
+    "title": "Gold Leaf restauration experience at the \"La Compañía de Jesus\" Church with a visit to the cupolas while enjoing a glass of sparkling wine",
+    "categories": [
+      "Art",
+      "Luxe"
+    ],
+    "duration": "30 min",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Gold%20Experience%20(2).jpeg"
+    ],
+    "description": "A guided gold leaf workshop at La Compañía de Jesús Church, where artisans lead visitors in crafting a small piece while sharing the tradition's religious and cultural significance. Includes a visit to the church cupolas and a sparkling wine surprise with the view.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito",
+    "tiers": {
+      "1": 345,
+      "2": 217,
+      "4": 153,
+      "6": 131,
+      "8": 121,
+      "10": 114
+    },
+    "similar": [
+      {
+        "title": "Gold Leaf restauration experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
+      },
+      {
+        "title": "Escuela Quiteña Wood Carving Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"
+      },
+      {
+        "title": "Chocolate Tasting and Pairing Dining Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Beer Tasting & Pairing Lunch",
+    "categories": [
+      "Artisanal Beer",
+      "Culinary"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Beer%20Tasting%20and%20Pairing%20Lunch.jpg"
+    ],
+    "description": "At Santana Brewing Company & Tasting Lounge near Mitad del Mundo, guests sample craft beers — Pale Ale, Tripel, Amber Ale, Irish Red and Porter — paired with Ecuadorian dishes like corn empanadas, mote con chicharrón, ceviche, shrimp in coconut sauce and hornado.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/beer-tasting-pairing-lunch",
+    "tiers": {
+      "1": 43
+    },
+    "similar": [
+      {
+        "title": "Chocolate Tasting and Pairing Dining Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
+      },
+      {
+        "title": "Exclusive Dinner with Folkloric Dance Troupe",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Gold Leaf restauration experience",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "30 min",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Gold%20Leaf%20restauration%20experience.jpg"
+    ],
+    "description": "Held in Quito's historic San Marcos neighborhood, this workshop is led by master artisans who teach traditional gold leaf techniques and its role in indigenous and religious art, while guests create their own piece.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience",
+    "tiers": {
+      "1": 20
+    },
+    "similar": [
+      {
+        "title": "Escuela Quiteña Wood Carving Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"
+      },
+      {
+        "title": "Exclusive Dinner with Folkloric Dance Troupe",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"
+      },
+      {
+        "title": "Andean Spiritual Cleansing",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/andean-spiritual-cleansing"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Escuela Quiteña Wood Carving Workshop (or Tin Craft or Goldsmithing)",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "30 min",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Escuela%20Quite%C3%B1a%20Wood%20Carving%20Workshop%20%28or%20Tin%20Craft%20or%20Goldsmithing%29.jpeg"
+    ],
+    "description": "In Quito's La Ronda district, choose between a live wood carving demonstration at the Escuela Quiteña, a metalwork session with master artisan Germán Campos, or the Hojalatería Silva tin workshop, where visitors make their own tin whistle souvenir.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing",
+    "tiers": {
+      "1": 10
+    },
+    "similar": [
+      {
+        "title": "Gold Leaf restauration experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
+      },
+      {
+        "title": "Exclusive Dinner with Folkloric Dance Troupe",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"
+      },
+      {
+        "title": "Andean Spiritual Cleansing",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/andean-spiritual-cleansing"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "\"El Caretero\" Mask Making Workshop",
+    "categories": [
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/caretero%201.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/caretero-2-1024x670.jpg"
+    ],
+    "description": "At El Caretero, in Quito's historic La Loma Grande neighborhood, master artisans have shaped vibrant paper-mâché masks by hand for over 20 years. Visitors can watch or take part in the process, connecting with this living folk-art tradition.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/el-caretero-mask-making-workshop",
+    "tiers": {
+      "1": 38
+    },
+    "similar": [
+      {
+        "title": "Gold Leaf restauration experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
+      },
+      {
+        "title": "Escuela Quiteña Wood Carving Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Make Your Own Chocolate Bar in Quito's Colonial District (1 Bar)",
+    "categories": [
+      "Chocolate"
+    ],
+    "duration": "1 hour",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Make%20Your%20Own%20Chocolate%20Bar%20in%20Quito%27s%20Colonial%20District%20%281%20Bar%29.jpeg"
+    ],
+    "description": "A relaxed chocolate-making session at a fine chocolate shop in the Colonial District, with views of the neighborhood. Guests learn about cacao and craft their own chocolate bar with premium ingredients to take home.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/make-your-own-chocolate-bar-in-quitos-colonial-district-1-bar",
+    "tiers": {
+      "1": 20
+    },
+    "similar": [
+      {
+        "title": "Chocolate & Wine Tasting and Pairing Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-wine-tasting-and-pairing-experience-1-glass-of-wine"
+      },
+      {
+        "title": "Chocolate Tasting and Pairing Dining Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Chocolate & Wine Tasting and Pairing Experience (1 Glass of Wine)",
+    "categories": [
+      "Chocolate"
+    ],
+    "duration": "1 hour",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Chocolate%20%26%20Wine%20Tasting%20and%20Pairing%20Experience%20%281%20Glass%20of%20Wine%29.jpg"
+    ],
+    "description": "A chocolate and wine pairing at a local chocolatier in Quito's Colonial District, with views of the San Francisco church and plaza — a relaxed moment to taste, toast and learn about cacao and chocolate.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-wine-tasting-and-pairing-experience-1-glass-of-wine",
+    "tiers": {
+      "1": 22
+    },
+    "similar": [
+      {
+        "title": "Make Your Own Chocolate Bar (1 Bar)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/make-your-own-chocolate-bar-in-quitos-colonial-district-1-bar"
+      },
+      {
+        "title": "Chocolate Tasting and Pairing Dining Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Chocolate Tasting and Pairing Dining Experience",
+    "categories": [
+      "Luxe",
+      "Chocolate",
+      "Culinary"
+    ],
+    "duration": "2 hours",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Chocolate%20Tasting%20and%20Pairing%20Dining%20Experience.jpg"
+    ],
+    "description": "The \"Cacao, Wine & Spirits\" tasting at Somos pairs curated Ecuadorian chocolates with local wines (such as Dos Hemisferios) and spirits like Miske or aged rum — a sensory tour through the country's cocoa and distillate traditions.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience",
+    "tiers": {
+      "1": 109
+    },
+    "minPax": 4,
+    "similar": [
+      {
+        "title": "Gold Leaf restauration experience at the church...",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
+      },
+      {
+        "title": "Make Your Own Chocolate Bar (1 Bar)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/make-your-own-chocolate-bar-in-quitos-colonial-district-1-bar"
+      },
+      {
+        "title": "Chocolate & Wine Tasting and Pairing Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-wine-tasting-and-pairing-experience-1-glass-of-wine"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Specialty Ecuadorian Coffee: Tasting Experience at a Local Coffee Shop",
+    "categories": [
+      "Coffee"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Tasting%20Experience%20at%20a%20Local%20Coffee%20Shop.jpg"
+    ],
+    "description": "Expert baristas at a premier Quito café demonstrate four brewing methods — French press, Chemex, siphon and V60 — followed by a tasting of coffees from the Highlands, Coast and Galápagos to explore how Ecuador's climates shape flavor.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/specialty-ecuadorian-coffee-tasting-experience-at-a-local-coffee-shop",
+    "tiers": {
+      "1": 80,
+      "2": 40
+    },
+    "requestFromPax": 8,
+    "similar": []
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Exclusive Dinner with Folkloric Dance Troupe (Only Saturdays at Somos Restaurant)",
+    "categories": [
+      "Luxe",
+      "Cultural",
+      "Culinary"
+    ],
+    "duration": "2 hours",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Dinner%20with%20Folkloric%20Dance%20Troupe%20%28Only%20Saturdays%20at%20Somos%20Restaurant%29%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Dinner%20with%20Folkloric%20Dance%20Troupe%20%28Only%20Saturdays%20at%20Somos%20Restaurant%29%20%20%282%29.jpg",
+      {
+        "src": "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Dinner%20with%20Folkloric%20Dance%20Troupe%20%28Only%20Saturdays%20at%20Somos%20Restaurant%29%20%20%283%29.jpg",
+        "position": "top"
+      }
+    ],
+    "description": "A gourmet dinner featuring the Volcano Route tasting menu, inspired by the Ecuadorian Andes and paired with live music, dance and Andean rituals. Also available on weekdays with a minimum of 10 guests.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta",
+    "tiers": {
+      "1": 150
+    },
+    "similar": [
+      {
+        "title": "Gold Leaf restauration experience at the church...",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
+      },
+      {
+        "title": "Gold Leaf restauration experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
+      },
+      {
+        "title": "Escuela Quiteña Wood Carving Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Cooking Class in a Traditional Locale in Quito's Colonial District",
+    "categories": [
+      "Culinary"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cooking%20Class%20in%20a%20Traditional%20Locale%20in%20Quito%27s%20Colonial%20District.jpg"
+    ],
+    "description": "A hands-on cooking class in a traditional Colonial District venue, exploring local flavors and culinary techniques while gaining insight into the region's culinary heritage.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/cooking-class-in-a-traditional-locale-in-quitos-colonial-district",
+    "tiers": {
+      "1": 56
+    },
+    "similar": [
+      {
+        "title": "Chocolate Tasting and Pairing Dining Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
+      },
+      {
+        "title": "Exclusive Dinner with Folkloric Dance Troupe",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"
+      },
+      {
+        "title": "Beer Tasting & Pairing Lunch",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/beer-tasting-pairing-lunch"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Exclusive Immersive Private Cooking Class",
+    "categories": [
+      "Luxe",
+      "Culinary"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Immersive%20Private%20Cooking%20Class.jpeg"
+    ],
+    "description": "A private cooking class in an exclusive venue: guests browse local markets for fresh ingredients before preparing Ecuadorian dishes such as ceviche, locro and llapingachos under a French-Ecuadorian fusion approach led by top chefs.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-immersive-private-cooking-class",
+    "tiers": {
+      "1": 154,
+      "2": 71,
+      "4": 58
+    },
+    "similar": [
+      {
+        "title": "Gold Leaf restauration experience at the church...",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
+      },
+      {
+        "title": "Chocolate Tasting and Pairing Dining Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
+      },
+      {
+        "title": "Exclusive Dinner with Folkloric Dance Troupe",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Exclusive Dinner at a Historic Venue in the Colonial District",
+    "categories": [
+      "Luxe",
+      "Culinary"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Dinner%20at%20a%20Historic%20Venue%20in%20the%20Colonial%20District.jpg"
+    ],
+    "description": "An intimate dinner inside a meticulously preserved 17th-century colonial building, with settings like the San Diego Convent or the restored Casa del Higo and Casona del Águila — tailored to the traveler's interests.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-at-a-historic-venue-in-the-colonial-district",
+    "tiers": {
+      "1": 1346,
+      "2": 654,
+      "4": 417,
+      "6": 363,
+      "8": 337,
+      "10": 321
+    },
+    "similar": [
+      {
+        "title": "Gold Leaf restauration experience at the church...",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
+      },
+      {
+        "title": "Chocolate Tasting and Pairing Dining Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
+      },
+      {
+        "title": "Exclusive Dinner with Folkloric Dance Troupe",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Andean Spiritual Cleansing",
+    "categories": [
+      "Cultural"
+    ],
+    "duration": "30 min",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Andean%20Spiritual%20Cleansing%20%282%29.jpg"
+    ],
+    "description": "At Quito's historic San Francisco Market, generations of curanderas perform limpias (spiritual cleansings) amid the aromas of spices, palo santo and medicinal herbs — a living blend of commerce and ancestral tradition.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/andean-spiritual-cleansing",
+    "tiers": {
+      "1": 13
+    },
+    "similar": [
+      {
+        "title": "Gold Leaf restauration experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
+      },
+      {
+        "title": "Escuela Quiteña Wood Carving Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"
+      },
+      {
+        "title": "Exclusive Dinner with Folkloric Dance Troupe",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/exclusive-dinner-with-folkloric-dance-troupe-only-saturdays-at-somos-resta"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Frog exhibition and conservation project",
+    "categories": [
+      "Nature"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Frog%20exhibition%20and%20conservation%20project.jpeg"
+    ],
+    "description": "Wikiri Sapoparque, the world's largest amphibian exhibitor, offers an interactive tour through Ecuador's frog and toad biodiversity — one of the richest in the world — plus its conservation, biocommerce and biotechnology work.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project",
+    "tiers": {
+      "1": 13
+    },
+    "similar": [
+      {
+        "title": "Urban Bird Observation and Conservation Project",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/urban-bird-observation-and-conservation-project"
+      },
+      {
+        "title": "Frog exhibition and conservation project (Technical visit)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project-technical-visit"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Frog exhibition and conservation project (Technical visit)",
+    "categories": [
+      "Nature"
+    ],
+    "duration": "3 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Frog%20exhibition%20and%20conservation%20project%20%28Technical%20visit%29%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Frog%20exhibition%20and%20conservation%20project%20%28Technical%20visit%29%20%282%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Frog%20exhibition%20and%20conservation%20project%20%28Technical%20visit%29.jpeg"
+    ],
+    "description": "A biologist-led deep dive into amphibian diversity and conservation at Wikiri, including an exclusive behind-the-scenes visit to Jambatu Labs to see the biotechnology work supporting species conservation.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project-technical-visit",
+    "tiers": {
+      "1": 40,
+      "2": 40,
+      "4": 40
+    },
+    "requestFromPax": 6,
+    "similar": [
+      {
+        "title": "Urban Bird Observation and Conservation Project",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/urban-bird-observation-and-conservation-project"
+      },
+      {
+        "title": "Frog exhibition and conservation project",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "Urban Bird Observation and Conservation Project",
+    "categories": [
+      "Nature"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/pomasqui-pomasquinde-f1.jpg"
+    ],
+    "description": "Just 50 minutes from Quito's Colonial District, the PomasQuinde Bird Sanctuary is home to 29 bird species in an urban setting, including the Giant Hummingbird — the world's largest at 23 cm — plus tanagers, grosbeaks and finches.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/urban-bird-observation-and-conservation-project",
+    "tiers": {
+      "1": 5
+    },
+    "similar": [
+      {
+        "title": "Frog exhibition and conservation project",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project"
+      },
+      {
+        "title": "Frog exhibition and conservation project (Technical visit)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/frog-exhibition-and-conservation-project-technical-visit"
+      }
+    ]
+  },
+  {
+    "region": "Quito & Surroundings",
+    "title": "The Different Traditions, Uses and Flavors of Ecuadorian Liquor Agave & Miske",
+    "categories": [
+      "Spirits"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Different%20Traditions%2C%20Uses%20and%20Flavors%20of%20Ecuadorian%20Liquor%20Agave%20%26%20Miske%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Different%20Traditions%2C%20Uses%20and%20Flavors%20of%20Ecuadorian%20Liquor%20Agave%20%26%20Miske%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Different%20Traditions%2C%20Uses%20and%20Flavors%20of%20Ecuadorian%20Liquor%20Agave%20%26%20Miske%20%283%29.jpg"
+    ],
+    "description": "A tour through an Agave Garden covering cultivation, cultural significance and distillation techniques, with tastings of tequila, raw sap, agave syrup and Ecuador's signature spirit, Miske, along with pickled flowers and fruit blends.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/the-different-traditions-uses-and-flavors-of-ecuadorian-liquor-agave-mis",
+    "tiers": {
+      "1": 20
+    },
+    "similar": []
+  },
+  {
+    "region": "Guayaquil & Surroundings",
+    "title": "Cacao Plantation (w/ Lunch)",
+    "categories": [
+      "Chocolate"
+    ],
+    "duration": "2 hours",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cacao%20Plantation%20%28w%20Lunch%29%20%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cacao%20Plantation%20%28w%20Lunch%29%20%20%282%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cacao%20Plantation%20%28w%20Lunch%29%20%20%283%29.jpeg"
+    ],
+    "description": "Located in the El Naranjal area, an hour to the south of Guayaquil, our travelers will find Cacao y Mango Hacienda. Here, they will explore the plantation's grounds, observe the dry tropical forest and its bountiful crops, such as rice, coffee and bananas, and learn more about the cacao harvesting, fermenting and drying processes that make some of the world's finest chocolate. Our travelers will also enjoy a delicious traditional lunch at the hacienda.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/cacao-plantation-w-lunch",
+    "tiers": {
+      "1": 47
+    },
+    "similar": []
+  },
+  {
+    "region": "Guayaquil & Surroundings",
+    "title": "Clay Pottery Workshop (w/ Souvenir)",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20Workshop%20%28w%20Souvenir%29%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20Workshop%20%28w%20Souvenir%29%20%282%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20Workshop%20%28w%20Souvenir%29%20%283%29.jpeg"
+    ],
+    "description": "Our travelers will visit the \"Delguasmo\" clay pottery workshop, a family-run craft hub since 1986. Guests will learn clay molding and firing techniques, crafting their own artwork in this space of cultural exchange.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/clay-pottery-workshop-w-souvenir",
+    "tiers": {
+      "1": 45
+    },
+    "similar": []
+  },
+  {
+    "region": "Guayaquil & Surroundings",
+    "title": "Ecuadorian Wine & Chocolate Tasting and Pairing Experience",
+    "categories": [
+      "Culinary",
+      "Wine"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20%26%20Chocolate%20Tasting%20and%20Pairing%20Experience%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20%26%20Chocolate%20Tasting%20and%20Pairing%20Experience%20%282%29.jpg"
+    ],
+    "description": "Dos Hemisferios, in Guayaquil's center, invites guests to three distinct venues for curated wine tastings. The experience highlights their pioneering Paradoja alongside Enigma and Armonia Rosé, paired with premium local chocolates. A celebration of Ecuador's innovative winemaking and unique flavors.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience",
+    "tiers": {
+      "1": 30
+    },
+    "similar": [
+      {
+        "title": "Ecuadorian Wine Tasting & Pairing Experience w/lunch",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch"
+      },
+      {
+        "title": "Tour of Wine Vineyard and Live Cooking Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience"
+      },
+      {
+        "title": "Tour of Wine Vineyard and Premium Pairing Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience"
+      }
+    ]
+  },
+  {
+    "region": "Guayaquil & Surroundings",
+    "title": "Ecuadorian Wine Tasting & Pairing Experience w/lunch",
+    "categories": [
+      "Culinary",
+      "Wine"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20Tasting%20%26%20Pairing%20Experience%20wlunch%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20Tasting%20%26%20Pairing%20Experience%20wlunch%20%281%29.png",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Ecuadorian%20Wine%20Tasting%20%26%20Pairing%20Experience%20wlunch%20%282%29.png"
+    ],
+    "description": "Dos Hemisferios, in central Guayaquil, offers three venues — La Tiendita, City Winery, and Living Lab — for exclusive wine tastings. Guests will savor unique Ecuadorian flavors, including the signature Paradoja (a Cabernet-Malbec blend that defied expectations in 2006). A perfect pairing experience showcasing how innovation meets tradition in local winemaking.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch",
+    "tiers": {
+      "1": 52
+    },
+    "similar": [
+      {
+        "title": "Ecuadorian Wine & Chocolate Tasting and Pairing Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience"
+      },
+      {
+        "title": "Tour of Wine Vineyard and Live Cooking Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience"
+      },
+      {
+        "title": "Tour of Wine Vineyard and Premium Pairing Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience"
+      }
+    ]
+  },
+  {
+    "region": "Guayaquil & Surroundings",
+    "title": "Tour of Wine Vineyard and Live Cooking Experience",
+    "categories": [
+      "Culinary",
+      "Wine"
+    ],
+    "duration": "8 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Live%20Cooking%20Experience%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Live%20Cooking%20Experience%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Live%20Cooking%20Experience%20%283%29.jpg"
+    ],
+    "description": "Dos Hemisferios Vineyard defies expectations by thriving on the equator. Tour the winery to discover how they overcame climatic challenges, then savor a tasting of unique Ecuadorian wines. The visit culminates with a live cooking demo and lunch paired with their exceptional vintages.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience",
+    "tiers": {
+      "1": 348
+    },
+    "similar": [
+      {
+        "title": "Ecuadorian Wine Tasting & Pairing Experience w/lunch",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch"
+      },
+      {
+        "title": "Ecuadorian Wine & Chocolate Tasting and Pairing Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience"
+      },
+      {
+        "title": "Tour of Wine Vineyard and Premium Pairing Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience"
+      }
+    ]
+  },
+  {
+    "region": "Guayaquil & Surroundings",
+    "title": "Tour of Wine Vineyard and Premium Pairing Experience",
+    "categories": [
+      "Culinary",
+      "Wine"
+    ],
+    "duration": "8 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Premium%20Pairing%20Experience%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Premium%20Pairing%20Experience%20%281%29.png",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Tour%20of%20Wine%20Vineyard%20and%20Premium%20Pairing%20Experience%20%282%29.png"
+    ],
+    "description": "Dos Hemisferios Vineyard achieves the impossible by producing wine on the equator, epitomized by their groundbreaking 2006 Paradoja. Guests tour the winery to uncover this innovative process, then enjoy a premium tasting of signature wines like Enigma and Travesia — showcasing Ecuador's unique terroir. The experience concludes with a gourmet lunch paired with exquisite local vintages.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-premium-pairing-experience",
+    "tiers": {
+      "1": 154
+    },
+    "similar": [
+      {
+        "title": "Ecuadorian Wine Tasting & Pairing Experience w/lunch",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-tasting-pairing-experience-wlunch"
+      },
+      {
+        "title": "Ecuadorian Wine & Chocolate Tasting and Pairing Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/ecuadorian-wine-chocolate-tasting-and-pairing-experience"
+      },
+      {
+        "title": "Tour of Wine Vineyard and Live Cooking Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/guayaquil-surroundings/tour-of-wine-vineyard-and-live-cooking-experience"
+      }
+    ]
+  },
+  {
+    "region": "Cuenca & Surroundings",
+    "title": "An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/An%20Immersive%20Experience%20at%20the%20Casa%20Museo%20de%20la%20Makana%20Ikat%20Shawl%20Workshop%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/An%20Immersive%20Experience%20at%20the%20Casa%20Museo%20de%20la%20Makana%20Ikat%20Shawl%20Workshop%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/An%20Immersive%20Experience%20at%20the%20Casa%20Museo%20de%20la%20Makana%20Ikat%20Shawl%20Workshop%20%283%29.jpg"
+    ],
+    "description": "The Casa Museo de la Makana in Gualaceo celebrates the UNESCO-recognized ikat weaving tradition behind vibrant macana shawls. The museum's workshop offers an immersive experience — travelers can participate in dyeing and weaving, gaining hands-on insight into this Ecuadorian art form. A unique opportunity to connect with Gualaceo's cultural legacy.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/an-immersive-experience-at-the-casa-museo-de-la-makana-ikat-shawl-worksho",
+    "tiers": {
+      "1": 20
+    },
+    "similar": [
+      {
+        "title": "Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-from-the-best-and-make-your-own-paja-toquilla-hat-in-cuencas-hat-mus"
+      },
+      {
+        "title": "Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/jeweler-for-a-day-learn-from-the-best-and-make-your-own-jewelry-in-cuenca"
+      },
+      {
+        "title": "Learn About the Use of Recycled Materials and Copper to Make Your Own Work of Art",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-about-the-use-recycled-materials-and-copper-to-make-your-own-work-of"
+      }
+    ]
+  },
+  {
+    "region": "Cuenca & Surroundings",
+    "title": "Blacksmithing Techniques – Make Your Own Craft",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Blacksmithing%20techniques%20-%20Make%20your%20Own%20Craft%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Blacksmithing%20techniques%20-%20Make%20your%20Own%20Craft%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Blacksmithing%20techniques%20-%20Make%20your%20Own%20Craft%20%283%29.jpg"
+    ],
+    "description": "In Cuenca's historic Las Herrerías neighborhood, master blacksmith Don Humberto Guerra preserves the ancient \"art of fire\" at his workshop. Our travelers can observe his craftsmanship and even try forging their own metal creation during this immersive experience with one of Ecuador's last traditional herreros (blacksmiths).",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/blacksmithing-techniques-make-your-own-craft",
+    "tiers": {
+      "1": 52,
+      "2": 26,
+      "4": 13
+    },
+    "similar": [
+      {
+        "title": "Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-from-the-best-and-make-your-own-paja-toquilla-hat-in-cuencas-hat-mus"
+      },
+      {
+        "title": "An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/an-immersive-experience-at-the-casa-museo-de-la-makana-ikat-shawl-worksho"
+      },
+      {
+        "title": "Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/jeweler-for-a-day-learn-from-the-best-and-make-your-own-jewelry-in-cuenca"
+      }
+    ]
+  },
+  {
+    "region": "Cuenca & Surroundings",
+    "title": "Classical Guitar Making Techniques and Participate in the Craft",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Classical%20Guitar%20making%20techniques%20and%20Participate%20in%20the%20Craft%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Classical%20Guitar%20making%20techniques%20and%20Participate%20in%20the%20Craft%20%282%29.jpg"
+    ],
+    "description": "Uyaguari Quezada is a prestigious guitar-making family with four generations of luthier craftsmanship. Their workshop produces exquisite classical guitars, charangos, and other string instruments. Our travelers can witness and even participate in this meticulous craftsmanship and hear the beautiful results of these exquisite instruments.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/classical-guitar-making-techniques-and-participate-in-the-craft",
+    "tiers": {
+      "1": 13
+    },
+    "similar": [
+      {
+        "title": "Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-from-the-best-and-make-your-own-paja-toquilla-hat-in-cuencas-hat-mus"
+      },
+      {
+        "title": "An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/an-immersive-experience-at-the-casa-museo-de-la-makana-ikat-shawl-worksho"
+      },
+      {
+        "title": "Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/jeweler-for-a-day-learn-from-the-best-and-make-your-own-jewelry-in-cuenca"
+      }
+    ]
+  },
+  {
+    "region": "Cuenca & Surroundings",
+    "title": "Clay Pottery and Make Your Own Piece",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      {
+        "src": "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20and%20Make%20your%20Own%20Piece%20%281%29.jpg",
+        "position": "top"
+      },
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20and%20Make%20your%20Own%20Piece%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20and%20Make%20your%20Own%20Piece%20%283%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Clay%20Pottery%20and%20Make%20your%20Own%20Piece%20%284%29.jpg"
+    ],
+    "description": "The Encalada family's workshop in Cuenca preserves generations of pottery traditions. Our travelers will experience authentic Andean pottery-making firsthand, learning wheel techniques to create traditional vessels in this intimate home studio.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/clay-pottery-and-make-your-own-piece",
+    "tiers": {
+      "1": 20
+    },
+    "similar": [
+      {
+        "title": "Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-from-the-best-and-make-your-own-paja-toquilla-hat-in-cuencas-hat-mus"
+      },
+      {
+        "title": "An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/an-immersive-experience-at-the-casa-museo-de-la-makana-ikat-shawl-worksho"
+      },
+      {
+        "title": "Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/jeweler-for-a-day-learn-from-the-best-and-make-your-own-jewelry-in-cuenca"
+      }
+    ]
+  },
+  {
+    "region": "Cuenca & Surroundings",
+    "title": "Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Jeweler%20For%20a%20Day%20Learn%20from%20the%20best%20and%20make%20your%20own%20jewelry%20in%20Cuenca%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Jeweler%20For%20a%20Day%20Learn%20from%20the%20best%20and%20make%20your%20own%20jewelry%20in%20Cuenca%20%282%29.jpg"
+    ],
+    "description": "At Cuenca's Jewelry Museum, our travelers become \"Jeweler for a Day,\" crafting their own ring through traditional techniques. This hands-on workshop transforms raw materials into personalized jewelry while teaching ancestral metalworking skills. The immersive experience culminates in taking home a unique, self-made souvenir and lasting memories of Ecuador's rich artisanal heritage.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/jeweler-for-a-day-learn-from-the-best-and-make-your-own-jewelry-in-cuenca",
+    "tiers": {
+      "1": 62
+    },
+    "requestFromPax": 10,
+    "similar": [
+      {
+        "title": "Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-from-the-best-and-make-your-own-paja-toquilla-hat-in-cuencas-hat-mus"
+      },
+      {
+        "title": "An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/an-immersive-experience-at-the-casa-museo-de-la-makana-ikat-shawl-worksho"
+      },
+      {
+        "title": "Learn About the Use of Recycled Materials and Copper to Make Your Own Work of Art",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-about-the-use-recycled-materials-and-copper-to-make-your-own-work-of"
+      }
+    ]
+  },
+  {
+    "region": "Cuenca & Surroundings",
+    "title": "Learn About the Use of Recycled Materials and Copper to Make Your Own Work of Art",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Learn%20about%20the%20Use%20recycled%20materials%20and%20Copper%20to%20Make%20Your%20Own%20Work%20of%20Art%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Learn%20about%20the%20Use%20recycled%20materials%20and%20Copper%20to%20Make%20Your%20Own%20Work%20of%20Art%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Learn%20about%20the%20Use%20recycled%20materials%20and%20Copper%20to%20Make%20Your%20Own%20Work%20of%20Art%20%283%29.jpg"
+    ],
+    "description": "Discover Ecuador's national flower through a unique copper workshop where our travelers will craft exquisite rose sculptures from recycled materials. Guided by master artisan David, learn traditional metalworking techniques - cutting, pressing, and painting copper - while continuing a generations-old family tradition.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-about-the-use-recycled-materials-and-copper-to-make-your-own-work-of",
+    "tiers": {
+      "1": 13
+    },
+    "similar": [
+      {
+        "title": "Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-from-the-best-and-make-your-own-paja-toquilla-hat-in-cuencas-hat-mus"
+      },
+      {
+        "title": "An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/an-immersive-experience-at-the-casa-museo-de-la-makana-ikat-shawl-worksho"
+      },
+      {
+        "title": "Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/jeweler-for-a-day-learn-from-the-best-and-make-your-own-jewelry-in-cuenca"
+      }
+    ]
+  },
+  {
+    "region": "Cuenca & Surroundings",
+    "title": "Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1.5 hours",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Learn%20from%20the%20best%20and%20make%20your%20own%20Paja%20Toquilla%20Hat%20in%20Cuenca%27s%20Hat%20Museum%20%283%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Learn%20from%20the%20best%20and%20make%20your%20own%20Paja%20Toquilla%20Hat%20in%20Cuenca%27s%20Hat%20Museum%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Learn%20from%20the%20best%20and%20make%20your%20own%20Paja%20Toquilla%20Hat%20in%20Cuenca%27s%20Hat%20Museum%20%282%29.jpg"
+    ],
+    "description": "Visit the Paja Toquilla Hat Museum to discover Ecuador's iconic \"Panama Hats,\" which actually originate from Ecuador. In the workshop, our travelers will learn about the intricate hat-making process and even craft your own. A must-do for visitors seeking an authentic Ecuadorian cultural experience and a unique souvenir.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-from-the-best-and-make-your-own-paja-toquilla-hat-in-cuencas-hat-mus",
+    "tiers": {
+      "1": 50
+    },
+    "similar": [
+      {
+        "title": "An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/an-immersive-experience-at-the-casa-museo-de-la-makana-ikat-shawl-worksho"
+      },
+      {
+        "title": "Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/jeweler-for-a-day-learn-from-the-best-and-make-your-own-jewelry-in-cuenca"
+      },
+      {
+        "title": "Learn About the Use of Recycled Materials and Copper to Make Your Own Work of Art",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/learn-about-the-use-recycled-materials-and-copper-to-make-your-own-work-of"
+      }
+    ]
+  },
+  {
+    "region": "Cuenca & Surroundings",
+    "title": "The San Miguel Rum Factory & Aging Cellar",
+    "categories": [
+      "Spirits"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20San%20Miguel%20Rum%20Factory%20%26%20Aging%20Cellar%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20San%20Miguel%20Rum%20Factory%20%26%20Aging%20Cellar%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20San%20Miguel%20Rum%20Factory%20%26%20Aging%20Cellar%20%282%29.jpg"
+    ],
+    "description": "For over 50 years, San Miguel Rum Company has perfected its craft in Cuenca, offering our travelers an immersive journey through rum production. Explore their historic cellar with expert guides to learn aging techniques and company heritage. The experience culminates in a tasting of their premium rums, showcasing Ecuadorian distillation traditions.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cuenca-surroundings/the-san-miguel-rum-factory-aging-cellar",
+    "tiers": {
+      "1": 20
+    },
+    "similar": []
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Andean Snacks and Artisanal Beer in the \"Molinos de San Juan\" Hacienda",
+    "categories": [
+      "Culinary"
+    ],
+    "duration": "1 hour",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Andean%20Snacks%20and%20Artisanal%20Beer%20in%20the%20Molinos%20de%20San%20Juan%20Hacienda%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Andean%20Snacks%20and%20Artisanal%20Beer%20in%20the%20Molinos%20de%20San%20Juan%20Hacienda%20%282%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Andean%20Snacks%20and%20Artisanal%20Beer%20in%20the%20Molinos%20de%20San%20Juan%20Hacienda%20%283%29.jpeg"
+    ],
+    "description": "At Hacienda Molino San Juan, our travelers will join an Andean Snacks Cooking Class to prepare traditional treats like tortillas de tiesto (clay-pan tortillas) and Cayambe bizcochos (salt biscuits), exploring Andean culinary heritage. The Cava Experience immerses guests in Ecuador's craft beer history inside an 1890s-era underground cellar.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/andean-snacks-and-artisanal-beer-in-the-molinos-de-san-juan-hacienda",
+    "tiers": {
+      "1": 20,
+      "10": 13
+    },
+    "similar": [
+      {
+        "title": "Salt Biscuits (Bizcochos), Queso de Hoja and Agave Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/salt-biscuits-bizcochos-queso-de-hoja-and-agave-experience"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Dreamcatcher Workshop",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "2 hours",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Dreamcatcher%20Workshop%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Dreamcatcher%20Workshop%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Dreamcatcher%20Workshop%20%283%29.jpg"
+    ],
+    "description": "Explore an outdoor display of diverse dream catchers, then visit the indoor workshop. Learn how their natural materials channel Pacha Mama's (Mother Earth's) energy, blending ancestral wisdom with artisanal craftsmanship.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/dreamcatcher-workshop",
+    "tiers": {
+      "1": 20,
+      "6": 16
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Empowering Women through Textile Work",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Empowering%20Women%20through%20Textile%20work%20%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Empowering%20Women%20through%20Textile%20work%20%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Empowering%20Women%20through%20Textile%20work%20%20%283%29.jpg"
+    ],
+    "description": "Casa Matico and \"Huarmi Maqui\" (Women's Hands) is a collective of indigenous women from the Peguche and Otavalo communities which excel in crafting exquisite textiles. Our travelers will witness handmade production, learn about symbolic traditional dresses, and enjoy lively music and dances. This gallery embodies Otavalo's cultural richness, offering an immersive experience into the artistry and traditions of Kichwa women.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/empowering-women-through-textile-work",
+    "tiers": {
+      "1": 14
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Make Your Own Felt Hat",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Make%20your%20Own%20Felt%20Hat.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Make%20your%20Own%20Felt%20Hat%20%281%29.png"
+    ],
+    "description": "Ilumán's traditional felt hats, crafted from sheep wool or rabbit hair, embody centuries of Kichwa heritage. Our travelers will experience the artisan process firsthand at local workshops, participating in steps like wool carding and molding while learning ancestral techniques. This immersive encounter offers both cultural insight and a unique handmade souvenir to cherish.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/make-your-own-felt-hat",
+    "tiers": {
+      "1": 40
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Make Your Own Leather Belt in an Artisanal Workshop",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "3.5 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Make%20your%20Own%20Leather%20Belt%20in%20an%20Artisanal%20Workshop%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Make%20your%20Own%20Leather%20Belt%20in%20an%20Artisanal%20Workshop%20%282%29.jpg"
+    ],
+    "description": "Cotacachi is famous for its traditional leather craftsmanship, with tanning and molding techniques preserved across generations. Our travelers will explore this cultural art form at a local workshop, learning the process while creating their own leather bracelet or belt, based on interest and time available. This hands-on experience offers both insight into Ecuador's artisanal heritage and a unique, memorable souvenir.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/make-your-own-leather-belt-in-an-artisanal-workshop",
+    "tiers": {
+      "1": 39
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Musical Instrument Workshop (with Souvenir)",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Musical%20Instrument%20Workshop%20%28with%20Souvenir%29%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Musical%20Instrument%20Workshop%20%28with%20Souvenir%29%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Musical%20Instrument%20Workshop%20%28with%20Souvenir%29%20%283%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Musical%20Instrument%20Workshop%20%28with%20Souvenir%29%20%284%29.jpg"
+    ],
+    "description": "In the Peguche community, our travelers will visit the Taita Gundo instrument workshop and meet the locals who will explain everything about their musical traditions, they will demonstrate the assembly process for their wooden instruments and will do a special Andean musical demonstration for their guests.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir",
+    "tiers": {
+      "1": 12
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Dreamcatcher Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/dreamcatcher-workshop"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Rose Plantation (w/ Lunch)",
+    "categories": [
+      "Roses"
+    ],
+    "duration": "3 hours",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20%28w%20Lunch%29%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20%28w%20Lunch%29%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20%28w%20Lunch%29%20%283%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20%28w%20Lunch%29%20%284%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20%28w%20Lunch%29%20%285%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20%28w%20Lunch%29%20%286%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20%28w%20Lunch%29%20%287%29.jpg"
+    ],
+    "description": "In the small town of Cayambe, the \"La Compañia de Jesus\" Hacienda and Rose Plantation awaits. Here, our travelers will learn about the farm's colonial and republican history while also learning more about how some of the world's most sought-after roses are cultivated, displayed and exported in the plantation's Showroom.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/rose-plantation-w-lunch",
+    "tiers": {
+      "1": 93
+    },
+    "similar": []
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Salt Biscuits (Bizcochos), Queso de Hoja and Agave Experience",
+    "categories": [
+      "Culinary"
+    ],
+    "duration": "30 min",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Salt%20Biscuits%20%28Bizcochos%29%2C%20Queso%20de%20Hoja%20and%20Agave%20Experience%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Salt%20Biscuits%20%28Bizcochos%29%2C%20Queso%20de%20Hoja%20and%20Agave%20Experience%20%281%29.png",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Salt%20Biscuits%20%28Bizcochos%29%2C%20Queso%20de%20Hoja%20and%20Agave%20Experience%20%282%29.jpeg"
+    ],
+    "description": "Savor Cayambe's iconic bizcochos (salt biscuits) paired with leaf cheese in this gastronomic experience, followed by tastings of local agave-based drinks. Discover agave's versatility through an exhibit featuring the \"Andean Mona Lisa\" (crafted with 3,000 spines) and learn about its uses in art, instruments, and cosmetics—a flavorful immersion into Cayambe's culture.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/salt-biscuits-bizcochos-queso-de-hoja-and-agave-experience",
+    "tiers": {
+      "1": 8
+    },
+    "similar": [
+      {
+        "title": "Andean Snacks and Artisanal Beer in the \"Molinos de San Juan\" Hacienda",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/andean-snacks-and-artisanal-beer-in-the-molinos-de-san-juan-hacienda"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Spiritual Cleansing with a Shaman at a Local Waterfall in Iluman",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Spiritual%20Cleansing%20with%20a%20Shaman%20at%20a%20Local%20Waterfall%20in%20Iluman%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Spiritual%20Cleansing%20with%20a%20Shaman%20at%20a%20Local%20Waterfall%20in%20Iluman%20%282%29.jpg"
+    ],
+    "description": "Ilumán is famous for its shamans and their limpias (spiritual cleansings), which, in local beliefs, restore energy flow, improve health, clear the mind, and release emotional burdens. Using sacred plants, incense, music, and chants, these rituals bring energetic balance. Cleansings take place at sacred sites like El Lechero Tree, Taxopamba Waterfall, or natural springs (Pukyus in Kichwa), blending tradition with healing.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/spiritual-cleansing-with-a-shaman-at-a-local-waterfall-in-iluman",
+    "tiers": {
+      "1": 90
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Textile & Tapestry Workshop",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "30 min",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Textile%20%26%20Tapestry%20Workshop%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Textile%20%26%20Tapestry%20Workshop%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Textile%20%26%20Tapestry%20Workshop%20%282%29.jpg"
+    ],
+    "description": "The Peguche Wasi community tourism initiative focuses on keeping the ancient Kichwa community's textile practices alive, using ancestral loom techniques that might have been lost to time if not protected by these small indigenous communities. At the workshop our travelers will learn more about these textile practices and the processes that make them so special.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop",
+    "tiers": {
+      "1": 5
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      },
+      {
+        "title": "Dreamcatcher Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/dreamcatcher-workshop"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "3 hours",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Angla%20Community%20Local%20indigenous%20life%20in%20Otavalo%20%28w%20Lunch%29%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Angla%20Community%20Local%20indigenous%20life%20in%20Otavalo%20%28w%20Lunch%29%20%281%29.JPG",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Angla%20Community%20Local%20indigenous%20life%20in%20Otavalo%20%28w%20Lunch%29%20%281%29.png",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Angla%20Community%20Local%20indigenous%20life%20in%20Otavalo%20%28w%20Lunch%29%20%282%29.jpg"
+    ],
+    "description": "Visitors to the Angla Community will immerse themselves in local daily life, learning traditions through meaningful cultural exchanges. They'll participate in the Andean \"Chakana\" healing ritual and bond with community members while preparing traditional beverages. Our travelers' visit through the community will also include a traditional lunch which will undoubtedly immerse them in Ecuador's Indigenous culture.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch",
+    "tiers": {
+      "1": 62,
+      "2": 44,
+      "3": 40,
+      "5": 39,
+      "9": 38
+    },
+    "similar": [
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      },
+      {
+        "title": "Dreamcatcher Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/dreamcatcher-workshop"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Totora Reed Weaving Workshop (with Souvenir)",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Totora%20Reed%20Weaving%20Workshop%20%28with%20Souvenir%29%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Totora%20Reed%20Weaving%20Workshop%20%28with%20Souvenir%29%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Totora%20Reed%20Weaving%20Workshop%20%28with%20Souvenir%29%20%282%29.jpeg"
+    ],
+    "description": "Nestled in San Rafael along Ecuador's largest lake, San Pablo, this workshop showcases the ancient art of weaving totora (cattail) into baskets, souvenirs, and furniture. Our travelers will witness the cutting, drying, and weaving process firsthand, plus discover innovative coloring techniques that make their creations stand out. They will also be able to participate in the weaving process and make a figurine.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/totora-reed-weaving-workshop-with-souvenir",
+    "tiers": {
+      "1": 18,
+      "3": 16,
+      "5": 13
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      }
+    ]
+  },
+  {
+    "region": "Otavalo & Surroundings",
+    "title": "Wood Carving & Sculpture Workshop Visit",
+    "categories": [
+      "Art"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Wood%20Carving%20%26%20Sculpture%20Workshop%20visit.jpg"
+    ],
+    "description": "The town of San Antonio de Ibarra is celebrated globally for its exquisite wood carvings in the Escuela Quiteña style, recognized as Ecuador's Intangible Cultural Heritage. Travelers will meet expert craftsman Hernan Garcia, who demonstrates his generational techniques and tools, showcasing the artistry behind these intricate sculptures and furniture pieces that define the region's legacy.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/wood-carving-sculpture-workshop-visit",
+    "tiers": {
+      "1": 10,
+      "2": 5
+    },
+    "similar": [
+      {
+        "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/the-angla-community-local-indigenous-life-in-otavalo-w-lunch"
+      },
+      {
+        "title": "Textile & Tapestry Workshop",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/textile-tapestry-workshop"
+      },
+      {
+        "title": "Musical Instrument Workshop (with Souvenir)",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/otavalo-surroundings/musical-instrument-workshop-with-souvenir"
+      }
+    ]
+  },
+  {
+    "region": "Mindo & Surroundings",
+    "title": "Close-up Hummingbird watching",
+    "categories": [
+      "Nature"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Close-up%20Hummingbird%20watching%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Close-up%20Hummingbird%20watching%20%282%29.jpg"
+    ],
+    "description": "The Alambi Reserve, a family-run conservation project in Ecuador's Tandayapa Valley, protects 1.2 km² of lush cloud forest. Our travelers can watch hummingbirds at nectar feeders and even feed them by hand, offering a unique wildlife encounter in the Andean highlands.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/mindo-surroundings/close-up-hummingbird-watching",
+    "tiers": {
+      "1": 7
+    },
+    "similar": []
+  },
+  {
+    "region": "Mindo & Surroundings",
+    "title": "Cacao & Chocolate Experience (w/ Lunch)",
+    "categories": [
+      "Culinary"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Cacao%20%26%20Chocolate%20Experience%20%28w%20Lunch%29.jpg"
+    ],
+    "description": "We will visit a local artisanal chocolate shop to gain insight into the context of cacao production and its transformation into a top-quality delicacy. Our travelers will enjoy a delicious lunch after learning how the Andean cloud forest produces some of the world's finest chocolate.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/mindo-surroundings/mindo-chocolate-makers-cacao-chocolate-experience-w-lunch",
+    "tiers": {
+      "1": 38
+    },
+    "similar": []
+  },
+  {
+    "region": "Mindo & Surroundings",
+    "title": "Specialty Ecuadorian Coffee Experience",
+    "categories": [
+      "Coffee"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Experience%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Experience%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Experience%20%282%29.jpg"
+    ],
+    "description": "Venturing past the Middle of the World, the small town of Nanegalito awaits with the \"Frajares\" Farmhouse and Plantation, a renowned coffee production farm in the clouds. During today's experience, our travelers will learn how to prepare coffee-based beverages, while experiencing and understanding the differences between brewing methods, extraction times, and coffee varieties.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/mindo-surroundings/specialty-ecuadorian-coffee-experience",
+    "tiers": {
+      "1": 221,
+      "2": 140,
+      "3": 96
+    },
+    "similar": []
+  },
+  {
+    "region": "Cotopaxi & Surroundings",
+    "title": "Local Market and Daily Life in the Andes",
+    "categories": [
+      "Cultural"
+    ],
+    "duration": "30 min",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Local%20Market%20and%20Daily%20Life%20in%20the%20Andes%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Local%20Market%20and%20Daily%20Life%20in%20the%20Andes%20%282%29.jpg"
+    ],
+    "description": "In the Cotopaxi area, visitors can experience authentic Andean culture at several distinct markets. The everyday Machachi and Latacunga markets focus on produce and local food. For crafts, visit Saquisili, Pujilí, or Zumbahua (open select days, especially Saturday). Ambato's famous Monday market and Salcedo's Sunday market, known for artisanal ice cream, offer unique regional specialties and vibrant commerce.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/local-market-and-daily-life-in-the-andes",
+    "tiers": {
+      "1": 5
+    },
+    "similar": [
+      {
+        "title": "The Magic of Machica and the Economy Surrounding the Product",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-magic-of-machica-and-the-economy-surronding-the-product"
+      },
+      {
+        "title": "Naive Painting Workshop Visit",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/naive-painting-workshop-visit"
+      },
+      {
+        "title": "The \"Diablos de Pillaro\" Traditional Mask Workshop Visit",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-diablos-de-pillaro-traditional-mask-workshop-visit"
+      }
+    ]
+  },
+  {
+    "region": "Cotopaxi & Surroundings",
+    "title": "Naive Painting Workshop Visit",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "30 min",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Naive%20painting%20workshop%20visit%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Naive%20painting%20workshop%20visit%20%282%29.jpg"
+    ],
+    "description": "Tigua, near Quilotoa Crater Lake, is famous for its vibrant Indigenous paintings depicting rural life, traditions, and local legends. Our travelers will be able to participate in painting one of their own works of art using this style during this unique experience.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/naive-painting-workshop-visit",
+    "tiers": {
+      "1": 8
+    },
+    "similar": [
+      {
+        "title": "The Magic of Machica and the Economy Surrounding the Product",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-magic-of-machica-and-the-economy-surronding-the-product"
+      },
+      {
+        "title": "Local Market and Daily Life in the Andes",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/local-market-and-daily-life-in-the-andes"
+      },
+      {
+        "title": "The \"Diablos de Pillaro\" Traditional Mask Workshop Visit",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-diablos-de-pillaro-traditional-mask-workshop-visit"
+      }
+    ]
+  },
+  {
+    "region": "Cotopaxi & Surroundings",
+    "title": "Rose Plantation Visit",
+    "categories": [
+      "Roses"
+    ],
+    "duration": "30 min",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20visit%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Rose%20Plantation%20visit%20%282%29.jpg"
+    ],
+    "description": "A visit to the Rose Success Rose Plantation on the outskirts of the Cotopaxi National Park will be a welcome treat. Here our travelers will be able to observe the diverse types of roses grown and harvested at the plantation, as well as learn about the care needed to make some of the world's best roses.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/rose-plantation-visit",
+    "tiers": {
+      "1": 8
+    },
+    "similar": []
+  },
+  {
+    "region": "Cotopaxi & Surroundings",
+    "title": "The \"Diablos de Pillaro\" Traditional Mask Workshop Visit",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "30 min",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Diablos%20de%20Pillaro%20Traditional%20Mask%20Workshop%20visit.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Diablos%20de%20Pillaro%20Traditional%20Mask%20Workshop%20visit.jpeg"
+    ],
+    "description": "The Devil Dances of Pillaro, a six-day New Year's festival, blend rebellion and tradition as locals don demonic masks to protest colonial history. Meet master mask-makers for an immersive look at this unique cultural celebration.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-diablos-de-pillaro-traditional-mask-workshop-visit",
+    "tiers": {
+      "1": 13,
+      "2": 7
+    },
+    "similar": [
+      {
+        "title": "The Magic of Machica and the Economy Surrounding the Product",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-magic-of-machica-and-the-economy-surronding-the-product"
+      },
+      {
+        "title": "Local Market and Daily Life in the Andes",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/local-market-and-daily-life-in-the-andes"
+      },
+      {
+        "title": "Naive Painting Workshop Visit",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/naive-painting-workshop-visit"
+      }
+    ]
+  },
+  {
+    "region": "Cotopaxi & Surroundings",
+    "title": "The Magic of Machica and the Economy Surrounding the Product",
+    "categories": [
+      "Cultural",
+      "Culinary"
+    ],
+    "duration": "30 min",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Magic%20of%20Machica%20and%20the%20economy%20surronding%20the%20product%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Magic%20of%20Machica%20and%20the%20economy%20surronding%20the%20product%20%281%29.png",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Magic%20of%20Machica%20and%20the%20economy%20surronding%20the%20product%20%282%29.jpeg"
+    ],
+    "description": "In San Felipe, Cotopaxi, visitors discover máchica, a traditional flour made from roasted barley or grains, key in Ecuadorian cuisine. Locals showcase its ancestral production using a century-old mill and even craft máchica-based alcoholic drinks. This immersive experience offers a taste of authentic highland culture and flavors you won't forget!",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-magic-of-machica-and-the-economy-surronding-the-product",
+    "tiers": {
+      "1": 7
+    },
+    "similar": [
+      {
+        "title": "Local Market and Daily Life in the Andes",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/local-market-and-daily-life-in-the-andes"
+      },
+      {
+        "title": "Naive Painting Workshop Visit",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/naive-painting-workshop-visit"
+      },
+      {
+        "title": "The \"Diablos de Pillaro\" Traditional Mask Workshop Visit",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/cotopaxi-surroundings/the-diablos-de-pillaro-traditional-mask-workshop-visit"
+      }
+    ]
+  },
+  {
+    "region": "Baños & Surroundings",
+    "title": "\"Vegetable Ivory\", Tagua Workshop",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "30 min",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Vegetable%20Ivory%2C%20Tagua%20Workshop%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Vegetable%20Ivory%2C%20Tagua%20Workshop%20%282%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Vegetable%20Ivory%2C%20Tagua%20Workshop%20%283%29.jpeg"
+    ],
+    "description": "Tagua, also known as \"vegetable Ivory,\" due to its hardiness and utility making fine figurines and jewelry, will be the focus of this visit. At a local workshop, our travelers will learn how the Tagua palm seeds are harvested, hardened, and carved to make fantastically intricate figurines, jewelry, and unique ornaments.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/ba%C3%B1os-surroundings/vegetable-ivory-tagua-workshop",
+    "tiers": {
+      "1": 7
+    },
+    "similar": []
+  },
+  {
+    "region": "Riobamba & Surroundings",
+    "title": "Llama Museum with Llama meat Lunch",
+    "categories": [
+      "Cultural",
+      "Nature",
+      "Culinary"
+    ],
+    "duration": "2 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Llama%20Museum%20with%20Llama%20meat%20Lunch%20%284%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Llama%20Museum%20with%20Llama%20meat%20Lunch%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Llama%20Museum%20with%20Llama%20meat%20Lunch%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Llama%20Museum%20with%20Llama%20meat%20Lunch%20%283%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Llama%20Museum%20with%20Llama%20meat%20Lunch%20%285%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Llama%20Museum%20with%20Llama%20meat%20Lunch%20%286%29.jpg"
+    ],
+    "description": "Our travelers will explore the Palacio Real Community at Chimborazo's base. They learn about the cultural significance of llamas and enjoy a traditional Andean lunch. This meal features llama meat, quinoa, and the sacred, fermented chicha de jora, offering a deep immersion into local heritage and highland flavors.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/llama-museum-with-llama-meat-lunch",
+    "tiers": {
+      "1": 16
+    },
+    "similar": [
+      {
+        "title": "Local Cooking Class with Quinoa",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/local-cooking-class-with-quinoa"
+      },
+      {
+        "title": "Local Market and Daily Life in the Andes",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/local-market-and-daily-life-in-the-andes"
+      }
+    ]
+  },
+  {
+    "region": "Riobamba & Surroundings",
+    "title": "Local Cooking Class with Quinoa",
+    "categories": [
+      "Cultural",
+      "Culinary"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Local%20Cooking%20Class%20with%20Quinoa%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Local%20Cooking%20Class%20with%20Quinoa%20%281%29.jpg"
+    ],
+    "description": "Our travelers will join a hands-on quinoa cooking workshop in a Guamote Indigenous community, learning to prepare traditional dishes like quinoa croquettes and empanadas de viento. They'll discover quinoa's cultivation process and savor their creations.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/local-cooking-class-with-quinoa",
+    "tiers": {
+      "1": 40,
+      "2": 30,
+      "4": 20
+    },
+    "similar": [
+      {
+        "title": "Llama Museum with Llama meat Lunch",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/llama-museum-with-llama-meat-lunch"
+      },
+      {
+        "title": "Local Market and Daily Life in the Andes",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/local-market-and-daily-life-in-the-andes"
+      }
+    ]
+  },
+  {
+    "region": "Riobamba & Surroundings",
+    "title": "Local Market and Daily Life in the Andes",
+    "categories": [
+      "Cultural"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Local%20Market%20and%20Daily%20Life%20in%20the%20Andes%20%28Riobamba%29%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Local%20Market%20and%20Daily%20Life%20in%20the%20Andes%20%28Riobamba%29%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Local%20Market%20and%20Daily%20Life%20in%20the%20Andes%20%28Riobamba%29%20%282%29.jpg"
+    ],
+    "description": "In the Riobamba area, visitors can experience three distinct markets. In the city, La Merced and La Condamine markets operate daily. For a profound cultural spectacle, the Guamote market on Thursdays features a vibrant animal section and showcases authentic rural Andean traditions.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/local-market-and-daily-life-in-the-andes",
+    "tiers": {
+      "1": 5
+    },
+    "similar": [
+      {
+        "title": "Llama Museum with Llama meat Lunch",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/llama-museum-with-llama-meat-lunch"
+      },
+      {
+        "title": "Local Cooking Class with Quinoa",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/riobamba-surroundings/local-cooking-class-with-quinoa"
+      }
+    ]
+  },
+  {
+    "region": "Loja & Surroundings",
+    "title": "Specialty Ecuadorian Coffee Experience",
+    "categories": [
+      "Coffee"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Experience%20-%20Loja%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Specialty%20Ecuadorian%20Coffee%20Experience%20-%20Loja%20%282%29.jpg"
+    ],
+    "description": "Our travelers will visit a local coffee plantation where one of southern Ecuador's most emblematic traditions is produced. Here, they'll learn about cultivation, harvesting, and production techniques, followed by a guided tasting. Visitors will also enjoy a taste of some coffee wine alongside a delicious local snack.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/loja-surroundings/specialty-ecuadorian-coffee-experience",
+    "tiers": {
+      "1": 40,
+      "2": 20
+    },
+    "similar": []
+  },
+  {
+    "region": "Upper Napo Area",
+    "title": "The Santa Rita Community and Its Community Tourism & Cacao Project (w/ Lunch)",
+    "categories": [
+      "Cultural",
+      "Chocolate",
+      "Culinary"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Santa%20Rita%20Community%20and%20Its%20Community%20Tourism%20%26%20Cacao%20Project%20%28w%20Lunch%29%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/The%20Santa%20Rita%20Community%20and%20Its%20Community%20Tourism%20%26%20Cacao%20Project%20%28w%20Lunch%29%20%282%29.jpeg"
+    ],
+    "description": "Towards the Ecuadorian Amazon and the town of Archidona, our travelers will find the community of Santa Rita, one of Ecuador's highlights along its \"Cacao and Chocolate Route\" through the country. The community is supported by the world-renowned Paccari chocolate company in order to invite visitors to find out more about the cacao harvesting and chocolate production process.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/upper-napo-area/the-santa-rita-community-and-its-community-tourism-cacao-project-w-lunc",
+    "tiers": {
+      "1": 43
+    },
+    "similar": []
+  },
+  {
+    "region": "The Galápagos Islands",
+    "title": "Exclusive Gastronomic Experience Within a Lava Tunnel",
+    "categories": [
+      "Culinary"
+    ],
+    "duration": "2 hours",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Gastronomic%20Experience%20Within%20a%20Lava%20Tunnel%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Gastronomic%20Experience%20Within%20a%20Lava%20Tunnel%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Exclusive%20Gastronomic%20Experience%20Within%20a%20Lava%20Tunnel%20%283%29.jpg"
+    ],
+    "description": "This exclusive dining experience takes place within a lava tunnel in the Santa Cruz Highlands. Great gastronomic experience to put the cherry on top of your vacations.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/exclusive-gastronomic-experience-within-a-lava-tunnel",
+    "tiers": {
+      "1": 260
+    },
+    "similar": [
+      {
+        "title": "Visit to the Santa Cruz Brewery in Santa Cruz's Highlands",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/visit-to-the-santa-cruz-brewery-in-santa-cruzs-highlands"
+      },
+      {
+        "title": "Immersive Restaurant Tour of Puerto Ayora with one of the Islands' Best Chefs",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/immersive-restaurant-tour-of-puerto-ayora-with-one-of-the-islands-best-che"
+      }
+    ]
+  },
+  {
+    "region": "The Galápagos Islands",
+    "title": "Immersive Restaurant Tour of Puerto Ayora with one of the Islands' Best Chefs",
+    "categories": [
+      "Culinary"
+    ],
+    "duration": "4 hours",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Immersive%20Restaurant%20Tour%20of%20Puerto%20Ayora%20with%20one%20of%20the%20Islands%27%20Best%20Chefs%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Immersive%20Restaurant%20Tour%20of%20Puerto%20Ayora%20with%20one%20of%20the%20Islands%27%20Best%20Chefs%20%282%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Immersive%20Restaurant%20Tour%20of%20Puerto%20Ayora%20with%20one%20of%20the%20Islands%27%20Best%20Chefs%20%283%29.jpeg"
+    ],
+    "description": "This evening gastronomic walking tour (6–9 PM) explores Puerto Ayora's rich culinary scene, visiting four top restaurants to savor seasonal Galápagos specialties like fresh seafood and imported meats, paired with wine. An expert host shares insights into the islands' unique food culture, while diners meet each chef for a deeper understanding of island cuisine. Dishes vary based on seasonal availability, offering an authentic taste of the archipelago's isolated flavors.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/immersive-restaurant-tour-of-puerto-ayora-with-one-of-the-islands-best-che",
+    "tiers": {
+      "1": 260
+    },
+    "similar": [
+      {
+        "title": "Visit to the Santa Cruz Brewery in Santa Cruz's Highlands",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/visit-to-the-santa-cruz-brewery-in-santa-cruzs-highlands"
+      },
+      {
+        "title": "Exclusive Gastronomic Experience Within a Lava Tunnel",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/exclusive-gastronomic-experience-within-a-lava-tunnel"
+      }
+    ]
+  },
+  {
+    "region": "The Galápagos Islands",
+    "title": "Visit to a local Coffee Plantation in the Highlands of Santa Cruz",
+    "categories": [
+      "Coffee"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Visit%20to%20a%20local%20Coffee%20Plantation%20in%20the%20Highlands%20of%20Santa%20Cruz%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Visit%20to%20a%20local%20Coffee%20Plantation%20in%20the%20Highlands%20of%20Santa%20Cruz%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Visit%20to%20a%20local%20Coffee%20Plantation%20in%20the%20Highlands%20of%20Santa%20Cruz%20%283%29.jpg"
+    ],
+    "description": "At a local coffee plantation our travelers will learn more about the islands' geological differences and the different types of coffee that can be harvested from the land, which has proven to create some unique flavors and textures for the archipelago's delicious coffee.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/visit-to-a-local-coffee-plantation-in-the-highlands-of-santa-cruz",
+    "tiers": {
+      "1": 8
+    },
+    "similar": []
+  },
+  {
+    "region": "The Galápagos Islands",
+    "title": "Visit to the Santa Cruz Brewery in Santa Cruz's Highlands",
+    "categories": [
+      "Artisanal Beer",
+      "Culinary"
+    ],
+    "duration": "30 min",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Visit%20to%20the%20Santa%20Cruz%20Brewery%20in%20Santa%20Cruz%27s%20Highlands.jpg"
+    ],
+    "description": "The Santa Cruz Brewery produces one of the Galapagos' few local artisanal draft beers. Here, our travelers will have the opportunity to understand the complex and delicate processes that the brewery applies to get delicious and unique types of beers on the isolated Galapagos Islands and get to taste some of their exuberant flavors.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/visit-to-the-santa-cruz-brewery-in-santa-cruzs-highlands",
+    "tiers": {
+      "1": 80,
+      "2": 30,
+      "4": 18,
+      "10": 15
+    },
+    "similar": [
+      {
+        "title": "Exclusive Gastronomic Experience Within a Lava Tunnel",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/exclusive-gastronomic-experience-within-a-lava-tunnel"
+      },
+      {
+        "title": "Immersive Restaurant Tour of Puerto Ayora with one of the Islands' Best Chefs",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/immersive-restaurant-tour-of-puerto-ayora-with-one-of-the-islands-best-che"
+      }
+    ]
+  },
+  {
+    "region": "The Galápagos Islands",
+    "title": "Visit to the Santa Trinidad Rum Distillery in Santa Cruz's Highlands",
+    "categories": [
+      "Spirits"
+    ],
+    "duration": "30 min",
+    "bestSeller": true,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Visit%20to%20the%20Santa%20Trinidad%20Rum%20Distillery%20in%20Santa%20Cruz%27s%20Highlands%20%281%29.jpeg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Visit%20to%20the%20Santa%20Trinidad%20Rum%20Distillery%20in%20Santa%20Cruz%27s%20Highlands%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Visit%20to%20the%20Santa%20Trinidad%20Rum%20Distillery%20in%20Santa%20Cruz%27s%20Highlands%20%282%29.jpeg"
+    ],
+    "description": "A 40-minute visit to Santa Trinidad Distillery introduces the art of crafting premium rum from local sugar cane. Learn about the process and the distillery's history, taste signature rums aged 2 and 9 years. The experience concludes with browsing a shop for local products and souvenirs.",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/visit-to-the-santa-trinidad-rum-distillery-in-santa-cruzs-highlands",
+    "tiers": {
+      "1": 9
+    },
+    "similar": []
+  },
+  {
+    "region": "The Galápagos Islands",
+    "title": "Wooden Craft Workshop in Bellavista at the \"El Dibujo\" Workshop",
+    "categories": [
+      "Cultural",
+      "Arts & Crafts"
+    ],
+    "duration": "1 hour",
+    "bestSeller": false,
+    "images": [
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Wooden%20Craft%20Workshop%20in%20Bellavista%20at%20the%20El%20Dibujo%20Workshop%20%281%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Wooden%20Craft%20Workshop%20in%20Bellavista%20at%20the%20El%20Dibujo%20Workshop%20%282%29.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Wooden%20Craft%20Workshop%20in%20Bellavista%20at%20the%20El%20Dibujo%20Workshop%20%283%29.jpg"
+    ],
+    "description": "The highland area is also home to Rolando Solano, an artisan that focuses on using the invasive tree species on the archipelago for crafting wonderful wooden souvenirs for visitors. Our travelers will observe the process and participate in the making of their own unique souvenirs!",
+    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/the-gal%C3%A1pagos-islands/wooden-craft-workshop-in-bellavista-at-the-el-dibujo-workshop",
+    "tiers": {
+      "1": 7
+    },
+    "similar": []
+  }
 ];
 
-/* =====================================================
-   FILTER LOGIC + RENDER
-===================================================== */
-const destSel=document.getElementById("destinationFilter");
-const catSel=document.getElementById("categoryFilter");
-const durSel=document.getElementById("durationFilter");
-const bestChk=document.getElementById("bestFilter");
-const res=document.getElementById("results");
+// ===== STATE =====
+const zoneFilter = document.getElementById("zoneFilter");
+const zonePill = document.getElementById("zonePill");
+const emptyState = document.getElementById("emptyState");
+const resetBtn = document.getElementById("resetFilters");
+const categoryFilter = document.getElementById("categoryFilter");
+const durationFilter = document.getElementById("durationFilter");
+const bestSellerFilter = document.getElementById("bestSellerFilter");
+const catalogList = document.getElementById("catalogList");
+const resultCount = document.getElementById("resultCount");
 
-[...new Set(experiences.map(e=>e.d))].forEach(v=>destSel.innerHTML+=`<option value="${v}">${v}</option>`);
-[...new Set(experiences.flatMap(e=>e.c))].forEach(v=>catSel.innerHTML+=`<option value="${v}">${v}</option>`);
-[...new Set(experiences.map(e=>e.du))].forEach(v=>durSel.innerHTML+=`<option value="${v}">${v}</option>`);
-
-function render(){
-  res.innerHTML="";
-  const d=destSel.value,c=catSel.value,du=durSel.value,b=bestChk.checked;
-
-  experiences.forEach(e=>{
-    if(d!=="all"&&e.d!==d) return;
-    if(c!=="all"&&!e.c.includes(c)) return;
-    if(du!=="all"&&e.du!==du) return;
-    if(b&&!e.b) return;
-
-    const card=document.createElement("div");
-    card.className="card";
-    card.style.display="block";
-    card.innerHTML=`
-      <div class="destination">${e.d}</div>
-      <h2>${e.t}</h2>
-      <div class="badges">
-        ${e.b?'<span class="badge best">BEST SELLER</span>':''}
-        <span class="badge">${e.du}</span>
-      </div>
-      <div class="category">Category: ${e.c.join(", ")}</div>
-      <a class="btn" href="${e.u}" target="_blank">View Experience</a>
-    `;
-    res.appendChild(card);
-  });
+function loadFilters() {
+    const categories = new Set();
+    const durations = new Set();
+    experiences.forEach(exp => {
+        exp.categories.forEach(c => categories.add(c));
+        durations.add(exp.duration);
+    });
+    [...categories].sort().forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c; opt.textContent = c;
+        categoryFilter.appendChild(opt);
+    });
+    REGIONS.forEach(r => {
+        const opt = document.createElement("option");
+        opt.value = r; opt.textContent = r;
+        zoneFilter.appendChild(opt);
+    });
+    const toMinutes = d => {
+        const n = parseFloat(d);
+        return /min/.test(d) ? n : n * 60;
+    };
+    [...durations].sort((a, b) => toMinutes(a) - toMinutes(b)).forEach(d => {
+        const opt = document.createElement("option");
+        opt.value = d; opt.textContent = d;
+        durationFilter.appendChild(opt);
+    });
 }
 
-[destSel,catSel,durSel,bestChk].forEach(el=>el.addEventListener("change",render));
+function computePrice(exp, pax) {
+    if (exp.minPax && pax < exp.minPax) {
+        return { error: `This experience is recommended for groups of ${exp.minPax} passengers or more.` };
+    }
+    if (exp.requestFromPax && pax >= exp.requestFromPax) {
+        return { request: true };
+    }
+    const keys = Object.keys(exp.tiers).map(Number).sort((a, b) => a - b);
+    let applicable = keys[0];
+    keys.forEach(k => { if (pax >= k) applicable = k; });
+    const rate = exp.tiers[applicable];
+    return { rate, total: rate * pax };
+}
+
+function startingPrice(exp) {
+    const keys = Object.keys(exp.tiers).map(Number);
+    const minRate = Math.min(...keys.map(k => exp.tiers[k]));
+    return minRate;
+}
+
+function buildRateTable(exp) {
+    const cells = PAX_COLUMNS.map(pax => {
+        const r = computePrice(exp, pax);
+        if (r.error) return `<td class="na-cell">—</td>`;
+        if (r.request) return `<td class="request-cell">Request</td>`;
+        return `<td>$${r.rate.toLocaleString()}</td>`;
+    }).join("");
+    return `
+        <div class="table-scroll">
+            <table class="rate-table">
+                <thead><tr><th>PAX</th>${PAX_COLUMNS.map(p => `<th>${p}</th>`).join("")}</tr></thead>
+                <tbody><tr><td style="font-weight:700;">Price</td>${cells}</tr></tbody>
+            </table>
+        </div>`;
+}
+
+function buildSimilar(similar) {
+    if (!similar || similar.length === 0) return "";
+    const links = similar.map(s => `<a href="${s.url}" target="_blank">${s.title}</a>`).join("");
+    return `<div class="similar-block"><div class="panel-section-title">Similar Experiences Suggested</div><div class="similar-list">${links}</div></div>`;
+}
+
+function getSrc(img) { return typeof img === "string" ? img : img.src; }
+function getPos(img) { return typeof img === "string" ? "center" : (img.position || "center"); }
+
+function buildGallery(images, title, uid) {
+    const thumbStrip = images.length > 1
+        ? `<div class="thumb-strip">${images.map((img, i) => `
+            <div class="thumb-strip-item ${i === 0 ? 'active' : ''}" data-uid="${uid}" data-src="${getSrc(img)}" data-pos="${getPos(img)}">
+                <img src="${getSrc(img)}" alt="${title} photo ${i+1}" loading="lazy" style="object-position:${getPos(img)};">
+            </div>`).join("")}</div>`
+        : "";
+    return `
+        <div class="gallery-col">
+            <div class="main-img-wrap"><img id="${uid}-main-img" src="${getSrc(images[0])}" alt="${title}" loading="lazy" style="object-position:${getPos(images[0])};"></div>
+            ${thumbStrip}
+        </div>`;
+}
+
+function toggleRow(rowEl) {
+    rowEl.classList.toggle("open");
+}
+
+function renderCatalog() {
+    const zone = zoneFilter.value;
+    const cat = categoryFilter.value;
+    const dur = durationFilter.value;
+    const showBest = bestSellerFilter.checked;
+
+    zonePill.textContent = "Region: " + (zone === "all" ? "All Regions" : zone);
+
+    catalogList.innerHTML = "";
+    const nothingSelected = zone === "all" && cat === "all" && dur === "all" && !showBest;
+    resetBtn.disabled = nothingSelected;
+    if (nothingSelected) {
+        emptyState.style.display = "block";
+        resultCount.textContent = "";
+        resultCount.style.display = "none";
+        return;
+    }
+    emptyState.style.display = "none";
+    resultCount.style.display = "block";
+
+    const filtered = experiences.filter(exp => {
+        const mz = zone === "all" || exp.region === zone;
+        const mc = cat === "all" || exp.categories.includes(cat);
+        const md = dur === "all" || exp.duration === dur;
+        const mb = !showBest || exp.bestSeller;
+        return mz && mc && md && mb;
+    });
+
+    resultCount.textContent = `${filtered.length} experience${filtered.length !== 1 ? 's' : ''} found`;
+
+    filtered.forEach((exp, index) => {
+        const uid = "exp" + index;
+        const row = document.createElement("div");
+        row.className = "exp-row";
+        const from = startingPrice(exp);
+
+        row.innerHTML = `
+            <div class="exp-row-main">
+                <img class="exp-thumb" src="${getSrc(exp.images[0])}" alt="${exp.title}" loading="lazy" style="object-position:${getPos(exp.images[0])};">
+                <div class="exp-info">
+                    <div class="exp-tags-row">
+                        ${exp.bestSeller ? '<span class="tag tag-best">BEST SELLER</span>' : ''}
+                        <span class="tag tag-region">${exp.region}</span>
+                        <span class="tag tag-duration">${exp.duration}</span>
+                        <span class="tag tag-category">${exp.categories.join(" · ")}</span>
+                    </div>
+                    <div class="exp-title">${exp.title}</div>
+                    <div class="exp-desc-preview">${exp.description}</div>
+                </div>
+                <div class="exp-row-meta">
+                    <div class="exp-price-block">
+                        <div class="exp-price-from">From</div>
+                        <div class="exp-price-value">$${from}</div>
+                    </div>
+                    <div class="exp-actions">
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="exp-panel">
+                <div class="exp-panel-content">
+                    <div class="exp-panel-inner">
+                        <div class="panel-top">
+                            ${buildGallery(exp.images, exp.title, uid)}
+                            <div class="panel-text">
+                                <div class="panel-section-title">Description</div>
+                                <div class="panel-desc">${exp.description}</div>
+                            </div>
+                        </div>
+
+                        <div class="pricing-block">
+                            <div class="panel-section-title">Net Rate Per Person</div>
+                            ${buildRateTable(exp)}
+                            <div class="panel-section-title">Price Calculator</div>
+                            <div class="calc-row">
+                                <div class="calc-input-group">
+                                    <label for="${uid}-pax">Number of People</label>
+                                    <input id="${uid}-pax" type="number" min="1" value="2">
+                                </div>
+                                <button class="calc-btn" data-target="${uid}">Calculate</button>
+                            </div>
+                            <div class="calc-result" id="${uid}-result">
+                                <p class="msg-error" id="${uid}-msg" style="display:none;"></p>
+                                <div id="${uid}-values">
+                                    <p>Price per person: <span class="val-teal" id="${uid}-pp"></span></p>
+                                    <p>Total price: <span class="val-teal" id="${uid}-tp"></span></p>
+                                    <p>Group size: <span class="val-navy" id="${uid}-gs"></span></p>
+                                </div>
+                                <div class="calc-note">All prices are in USD and are net rates per person.</div>
+                            </div>
+                        </div>
+
+                        ${buildSimilar(exp.similar)}
+
+                        <div class="panel-footer">
+                            <a class="view-link" href="${exp.url}" target="_blank">View Full Experience</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        row.querySelector(".exp-row-main").addEventListener("click", () => toggleRow(row));
+
+        row.querySelectorAll(".thumb-strip-item").forEach(item => {
+            item.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const mainImg = document.getElementById(`${uid}-main-img`);
+                mainImg.src = item.dataset.src;
+                mainImg.style.objectPosition = item.dataset.pos || "center";
+                row.querySelectorAll(".thumb-strip-item").forEach(t => t.classList.remove("active"));
+                item.classList.add("active");
+            });
+        });
+
+        const calcBtn = row.querySelector(".calc-btn");
+        calcBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const pax = parseInt(document.getElementById(`${uid}-pax`).value) || 1;
+            const result = computePrice(exp, pax);
+            const resultBox = document.getElementById(`${uid}-result`);
+            const msg = document.getElementById(`${uid}-msg`);
+            const values = document.getElementById(`${uid}-values`);
+            resultBox.style.display = "block";
+
+            if (result.error) {
+                msg.textContent = result.error;
+                msg.style.display = "block";
+                values.style.display = "none";
+                return;
+            }
+            if (result.request) {
+                msg.textContent = "Rates for this group size are available upon request.";
+                msg.style.display = "block";
+                values.style.display = "block";
+                document.getElementById(`${uid}-pp`).textContent = "-";
+                document.getElementById(`${uid}-tp`).textContent = "-";
+                document.getElementById(`${uid}-gs`).textContent = pax + " persons";
+                return;
+            }
+            msg.style.display = "none";
+            values.style.display = "block";
+            document.getElementById(`${uid}-pp`).textContent = "$" + result.rate.toFixed(2);
+            document.getElementById(`${uid}-tp`).textContent = "$" + result.total.toFixed(2);
+            document.getElementById(`${uid}-gs`).textContent = pax + " persons";
+        });
+
+        catalogList.appendChild(row);
+    });
+}
+
+zoneFilter.onchange = renderCatalog;
+resetBtn.onclick = () => {
+    zoneFilter.value = "all";
+    categoryFilter.value = "all";
+    durationFilter.value = "all";
+    bestSellerFilter.checked = false;
+    renderCatalog();
+};
+categoryFilter.onchange = renderCatalog;
+durationFilter.onchange = renderCatalog;
+bestSellerFilter.onchange = renderCatalog;
+
+loadFilters();
+renderCatalog();
 </script>
 
 </body>
