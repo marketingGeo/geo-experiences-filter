@@ -530,6 +530,10 @@
         .calc-row { flex-direction: column; align-items: stretch; }
         .calc-btn { width: 100%; }
     }
+
+    .option-label { font-size: 12px; font-weight: 700; color: var(--navy); margin: 10px 0 0 0; }
+    .panel-desc p { margin: 0 0 10px 0; }
+    .calc-select { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; font-family: Montserrat; font-size: 13px; background: var(--bg); }
 </style>
 </head>
 
@@ -588,47 +592,9 @@ const REGIONS = ["Quito & Surroundings", "Guayaquil & Surroundings", "Cuenca & S
 const experiences = [
   {
     "region": "Quito & Surroundings",
-    "title": "Gold Leaf restauration experience at the \"La Compañía de Jesus\" Church with a visit to the cupolas while enjoing a glass of sparkling wine",
-    "categories": [
-      "Art",
-      "Luxe"
-    ],
-    "duration": "30 min",
-    "bestSeller": true,
-    "images": [
-      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Gold%20Experience%20(2).jpeg"
-    ],
-    "description": "A guided gold leaf workshop at La Compañía de Jesús Church, where artisans lead visitors in crafting a small piece while sharing the tradition's religious and cultural significance. Includes a visit to the church cupolas and a sparkling wine surprise with the view.",
-    "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito",
-    "tiers": {
-      "1": 345,
-      "2": 217,
-      "4": 153,
-      "6": 131,
-      "8": 121,
-      "10": 114
-    },
-    "similar": [
-      {
-        "title": "Gold Leaf restauration experience",
-        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
-      },
-      {
-        "title": "Escuela Quiteña Wood Carving Workshop",
-        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/escuela-quite%C3%B1a-wood-carving-workshop-or-tin-craft-or-goldsmithing"
-      },
-      {
-        "title": "Chocolate Tasting and Pairing Dining Experience",
-        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/chocolate-tasting-and-pairing-dining-experience"
-      }
-    ]
-  },
-  {
-    "region": "Quito & Surroundings",
     "title": "Beer Tasting & Pairing Lunch",
     "categories": [
-      "Artisanal Beer",
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -653,17 +619,17 @@ const experiences = [
   },
   {
     "region": "Quito & Surroundings",
-    "title": "Gold Leaf restauration experience",
+    "title": "Gold Leaf Restoration Experience",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": true,
     "images": [
-      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Gold%20Leaf%20restauration%20experience.jpg"
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Gold%20Leaf%20restauration%20experience.jpg",
+      "https://cdn.jsdelivr.net/gh/marketingGeo/geo-experiences-filter/img/Gold%20Experience%20(2).jpeg"
     ],
-    "description": "Held in Quito's historic San Marcos neighborhood, this workshop is led by master artisans who teach traditional gold leaf techniques and its role in indigenous and religious art, while guests create their own piece.",
+    "description": "Two ways to live Quito's gold leaf tradition: a workshop in the historic San Marcos neighborhood, or a guided session at La Compañía de Jesús Church with a visit to the cupolas and a glass of sparkling wine.",
     "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience",
     "tiers": {
       "1": 20
@@ -681,14 +647,34 @@ const experiences = [
         "title": "Andean Spiritual Cleansing",
         "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/andean-spiritual-cleansing"
       }
+    ],
+    "options": [
+      {
+        "label": "Option 1 · San Marcos neighborhood, Quito's historic center",
+        "description": "Held in Quito's historic San Marcos neighborhood, this workshop is led by master artisans who teach traditional gold leaf techniques and its role in indigenous and religious art, while guests create their own piece.",
+        "tiers": {
+          "1": 20
+        }
+      },
+      {
+        "label": "Option 2 · La Compañía de Jesús Church, with a visit to the cupolas and a glass of sparkling wine",
+        "description": "A guided gold leaf workshop at La Compañía de Jesús Church, where artisans lead visitors in crafting a small piece while sharing the tradition's religious and cultural significance. Includes a visit to the church cupolas and a sparkling wine surprise with the view.",
+        "tiers": {
+          "1": 345,
+          "2": 217,
+          "4": 153,
+          "6": 131,
+          "8": 121,
+          "10": 114
+        }
+      }
     ]
   },
   {
     "region": "Quito & Surroundings",
     "title": "Escuela Quiteña Wood Carving Workshop (or Tin Craft or Goldsmithing)",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": true,
@@ -702,7 +688,7 @@ const experiences = [
     },
     "similar": [
       {
-        "title": "Gold Leaf restauration experience",
+        "title": "Gold Leaf Restoration Experience",
         "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
       },
       {
@@ -719,7 +705,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "\"El Caretero\" Mask Making Workshop",
     "categories": [
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": true,
@@ -734,7 +720,7 @@ const experiences = [
     },
     "similar": [
       {
-        "title": "Gold Leaf restauration experience",
+        "title": "Gold Leaf Restoration Experience",
         "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
       },
       {
@@ -747,7 +733,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Make Your Own Chocolate Bar in Quito's Colonial District (1 Bar)",
     "categories": [
-      "Chocolate"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": true,
@@ -774,7 +760,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Chocolate & Wine Tasting and Pairing Experience (1 Glass of Wine)",
     "categories": [
-      "Chocolate"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": true,
@@ -801,9 +787,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Chocolate Tasting and Pairing Dining Experience",
     "categories": [
-      "Luxe",
-      "Chocolate",
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": true,
@@ -818,8 +802,8 @@ const experiences = [
     "minPax": 4,
     "similar": [
       {
-        "title": "Gold Leaf restauration experience at the church...",
-        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
+        "title": "Gold Leaf Restoration Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
       },
       {
         "title": "Make Your Own Chocolate Bar (1 Bar)",
@@ -835,7 +819,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Specialty Ecuadorian Coffee: Tasting Experience at a Local Coffee Shop",
     "categories": [
-      "Coffee"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -855,9 +839,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Exclusive Dinner with Folkloric Dance Troupe (Only Saturdays at Somos Restaurant)",
     "categories": [
-      "Luxe",
-      "Cultural",
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": true,
@@ -876,11 +858,7 @@ const experiences = [
     },
     "similar": [
       {
-        "title": "Gold Leaf restauration experience at the church...",
-        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
-      },
-      {
-        "title": "Gold Leaf restauration experience",
+        "title": "Gold Leaf Restoration Experience",
         "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
       },
       {
@@ -893,7 +871,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Cooking Class in a Traditional Locale in Quito's Colonial District",
     "categories": [
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -924,8 +902,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Exclusive Immersive Private Cooking Class",
     "categories": [
-      "Luxe",
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -941,8 +918,8 @@ const experiences = [
     },
     "similar": [
       {
-        "title": "Gold Leaf restauration experience at the church...",
-        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
+        "title": "Gold Leaf Restoration Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
       },
       {
         "title": "Chocolate Tasting and Pairing Dining Experience",
@@ -958,8 +935,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Exclusive Dinner at a Historic Venue in the Colonial District",
     "categories": [
-      "Luxe",
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -978,8 +954,8 @@ const experiences = [
     },
     "similar": [
       {
-        "title": "Gold Leaf restauration experience at the church...",
-        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restoration-quito"
+        "title": "Gold Leaf Restoration Experience",
+        "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
       },
       {
         "title": "Chocolate Tasting and Pairing Dining Experience",
@@ -995,7 +971,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Andean Spiritual Cleansing",
     "categories": [
-      "Cultural"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": false,
@@ -1009,7 +985,7 @@ const experiences = [
     },
     "similar": [
       {
-        "title": "Gold Leaf restauration experience",
+        "title": "Gold Leaf Restoration Experience",
         "url": "https://sites.google.com/georeisen-ecuador.com/unique-experiences-geo/quito-surroundings/gold-leaf-restauration-experience"
       },
       {
@@ -1026,7 +1002,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Frog exhibition and conservation project",
     "categories": [
-      "Nature"
+      "Nature Escapes"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -1053,7 +1029,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Frog exhibition and conservation project (Technical visit)",
     "categories": [
-      "Nature"
+      "Nature Escapes"
     ],
     "duration": "3 hours",
     "bestSeller": false,
@@ -1085,7 +1061,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "Urban Bird Observation and Conservation Project",
     "categories": [
-      "Nature"
+      "Nature Escapes"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1112,7 +1088,7 @@ const experiences = [
     "region": "Quito & Surroundings",
     "title": "The Different Traditions, Uses and Flavors of Ecuadorian Liquor Agave & Miske",
     "categories": [
-      "Spirits"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1132,7 +1108,7 @@ const experiences = [
     "region": "Guayaquil & Surroundings",
     "title": "Cacao Plantation (w/ Lunch)",
     "categories": [
-      "Chocolate"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": true,
@@ -1152,8 +1128,7 @@ const experiences = [
     "region": "Guayaquil & Surroundings",
     "title": "Clay Pottery Workshop (w/ Souvenir)",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -1173,8 +1148,7 @@ const experiences = [
     "region": "Guayaquil & Surroundings",
     "title": "Ecuadorian Wine & Chocolate Tasting and Pairing Experience",
     "categories": [
-      "Culinary",
-      "Wine"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1206,8 +1180,7 @@ const experiences = [
     "region": "Guayaquil & Surroundings",
     "title": "Ecuadorian Wine Tasting & Pairing Experience w/lunch",
     "categories": [
-      "Culinary",
-      "Wine"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1240,8 +1213,7 @@ const experiences = [
     "region": "Guayaquil & Surroundings",
     "title": "Tour of Wine Vineyard and Live Cooking Experience",
     "categories": [
-      "Culinary",
-      "Wine"
+      "Culinary Experiences"
     ],
     "duration": "8 hours",
     "bestSeller": false,
@@ -1274,8 +1246,7 @@ const experiences = [
     "region": "Guayaquil & Surroundings",
     "title": "Tour of Wine Vineyard and Premium Pairing Experience",
     "categories": [
-      "Culinary",
-      "Wine"
+      "Culinary Experiences"
     ],
     "duration": "8 hours",
     "bestSeller": false,
@@ -1308,8 +1279,7 @@ const experiences = [
     "region": "Cuenca & Surroundings",
     "title": "An Immersive Experience at the \"Casa Museo de la Makana\" Ikat Shawl Workshop",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1342,8 +1312,7 @@ const experiences = [
     "region": "Cuenca & Surroundings",
     "title": "Blacksmithing Techniques – Make Your Own Craft",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1378,8 +1347,7 @@ const experiences = [
     "region": "Cuenca & Surroundings",
     "title": "Classical Guitar Making Techniques and Participate in the Craft",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1411,8 +1379,7 @@ const experiences = [
     "region": "Cuenca & Surroundings",
     "title": "Clay Pottery and Make Your Own Piece",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1449,8 +1416,7 @@ const experiences = [
     "region": "Cuenca & Surroundings",
     "title": "Jeweler For a Day: Learn from the Best and Make Your Own Jewelry in Cuenca",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -1483,8 +1449,7 @@ const experiences = [
     "region": "Cuenca & Surroundings",
     "title": "Learn About the Use of Recycled Materials and Copper to Make Your Own Work of Art",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -1517,8 +1482,7 @@ const experiences = [
     "region": "Cuenca & Surroundings",
     "title": "Learn from the Best and Make Your Own Paja Toquilla Hat in Cuenca's Hat Museum",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1.5 hours",
     "bestSeller": true,
@@ -1551,7 +1515,7 @@ const experiences = [
     "region": "Cuenca & Surroundings",
     "title": "The San Miguel Rum Factory & Aging Cellar",
     "categories": [
-      "Spirits"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1571,7 +1535,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Andean Snacks and Artisanal Beer in the \"Molinos de San Juan\" Hacienda",
     "categories": [
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": true,
@@ -1597,8 +1561,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Dreamcatcher Workshop",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "2 hours",
     "bestSeller": true,
@@ -1632,8 +1595,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Empowering Women through Textile Work",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": true,
@@ -1666,8 +1628,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Make Your Own Felt Hat",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -1699,8 +1660,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Make Your Own Leather Belt in an Artisanal Workshop",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "3.5 hours",
     "bestSeller": false,
@@ -1732,8 +1692,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Musical Instrument Workshop (with Souvenir)",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": true,
@@ -1767,7 +1726,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Rose Plantation (w/ Lunch)",
     "categories": [
-      "Roses"
+      "Art & Culture"
     ],
     "duration": "3 hours",
     "bestSeller": true,
@@ -1791,7 +1750,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Salt Biscuits (Bizcochos), Queso de Hoja and Agave Experience",
     "categories": [
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "30 min",
     "bestSeller": true,
@@ -1816,8 +1775,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Spiritual Cleansing with a Shaman at a Local Waterfall in Iluman",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1849,8 +1807,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Textile & Tapestry Workshop",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": true,
@@ -1883,8 +1840,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "The Angla Community: Local Indigenous Life in Otavalo (w/ Lunch)",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "3 hours",
     "bestSeller": true,
@@ -1922,8 +1878,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Totora Reed Weaving Workshop (with Souvenir)",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1958,7 +1913,7 @@ const experiences = [
     "region": "Otavalo & Surroundings",
     "title": "Wood Carving & Sculpture Workshop Visit",
     "categories": [
-      "Art"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -1990,7 +1945,7 @@ const experiences = [
     "region": "Mindo & Surroundings",
     "title": "Close-up Hummingbird watching",
     "categories": [
-      "Nature"
+      "Nature Escapes"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -2009,7 +1964,7 @@ const experiences = [
     "region": "Mindo & Surroundings",
     "title": "Cacao & Chocolate Experience (w/ Lunch)",
     "categories": [
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -2027,7 +1982,7 @@ const experiences = [
     "region": "Mindo & Surroundings",
     "title": "Specialty Ecuadorian Coffee Experience",
     "categories": [
-      "Coffee"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -2049,7 +2004,7 @@ const experiences = [
     "region": "Cotopaxi & Surroundings",
     "title": "Local Market and Daily Life in the Andes",
     "categories": [
-      "Cultural"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": false,
@@ -2081,8 +2036,7 @@ const experiences = [
     "region": "Cotopaxi & Surroundings",
     "title": "Naive Painting Workshop Visit",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": false,
@@ -2114,7 +2068,7 @@ const experiences = [
     "region": "Cotopaxi & Surroundings",
     "title": "Rose Plantation Visit",
     "categories": [
-      "Roses"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": false,
@@ -2133,8 +2087,7 @@ const experiences = [
     "region": "Cotopaxi & Surroundings",
     "title": "The \"Diablos de Pillaro\" Traditional Mask Workshop Visit",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": false,
@@ -2167,8 +2120,7 @@ const experiences = [
     "region": "Cotopaxi & Surroundings",
     "title": "The Magic of Machica and the Economy Surrounding the Product",
     "categories": [
-      "Cultural",
-      "Culinary"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": false,
@@ -2201,8 +2153,7 @@ const experiences = [
     "region": "Baños & Surroundings",
     "title": "\"Vegetable Ivory\", Tagua Workshop",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "30 min",
     "bestSeller": false,
@@ -2222,9 +2173,7 @@ const experiences = [
     "region": "Riobamba & Surroundings",
     "title": "Llama Museum with Llama meat Lunch",
     "categories": [
-      "Cultural",
-      "Nature",
-      "Culinary"
+      "Art & Culture"
     ],
     "duration": "2 hours",
     "bestSeller": false,
@@ -2256,8 +2205,7 @@ const experiences = [
     "region": "Riobamba & Surroundings",
     "title": "Local Cooking Class with Quinoa",
     "categories": [
-      "Cultural",
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -2287,7 +2235,7 @@ const experiences = [
     "region": "Riobamba & Surroundings",
     "title": "Local Market and Daily Life in the Andes",
     "categories": [
-      "Cultural"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -2316,7 +2264,7 @@ const experiences = [
     "region": "Loja & Surroundings",
     "title": "Specialty Ecuadorian Coffee Experience",
     "categories": [
-      "Coffee"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -2336,9 +2284,7 @@ const experiences = [
     "region": "Upper Napo Area",
     "title": "The Santa Rita Community and Its Community Tourism & Cacao Project (w/ Lunch)",
     "categories": [
-      "Cultural",
-      "Chocolate",
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -2357,7 +2303,7 @@ const experiences = [
     "region": "The Galápagos Islands",
     "title": "Exclusive Gastronomic Experience Within a Lava Tunnel",
     "categories": [
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "2 hours",
     "bestSeller": true,
@@ -2386,7 +2332,7 @@ const experiences = [
     "region": "The Galápagos Islands",
     "title": "Immersive Restaurant Tour of Puerto Ayora with one of the Islands' Best Chefs",
     "categories": [
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "4 hours",
     "bestSeller": false,
@@ -2415,7 +2361,7 @@ const experiences = [
     "region": "The Galápagos Islands",
     "title": "Visit to a local Coffee Plantation in the Highlands of Santa Cruz",
     "categories": [
-      "Coffee"
+      "Culinary Experiences"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -2435,8 +2381,7 @@ const experiences = [
     "region": "The Galápagos Islands",
     "title": "Visit to the Santa Cruz Brewery in Santa Cruz's Highlands",
     "categories": [
-      "Artisanal Beer",
-      "Culinary"
+      "Culinary Experiences"
     ],
     "duration": "30 min",
     "bestSeller": true,
@@ -2466,7 +2411,7 @@ const experiences = [
     "region": "The Galápagos Islands",
     "title": "Visit to the Santa Trinidad Rum Distillery in Santa Cruz's Highlands",
     "categories": [
-      "Spirits"
+      "Culinary Experiences"
     ],
     "duration": "30 min",
     "bestSeller": true,
@@ -2486,8 +2431,7 @@ const experiences = [
     "region": "The Galápagos Islands",
     "title": "Wooden Craft Workshop in Bellavista at the \"El Dibujo\" Workshop",
     "categories": [
-      "Cultural",
-      "Arts & Crafts"
+      "Art & Culture"
     ],
     "duration": "1 hour",
     "bestSeller": false,
@@ -2523,7 +2467,8 @@ function loadFilters() {
         exp.categories.forEach(c => categories.add(c));
         durations.add(exp.duration);
     });
-    [...categories].sort().forEach(c => {
+    const ORDER = ["Art & Culture", "Culinary Experiences", "Nature Escapes", "Active Tours", "Special Interest", "Wellness", "Local Support"];
+    [...categories].sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b)).forEach(c => {
         const opt = document.createElement("option");
         opt.value = c; opt.textContent = c;
         categoryFilter.appendChild(opt);
@@ -2559,12 +2504,14 @@ function computePrice(exp, pax) {
 }
 
 function startingPrice(exp) {
+    if (exp.options) return Math.min(...exp.options.map(o => startingPrice(o)));
     const keys = Object.keys(exp.tiers).map(Number);
     const minRate = Math.min(...keys.map(k => exp.tiers[k]));
     return minRate;
 }
 
 function buildRateTable(exp) {
+    if (exp.options) return exp.options.map(o => `<div class="option-label">${o.label.split(':')[0]}</div>` + buildRateTable(o)).join("");
     const cells = PAX_COLUMNS.map(pax => {
         const r = computePrice(exp, pax);
         if (r.error) return `<td class="na-cell">—</td>`;
@@ -2675,7 +2622,7 @@ function renderCatalog() {
                             ${buildGallery(exp.images, exp.title, uid)}
                             <div class="panel-text">
                                 <div class="panel-section-title">Description</div>
-                                <div class="panel-desc">${exp.description}</div>
+                                <div class="panel-desc">${exp.options ? exp.options.map(o => `<p><strong>${o.label}</strong><br>${o.description}</p>`).join("") : exp.description}</div>
                             </div>
                         </div>
 
@@ -2688,6 +2635,7 @@ function renderCatalog() {
                                     <label for="${uid}-pax">Number of People</label>
                                     <input id="${uid}-pax" type="number" min="1" value="2">
                                 </div>
+                                ${exp.options ? `<div class="calc-input-group"><label for="${uid}-opt">Option</label><select id="${uid}-opt" class="calc-select">${exp.options.map((o, i) => `<option value="${i}">Option ${i + 1}</option>`).join("")}</select></div>` : ""}
                                 <button class="calc-btn" data-target="${uid}">Calculate</button>
                             </div>
                             <div class="calc-result" id="${uid}-result">
@@ -2728,7 +2676,8 @@ function renderCatalog() {
         calcBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             const pax = parseInt(document.getElementById(`${uid}-pax`).value) || 1;
-            const result = computePrice(exp, pax);
+            const optSel = document.getElementById(`${uid}-opt`);
+            const result = computePrice(exp.options ? exp.options[optSel.value] : exp, pax);
             const resultBox = document.getElementById(`${uid}-result`);
             const msg = document.getElementById(`${uid}-msg`);
             const values = document.getElementById(`${uid}-values`);
